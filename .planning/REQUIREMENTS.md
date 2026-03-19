@@ -50,15 +50,15 @@
 - [ ] **OUTR-01**: Scheduled Trigger.dev job identifies contacts due for outreach based on frequency
 - [ ] **OUTR-02**: AI drafts personalized email using contact context + user profile + Open Brain knowledge
 - [ ] **OUTR-03**: Draft uses z.ai GLM5 model via REST API with user's API key
-- [ ] **OUTR-04**: Draft appears in app dashboard for review
-- [ ] **OUTR-05**: Draft is simultaneously created as Gmail draft via Gmail API
+- [x] **OUTR-04**: Draft appears in app dashboard for review
+- [x] **OUTR-05**: Draft is simultaneously created as Gmail draft via Gmail API
 - [ ] **OUTR-06**: User can approve draft and send from dashboard
 - [ ] **OUTR-07**: User can edit draft before approving and sending
-- [ ] **OUTR-08**: User can dismiss/delete a draft
+- [x] **OUTR-08**: User can dismiss/delete a draft
 
 ### Open Brain Integration
 
-- [ ] **OBRN-01**: System reads from user's Open Brain tables in Supabase for supplemental context
+- [x] **OBRN-01**: System reads from user's Open Brain tables in Supabase for supplemental context
 - [ ] **OBRN-02**: Open Brain context enriches AI draft generation with user's knowledge/thoughts
 
 ### Multi-Tenancy
@@ -136,12 +136,12 @@
 | OUTR-01 | Phase 3 | Pending |
 | OUTR-02 | Phase 3 | Pending |
 | OUTR-03 | Phase 3 | Pending |
-| OUTR-04 | Phase 3 | Pending |
-| OUTR-05 | Phase 3 | Pending |
+| OUTR-04 | Phase 3 | Complete |
+| OUTR-05 | Phase 3 | Complete |
 | OUTR-06 | Phase 3 | Pending |
 | OUTR-07 | Phase 3 | Pending |
-| OUTR-08 | Phase 3 | Pending |
-| OBRN-01 | Phase 3 | Pending |
+| OUTR-08 | Phase 3 | Complete |
+| OBRN-01 | Phase 3 | Complete |
 | OBRN-02 | Phase 3 | Pending |
 | TNNT-01 | Phase 1 | Complete |
 | TNNT-02 | Phase 1 | Complete |
