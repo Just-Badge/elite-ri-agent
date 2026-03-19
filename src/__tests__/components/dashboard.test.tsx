@@ -58,11 +58,21 @@ const emptyStatsData = {
   },
 };
 
-function mockFetchWith(data: unknown) {
-  vi.spyOn(globalThis, "fetch").mockResolvedValue({
-    ok: true,
-    json: async () => data,
-  } as Response);
+const mockAnalyticsData = {
+  data: {
+    by_month: [],
+    totals: { sent: 0, dismissed: 0, pending: 0, total: 0 },
+  },
+};
+
+function mockFetchWith(statsData: unknown) {
+  vi.spyOn(globalThis, "fetch").mockImplementation(async (url) => {
+    const urlStr = typeof url === "string" ? url : "";
+    if (urlStr.includes("/api/dashboard/analytics")) {
+      return { ok: true, json: async () => mockAnalyticsData } as Response;
+    }
+    return { ok: true, json: async () => statsData } as Response;
+  });
 }
 
 beforeEach(() => {

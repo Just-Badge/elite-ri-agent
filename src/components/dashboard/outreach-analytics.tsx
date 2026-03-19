@@ -72,7 +72,7 @@ export function OutreachAnalytics() {
     fetchAnalytics();
   }, [fetchAnalytics]);
 
-  const isEmpty = !data || data.totals.total === 0;
+  const isEmpty = !data || !data.totals || data.totals.total === 0;
 
   return (
     <Card>
