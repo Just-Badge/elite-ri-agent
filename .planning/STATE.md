@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-19T12:09:23.530Z"
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-03-19T12:18:21.814Z"
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
+  completed_plans: 7
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-18)
 ## Current Position
 
 Phase: 02 (Data Pipeline + Contacts) — EXECUTING
-Plan: 3 of 5
+Plan: 5 of 5
 
 ## Performance Metrics
 
@@ -48,6 +48,8 @@ Plan: 3 of 5
 
 *Updated after each plan completion*
 | Phase 02-02 P02 | 6min | 2 tasks | 7 files |
+| Phase 02-03 P03 | 5min | 3 tasks | 9 files |
+| Phase 02-04 P04 | 5min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -71,6 +73,12 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Status mapping: Nurturing -> active, Not Pursuing -> not_pursuing for DB enum compatibility
 - [Phase 02-02]: Used direct openai package with baseURL override for z.ai GLM-5 (not AI SDK provider)
 - [Phase 02-02]: v1 always refreshes Granola access token per call (no caching since only refresh tokens stored)
+- [Phase 02-03]: Default processing schedule 8am-20pm UTC when user has no processing_schedule configured
+- [Phase 02-03]: Extracted upsertExtractedContacts and insertMeetingRecord as named exports for unit testability
+- [Phase 02-03]: Cautious name-only merge: only fills null fields on existing contact, never overwrites populated fields
+- [Phase 02-03]: 200ms delay between Granola transcript fetches for rate limit protection
+- [Phase 02-04]: Used contactUpdateSchema with UUID validation for PUT /api/contacts/[id]
+- [Phase 02-04]: Badge test uses getAllByText due to base-ui useRender creating duplicate DOM elements
 
 ### Pending Todos
 
@@ -83,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T12:09:23.483Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-19T12:18:21.768Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None

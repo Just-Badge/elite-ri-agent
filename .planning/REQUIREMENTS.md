@@ -32,7 +32,7 @@
 - [x] **CONT-03**: Contact card includes action items and tasks
 - [x] **CONT-04**: Contact card includes notes/bullet points for memory jogging
 - [x] **CONT-05**: User can assign contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
-- [ ] **CONT-06**: User can edit any field on a contact card
+- [x] **CONT-06**: User can edit any field on a contact card
 - [x] **CONT-07**: User can set outreach frequency per contact (days between touchpoints)
 
 ### Dashboard
@@ -124,7 +124,7 @@
 | CONT-03 | Phase 2 | Complete |
 | CONT-04 | Phase 2 | Complete |
 | CONT-05 | Phase 2 | Complete |
-| CONT-06 | Phase 2 | Pending |
+| CONT-06 | Phase 2 | Complete |
 | CONT-07 | Phase 2 | Complete |
 | DASH-01 | Phase 4 | Pending |
 | DASH-02 | Phase 4 | Pending |
