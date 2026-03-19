@@ -16,14 +16,14 @@
 
 ### Data Pipeline
 
-- [ ] **DATA-01**: Scheduled Trigger.dev job fetches new Granola meetings on user-defined interval
+- [x] **DATA-01**: Scheduled Trigger.dev job fetches new Granola meetings on user-defined interval
 - [ ] **DATA-02**: User can manually trigger meeting processing from dashboard
-- [ ] **DATA-03**: AI extracts contact information (name, email, location) from meeting transcripts
-- [ ] **DATA-04**: AI extracts relationship context (why, what, mutual value, status) from transcripts
-- [ ] **DATA-05**: AI extracts action items and tasks from meeting transcripts
-- [ ] **DATA-06**: AI extracts key notes and bullet points from meetings
+- [x] **DATA-03**: AI extracts contact information (name, email, location) from meeting transcripts
+- [x] **DATA-04**: AI extracts relationship context (why, what, mutual value, status) from transcripts
+- [x] **DATA-05**: AI extracts action items and tasks from meeting transcripts
+- [x] **DATA-06**: AI extracts key notes and bullet points from meetings
 - [ ] **DATA-07**: System creates new contact cards or updates existing ones (deduplication by email)
-- [ ] **DATA-08**: Each contact links back to original Granola meeting URL
+- [x] **DATA-08**: Each contact links back to original Granola meeting URL
 
 ### Contact Management
 
@@ -111,14 +111,14 @@
 | AUTH-04 | Phase 1 | Complete |
 | AUTH-05 | Phase 1 | Complete |
 | AUTH-06 | Phase 1 | Complete |
-| DATA-01 | Phase 2 | Pending |
+| DATA-01 | Phase 2 | Complete |
 | DATA-02 | Phase 2 | Pending |
-| DATA-03 | Phase 2 | Pending |
-| DATA-04 | Phase 2 | Pending |
-| DATA-05 | Phase 2 | Pending |
-| DATA-06 | Phase 2 | Pending |
+| DATA-03 | Phase 2 | Complete |
+| DATA-04 | Phase 2 | Complete |
+| DATA-05 | Phase 2 | Complete |
+| DATA-06 | Phase 2 | Complete |
 | DATA-07 | Phase 2 | Pending |
-| DATA-08 | Phase 2 | Pending |
+| DATA-08 | Phase 2 | Complete |
 | CONT-01 | Phase 2 | Pending |
 | CONT-02 | Phase 2 | Pending |
 | CONT-03 | Phase 2 | Pending |
