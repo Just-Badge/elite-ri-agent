@@ -1,7 +1,7 @@
 # Requirements: ELITE Relationship Intelligence Agent
 
 **Defined:** 2026-03-18
-**Core Value:** Reliably turn raw meeting data into actionable relationship intelligence AND draft contextually-aware outreach emails — the full loop from "meeting happened" to "relationship maintained"
+**Core Value:** Reliably turn raw meeting data into actionable relationship intelligence AND draft contextually-aware outreach emails -- the full loop from "meeting happened" to "relationship maintained"
 
 ## v1 Requirements
 
@@ -93,65 +93,65 @@
 | Feature | Reason |
 |---------|--------|
 | Mobile app | Web-first, mobile later |
-| LinkedIn/CRM import | Granola-sourced only for v1 — keeps data pipeline simple |
-| SMS/Slack outreach | Gmail only for v1 — reduces integration surface |
-| Real-time meeting processing | Batch/scheduled approach — simpler architecture, user controls timing |
-| Calendar integration | Granola handles meeting capture — no direct calendar needed |
-| Auto-send emails | Human-in-the-loop required — drafts must be reviewed before sending |
-| Multiple AI models | z.ai GLM5 only for v1 — can expand later |
+| LinkedIn/CRM import | Granola-sourced only for v1 -- keeps data pipeline simple |
+| SMS/Slack outreach | Gmail only for v1 -- reduces integration surface |
+| Real-time meeting processing | Batch/scheduled approach -- simpler architecture, user controls timing |
+| Calendar integration | Granola handles meeting capture -- no direct calendar needed |
+| Auto-send emails | Human-in-the-loop required -- drafts must be reviewed before sending |
+| Multiple AI models | z.ai GLM5 only for v1 -- can expand later |
 | Team shared contacts | Each user's contacts are private for v1 |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| AUTH-05 | — | Pending |
-| AUTH-06 | — | Pending |
-| DATA-01 | — | Pending |
-| DATA-02 | — | Pending |
-| DATA-03 | — | Pending |
-| DATA-04 | — | Pending |
-| DATA-05 | — | Pending |
-| DATA-06 | — | Pending |
-| DATA-07 | — | Pending |
-| DATA-08 | — | Pending |
-| CONT-01 | — | Pending |
-| CONT-02 | — | Pending |
-| CONT-03 | — | Pending |
-| CONT-04 | — | Pending |
-| CONT-05 | — | Pending |
-| CONT-06 | — | Pending |
-| CONT-07 | — | Pending |
-| DASH-01 | — | Pending |
-| DASH-02 | — | Pending |
-| DASH-03 | — | Pending |
-| DASH-04 | — | Pending |
-| DASH-05 | — | Pending |
-| DASH-06 | — | Pending |
-| DASH-07 | — | Pending |
-| OUTR-01 | — | Pending |
-| OUTR-02 | — | Pending |
-| OUTR-03 | — | Pending |
-| OUTR-04 | — | Pending |
-| OUTR-05 | — | Pending |
-| OUTR-06 | — | Pending |
-| OUTR-07 | — | Pending |
-| OUTR-08 | — | Pending |
-| OBRN-01 | — | Pending |
-| OBRN-02 | — | Pending |
-| TNNT-01 | — | Pending |
-| TNNT-02 | — | Pending |
-| TNNT-03 | — | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Pending |
+| AUTH-06 | Phase 1 | Pending |
+| DATA-01 | Phase 2 | Pending |
+| DATA-02 | Phase 2 | Pending |
+| DATA-03 | Phase 2 | Pending |
+| DATA-04 | Phase 2 | Pending |
+| DATA-05 | Phase 2 | Pending |
+| DATA-06 | Phase 2 | Pending |
+| DATA-07 | Phase 2 | Pending |
+| DATA-08 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Pending |
+| CONT-02 | Phase 2 | Pending |
+| CONT-03 | Phase 2 | Pending |
+| CONT-04 | Phase 2 | Pending |
+| CONT-05 | Phase 2 | Pending |
+| CONT-06 | Phase 2 | Pending |
+| CONT-07 | Phase 2 | Pending |
+| DASH-01 | Phase 4 | Pending |
+| DASH-02 | Phase 4 | Pending |
+| DASH-03 | Phase 4 | Pending |
+| DASH-04 | Phase 4 | Pending |
+| DASH-05 | Phase 4 | Pending |
+| DASH-06 | Phase 4 | Pending |
+| DASH-07 | Phase 4 | Pending |
+| OUTR-01 | Phase 3 | Pending |
+| OUTR-02 | Phase 3 | Pending |
+| OUTR-03 | Phase 3 | Pending |
+| OUTR-04 | Phase 3 | Pending |
+| OUTR-05 | Phase 3 | Pending |
+| OUTR-06 | Phase 3 | Pending |
+| OUTR-07 | Phase 3 | Pending |
+| OUTR-08 | Phase 3 | Pending |
+| OBRN-01 | Phase 3 | Pending |
+| OBRN-02 | Phase 3 | Pending |
+| TNNT-01 | Phase 1 | Pending |
+| TNNT-02 | Phase 1 | Pending |
+| TNNT-03 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 38 total
-- Mapped to phases: 0
-- Unmapped: 38 ⚠️
+- v1 requirements: 41 total
+- Mapped to phases: 41
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after initial definition*
+*Last updated: 2026-03-18 after roadmap creation*
