@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterAll } from "vitest";
 import { NextRequest } from "next/server";
 
 const { mockFrom, mockAuth, mockSupabase } = vi.hoisted(() => {
@@ -130,15 +130,10 @@ describe("GET /api/dashboard/stats", () => {
     expect(res.status).toBe(200);
     const body = await res.json();
 
-    // at_risk_contacts: Alice (warning) and Carol (critical), sorted by days_overdue desc
+    // at_risk_contacts: Alice (daysOverdue=15) and Carol (daysOverdue=13), sorted by days_overdue desc
     expect(body.data.at_risk_contacts).toHaveLength(2);
-    expect(body.data.at_risk_contacts[0].name).toBe("Carol"); // 13 days overdue (critical)
-    expect(body.data.at_risk_contacts[1].name).toBe("Alice"); // 15 days overdue... wait
-
-    // Actually Carol: daysSince=20, freq=7, daysOverdue=13. Alice: daysSince=45, freq=30, daysOverdue=15.
-    // Sorted desc: Alice (15) first, Carol (13) second
-    expect(body.data.at_risk_contacts[0].name).toBe("Alice");
-    expect(body.data.at_risk_contacts[1].name).toBe("Carol");
+    expect(body.data.at_risk_contacts[0].name).toBe("Alice"); // 15 days overdue
+    expect(body.data.at_risk_contacts[1].name).toBe("Carol"); // 13 days overdue
 
     // triage_contacts: contacts where ai_confidence != 'manual' -> Alice (high) and Carol (low)
     expect(body.data.triage_contacts).toHaveLength(2);
