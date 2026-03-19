@@ -11,8 +11,8 @@
 - [ ] **AUTH-02**: Google OAuth captures and persists Gmail refresh token for API access
 - [x] **AUTH-03**: User session persists across browser refresh
 - [x] **AUTH-04**: User can store and manage API keys (z.ai) via encrypted settings panel
-- [ ] **AUTH-05**: User can fill out profile form (tone, style, personality, projects, business objectives)
-- [ ] **AUTH-06**: User can configure meeting processing schedule (interval, start/end time, timezone)
+- [x] **AUTH-05**: User can fill out profile form (tone, style, personality, projects, business objectives)
+- [x] **AUTH-06**: User can configure meeting processing schedule (interval, start/end time, timezone)
 
 ### Data Pipeline
 
@@ -109,8 +109,8 @@
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Complete |
 | AUTH-04 | Phase 1 | Complete |
-| AUTH-05 | Phase 1 | Pending |
-| AUTH-06 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Complete |
+| AUTH-06 | Phase 1 | Complete |
 | DATA-01 | Phase 2 | Pending |
 | DATA-02 | Phase 2 | Pending |
 | DATA-03 | Phase 2 | Pending |
