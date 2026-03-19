@@ -79,11 +79,11 @@ Plans:
   2. Dashboard prominently shows contacts at risk of going stale (overdue for outreach) and contacts needing triage (new/unreviewed)
   3. Dashboard surfaces pending action items across all contacts so nothing falls through the cracks
   4. User can view outreach analytics: drafts sent, approval rates, and relationship health trends
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Risk computation utility, dashboard stats/analytics API endpoints, contacts search enhancement, triage exit on edit
+- [ ] 04-02-PLAN.md -- Dashboard intelligence page with stat cards, risk/triage/actions widgets, recharts analytics chart, contact card risk/triage indicators
 
 ## Progress
 
