@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/select";
 import { ContactCard } from "@/components/contacts/contact-card";
 import { CONTACT_CATEGORIES } from "@/lib/validations/contacts";
-import { Search, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Search, Loader2, RefreshCw } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 interface Contact {
   id: string;
@@ -31,6 +33,25 @@ export default function ContactsPage() {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [processing, setProcessing] = useState(false);
+
+  async function handleProcessMeetings() {
+    setProcessing(true);
+    try {
+      const res = await fetch("/api/meetings/process", { method: "POST" });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to trigger processing");
+      }
+      toast.success("Meeting processing triggered");
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to trigger processing"
+      );
+    } finally {
+      setProcessing(false);
+    }
+  }
 
   const fetchContacts = useCallback(async () => {
     setLoading(true);
@@ -63,13 +84,24 @@ export default function ContactsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Contacts</h1>
-        <p className="text-muted-foreground">
-          {loading
-            ? "Loading contacts..."
-            : `${contacts.length} contact${contacts.length !== 1 ? "s" : ""}`}
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Contacts</h1>
+          <p className="text-muted-foreground">
+            {loading
+              ? "Loading contacts..."
+              : `${contacts.length} contact${contacts.length !== 1 ? "s" : ""}`}
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleProcessMeetings}
+          disabled={processing}
+        >
+          <RefreshCw className={`h-4 w-4 mr-1 ${processing ? "animate-spin" : ""}`} />
+          {processing ? "Processing..." : "Process Meetings"}
+        </Button>
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
