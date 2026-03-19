@@ -39,9 +39,9 @@ created: 2026-03-19
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | Test File | Status |
 |---------|------|------|-------------|-----------|-------------------|-----------|--------|
 | 04-01-01 | 01 | 1 | DASH-04,05,06 | unit | `npx vitest run src/__tests__/api/dashboard-stats.test.ts` | Plan 01 | pending |
-| 04-01-02 | 01 | 1 | DASH-02 | unit | `npx vitest run src/__tests__/contacts/search.test.ts` | Plan 01 | pending |
+| 04-01-02 | 01 | 1 | DASH-02 | unit | `npx vitest run src/__tests__/api/contacts.test.ts` | Plan 01 | pending |
 | 04-02-01 | 02 | 2 | DASH-01,04,05,06 | unit | `npx vitest run src/__tests__/components/dashboard.test.tsx` | Plan 02 | pending |
-| 04-02-02 | 02 | 2 | DASH-07 | unit | `npx vitest run src/__tests__/components/analytics.test.tsx` | Plan 02 | pending |
+| 04-02-02 | 02 | 2 | DASH-07 | unit | `npx vitest run src/__tests__/components/outreach-analytics.test.tsx` | Plan 02 | pending |
 
 *Status: pending / green / red / flaky*
 
