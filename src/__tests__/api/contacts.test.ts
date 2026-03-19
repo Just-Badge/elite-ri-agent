@@ -108,6 +108,20 @@ describe("GET /api/contacts", () => {
     expect(query.or).toHaveBeenCalled();
   });
 
+  it("includes category in search .or() clause", async () => {
+    setAuthenticated();
+    const query = mockQueryResult({ data: [], error: null });
+    mockFrom.mockReturnValue(query);
+
+    const req = new NextRequest("http://localhost/api/contacts?search=investors");
+    const res = await listContacts(req);
+    expect(res.status).toBe(200);
+    // Verify .or() was called with category included
+    expect(query.or).toHaveBeenCalledWith(
+      expect.stringContaining("category.ilike")
+    );
+  });
+
   it("filters by category param", async () => {
     setAuthenticated();
     const query = mockQueryResult({ data: [], error: null });
@@ -194,6 +208,24 @@ describe("PUT /api/contacts/[id]", () => {
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.success).toBe(true);
+  });
+
+  it("sets ai_confidence to 'manual' on update (triage exit)", async () => {
+    setAuthenticated();
+    const contactId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11";
+    const query = mockQueryResult({ data: { id: contactId }, error: null });
+    mockFrom.mockReturnValue(query);
+
+    const req = new NextRequest(`http://localhost/api/contacts/${contactId}`, {
+      method: "PUT",
+      body: JSON.stringify({ name: "Alice Reviewed" }),
+    });
+    const res = await updateContact(req, { params: Promise.resolve({ id: contactId }) });
+    expect(res.status).toBe(200);
+    // Verify .update() was called with ai_confidence: "manual"
+    expect(query.update).toHaveBeenCalledWith(
+      expect.objectContaining({ ai_confidence: "manual" })
+    );
   });
 });
 
