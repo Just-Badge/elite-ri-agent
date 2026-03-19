@@ -38,12 +38,12 @@
 ### Dashboard
 
 - [ ] **DASH-01**: User can view all contacts in a browsable list/grid
-- [ ] **DASH-02**: User can search contacts by name, email, category, or notes
+- [x] **DASH-02**: User can search contacts by name, email, category, or notes
 - [ ] **DASH-03**: User can filter contacts by category
-- [ ] **DASH-04**: Dashboard shows contacts at risk (overdue for outreach)
-- [ ] **DASH-05**: Dashboard shows contacts needing triage (new/unreviewed)
-- [ ] **DASH-06**: Dashboard shows pending action items across all contacts
-- [ ] **DASH-07**: Dashboard displays outreach analytics (drafts sent, response tracking, health trends)
+- [x] **DASH-04**: Dashboard shows contacts at risk (overdue for outreach)
+- [x] **DASH-05**: Dashboard shows contacts needing triage (new/unreviewed)
+- [x] **DASH-06**: Dashboard shows pending action items across all contacts
+- [x] **DASH-07**: Dashboard displays outreach analytics (drafts sent, response tracking, health trends)
 
 ### Outreach Engine
 
@@ -127,12 +127,12 @@
 | CONT-06 | Phase 2 | Complete |
 | CONT-07 | Phase 2 | Complete |
 | DASH-01 | Phase 4 | Pending |
-| DASH-02 | Phase 4 | Pending |
+| DASH-02 | Phase 4 | Complete |
 | DASH-03 | Phase 4 | Pending |
-| DASH-04 | Phase 4 | Pending |
-| DASH-05 | Phase 4 | Pending |
-| DASH-06 | Phase 4 | Pending |
-| DASH-07 | Phase 4 | Pending |
+| DASH-04 | Phase 4 | Complete |
+| DASH-05 | Phase 4 | Complete |
+| DASH-06 | Phase 4 | Complete |
+| DASH-07 | Phase 4 | Complete |
 | OUTR-01 | Phase 3 | Complete |
 | OUTR-02 | Phase 3 | Complete |
 | OUTR-03 | Phase 3 | Complete |
