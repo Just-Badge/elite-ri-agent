@@ -1,6 +1,8 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { ActionItems } from "@/components/contacts/action-items";
+
+afterEach(() => cleanup());
 
 const mockItems = [
   { id: "a1", text: "Send term sheet", completed: false },
