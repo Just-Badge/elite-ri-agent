@@ -12,11 +12,15 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Multi-tenant auth via Google OAuth (doubles as Gmail authorization) — Phase 1
+- ✓ Settings panel: user personality/tone/style form, schedule configuration, API key management — Phase 1
+- ✓ User profile form for tone, style, personality, projects, business objectives — Phase 1
+- ✓ Configurable meeting processing schedule (e.g., every 2 hours, 8am-6pm PDT) — Phase 1
+- ✓ Open Brain (Supabase knowledge base) integration for supplemental context — Phase 1 (infrastructure ready)
 
 ### Active
 
-- [ ] Multi-tenant auth via Google OAuth (doubles as Gmail authorization)
+- [ ] Scheduled + manual Granola meeting transcript processing via MCP (Phase 2 next)
 - [ ] Scheduled + manual Granola meeting transcript processing via MCP
 - [ ] Contact card creation/update with: name, email, location, contact history, dates, category, background, relationship context, meeting history, action items, notes
 - [ ] Contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
@@ -70,4 +74,4 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 | Drafts in dashboard + Gmail | User can review in either place, flexibility | — Pending |
 
 ---
-*Last updated: 2026-03-18 after initialization*
+*Last updated: 2026-03-19 after Phase 1 completion*
