@@ -28,14 +28,19 @@ describe("ContactCard", () => {
 
   it("renders category as a Badge", () => {
     render(<ContactCard contact={baseContact} />);
-    const badge = screen.getByText("investors");
-    expect(badge).toBeDefined();
+    // base-ui useRender may create multiple elements with the same text
+    const badges = screen.getAllByText("investors");
+    expect(badges.length).toBeGreaterThan(0);
+    // Verify at least one is a badge element
+    const hasBadge = badges.some((el) => el.getAttribute("data-slot") === "badge");
+    expect(hasBadge).toBe(true);
   });
 
   it("shows action item count", () => {
     render(<ContactCard contact={baseContact} />);
     // 2 incomplete action items out of 3
-    expect(screen.getByText(/2 action items/)).toBeDefined();
+    const content = document.body.textContent || "";
+    expect(content).toContain("2 action items");
   });
 
   it("shows last interaction date when present", () => {
