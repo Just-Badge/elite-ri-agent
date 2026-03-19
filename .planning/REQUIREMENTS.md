@@ -52,8 +52,8 @@
 - [x] **OUTR-03**: Draft uses z.ai GLM5 model via REST API with user's API key
 - [x] **OUTR-04**: Draft appears in app dashboard for review
 - [x] **OUTR-05**: Draft is simultaneously created as Gmail draft via Gmail API
-- [ ] **OUTR-06**: User can approve draft and send from dashboard
-- [ ] **OUTR-07**: User can edit draft before approving and sending
+- [x] **OUTR-06**: User can approve draft and send from dashboard
+- [x] **OUTR-07**: User can edit draft before approving and sending
 - [x] **OUTR-08**: User can dismiss/delete a draft
 
 ### Open Brain Integration
@@ -138,8 +138,8 @@
 | OUTR-03 | Phase 3 | Complete |
 | OUTR-04 | Phase 3 | Complete |
 | OUTR-05 | Phase 3 | Complete |
-| OUTR-06 | Phase 3 | Pending |
-| OUTR-07 | Phase 3 | Pending |
+| OUTR-06 | Phase 3 | Complete |
+| OUTR-07 | Phase 3 | Complete |
 | OUTR-08 | Phase 3 | Complete |
 | OBRN-01 | Phase 3 | Complete |
 | OBRN-02 | Phase 3 | Complete |
