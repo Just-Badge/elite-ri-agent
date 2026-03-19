@@ -17,7 +17,7 @@
 ### Data Pipeline
 
 - [x] **DATA-01**: Scheduled Trigger.dev job fetches new Granola meetings on user-defined interval
-- [ ] **DATA-02**: User can manually trigger meeting processing from dashboard
+- [x] **DATA-02**: User can manually trigger meeting processing from dashboard
 - [x] **DATA-03**: AI extracts contact information (name, email, location) from meeting transcripts
 - [x] **DATA-04**: AI extracts relationship context (why, what, mutual value, status) from transcripts
 - [x] **DATA-05**: AI extracts action items and tasks from meeting transcripts
@@ -112,7 +112,7 @@
 | AUTH-05 | Phase 1 | Complete |
 | AUTH-06 | Phase 1 | Complete |
 | DATA-01 | Phase 2 | Complete |
-| DATA-02 | Phase 2 | Pending |
+| DATA-02 | Phase 2 | Complete |
 | DATA-03 | Phase 2 | Complete |
 | DATA-04 | Phase 2 | Complete |
 | DATA-05 | Phase 2 | Complete |
