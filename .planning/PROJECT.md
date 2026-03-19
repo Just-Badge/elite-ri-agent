@@ -21,13 +21,14 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 - ✓ Contact card creation/update with full relationship context — Phase 2
 - ✓ Contact categories (8 types) — Phase 2
 - ✓ Link back to original Granola meeting URL on each contact — Phase 2
+- ✓ Configurable outreach frequency per contact (days between touchpoints) — Phase 3
+- ✓ AI-drafted outreach emails using z.ai GLM5, informed by contact context + user personality profile — Phase 3
+- ✓ Drafts appear in both the app dashboard AND as Gmail drafts — Phase 3
+- ✓ Daily draft review workflow: approve, edit+approve, send — Phase 3
+- ✓ Open Brain context enrichment for draft generation — Phase 3
 
 ### Active
 - [ ] Dashboard to view/search/filter all contacts
-- [ ] Configurable outreach frequency per contact (days between touchpoints)
-- [ ] AI-drafted outreach emails using z.ai GLM5, informed by contact context + user personality profile
-- [ ] Drafts appear in both the app dashboard AND as Gmail drafts
-- [ ] Daily draft review workflow: approve, edit+approve, send
 - [ ] Dashboard risk indicators: contacts at risk, triage needed, pending action items
 - [ ] Settings panel: user personality/tone/style form, schedule configuration, API key management
 - [ ] Open Brain (Supabase knowledge base) integration for supplemental context
@@ -72,4 +73,4 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 | Drafts in dashboard + Gmail | User can review in either place, flexibility | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 2 completion*
+*Last updated: 2026-03-19 after Phase 3 completion*
