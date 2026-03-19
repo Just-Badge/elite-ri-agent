@@ -45,12 +45,14 @@ Plans:
   2. Contact cards are created with extracted name, email, location, category, background, relationship context, action items, and notes -- without manual data entry
   3. Existing contacts are updated (not duplicated) when they appear in new meetings, with meeting history accumulating over time
   4. User can view their contacts in a list, assign categories, edit any field, set outreach frequency, and see linked Granola meeting URLs
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md -- Database schema (contacts, meetings, contact_meetings, action_items) with RLS, Zod validation, seed MD parser, import function
+- [ ] 02-02-PLAN.md -- Granola API client with WorkOS token rotation, AI contact extraction via z.ai GLM-5/OpenAI SDK
+- [ ] 02-03-PLAN.md -- Trigger.dev pipeline: scheduled dispatcher, per-user processor, seed import task, manual trigger and Granola token API routes
+- [ ] 02-04-PLAN.md -- Contact CRUD API routes, contact list page with card layout, search, and category filter
+- [ ] 02-05-PLAN.md -- Contact detail page with inline editing, meeting history, action items, visual verification checkpoint
 
 ### Phase 3: Outreach Engine
 **Goal**: Users receive AI-drafted outreach emails informed by meeting context and personal style, review them in-app, and sync to Gmail
@@ -91,6 +93,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 0/3 | Planning complete | - |
-| 2. Data Pipeline + Contacts | 0/3 | Not started | - |
+| 2. Data Pipeline + Contacts | 0/5 | Planning complete | - |
 | 3. Outreach Engine | 0/3 | Not started | - |
 | 4. Dashboard Intelligence | 0/2 | Not started | - |
