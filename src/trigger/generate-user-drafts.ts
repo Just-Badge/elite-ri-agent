@@ -58,21 +58,17 @@ export const generateUserDrafts = task({
     // 3. Query contacts due for outreach
     //    Active contacts with email, outreach_frequency_days set,
     //    past their due date, and no existing pending_review draft.
-    const { data: dueContacts, error: contactsError } = await supabase
+    const { data: candidates, error: contactsError } = await supabase
       .from("contacts")
       .select(
-        "id, name, email, category, background, relationship_context, notes"
+        "id, name, email, category, background, relationship_context, notes, outreach_frequency_days, last_interaction_at"
       )
       .eq("user_id", payload.userId)
       .eq("status", "active")
       .not("email", "is", null)
       .not("outreach_frequency_days", "is", null)
-      .or(
-        "last_interaction_at.is.null,last_interaction_at.lt." +
-          new Date().toISOString()
-      )
       .order("last_interaction_at", { ascending: true, nullsFirst: true })
-      .limit(20);
+      .limit(50);
 
     if (contactsError) {
       logger.error("Failed to query due contacts", {
@@ -80,6 +76,17 @@ export const generateUserDrafts = task({
       });
       return { generated: 0, gmailSynced: 0, gmailFailed: 0 };
     }
+
+    // Application-side frequency filtering: contact is due when
+    // last_interaction_at + outreach_frequency_days <= now, or never contacted
+    const now = new Date();
+    const dueContacts = (candidates || []).filter((contact) => {
+      if (!contact.last_interaction_at) return true; // Never contacted = always due
+      const lastInteraction = new Date(contact.last_interaction_at);
+      const dueDate = new Date(lastInteraction);
+      dueDate.setDate(dueDate.getDate() + (contact.outreach_frequency_days || 0));
+      return dueDate <= now;
+    }).slice(0, 20);
 
     if (!dueContacts || dueContacts.length === 0) {
       logger.info("No contacts due for outreach", {

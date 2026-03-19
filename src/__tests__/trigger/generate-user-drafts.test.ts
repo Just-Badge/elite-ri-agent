@@ -85,6 +85,8 @@ describe("Generate User Drafts", () => {
         mutual_value: "Equity for guidance",
       },
       notes: "Cancer survivor",
+      outreach_frequency_days: 14,
+      last_interaction_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days ago — due
     },
     {
       id: "contact-2",
@@ -94,6 +96,8 @@ describe("Generate User Drafts", () => {
       background: "VC partner at Horizon",
       relationship_context: null,
       notes: null,
+      outreach_frequency_days: 7,
+      last_interaction_at: null, // Never contacted — always due
     },
   ];
 
@@ -129,15 +133,13 @@ describe("Generate User Drafts", () => {
               eq: vi.fn().mockReturnValue({
                 not: vi.fn().mockReturnValue({
                   not: vi.fn().mockReturnValue({
-                    or: vi.fn().mockReturnValue({
-                      order: vi.fn().mockReturnValue({
-                        limit: vi
-                          .fn()
-                          .mockResolvedValue({
-                            data: mockDueContacts,
-                            error: null,
-                          }),
-                      }),
+                    order: vi.fn().mockReturnValue({
+                      limit: vi
+                        .fn()
+                        .mockResolvedValue({
+                          data: mockDueContacts,
+                          error: null,
+                        }),
                     }),
                   }),
                 }),
