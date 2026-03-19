@@ -6,6 +6,7 @@ import { StatCard } from "@/components/dashboard/stat-card";
 import { RiskContacts } from "@/components/dashboard/risk-contacts";
 import { TriageContacts } from "@/components/dashboard/triage-contacts";
 import { PendingActions } from "@/components/dashboard/pending-actions";
+import { OutreachAnalytics } from "@/components/dashboard/outreach-analytics";
 import { AlertTriangle, Users, UserCheck, ListTodo } from "lucide-react";
 import { toast } from "sonner";
 
@@ -143,6 +144,8 @@ export default function DashboardPage() {
         <TriageContacts contacts={stats.triage_contacts} />
         <PendingActions actions={stats.pending_actions} />
       </div>
+
+      <OutreachAnalytics />
     </div>
   );
 }
