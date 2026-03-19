@@ -27,10 +27,13 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 - ✓ Daily draft review workflow: approve, edit+approve, send — Phase 3
 - ✓ Open Brain context enrichment for draft generation — Phase 3
 
+- ✓ Dashboard to view/search/filter all contacts — Phase 4
+- ✓ Dashboard risk indicators: contacts at risk, triage needed, pending action items — Phase 4
+- ✓ Outreach analytics: drafts sent, approval rates, health trends — Phase 4
+
 ### Active
-- [ ] Dashboard to view/search/filter all contacts
-- [ ] Dashboard risk indicators: contacts at risk, triage needed, pending action items
-- [ ] Settings panel: user personality/tone/style form, schedule configuration, API key management
+
+(All v1 requirements shipped — ready for milestone completion)
 - [ ] Open Brain (Supabase knowledge base) integration for supplemental context
 - [ ] User profile form for tone, style, personality, projects, business objectives
 - [ ] Configurable meeting processing schedule (e.g., every 2 hours, 8am-6pm PDT)
@@ -73,4 +76,4 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 | Drafts in dashboard + Gmail | User can review in either place, flexibility | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 3 completion*
+*Last updated: 2026-03-19 after Phase 4 completion — all v1 requirements shipped*
