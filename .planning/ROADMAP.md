@@ -63,12 +63,12 @@ Plans:
   2. Drafts are informed by contact meeting history, relationship context, action items, user personality profile, and Open Brain knowledge base
   3. Drafts appear both in the app dashboard and as Gmail drafts simultaneously
   4. User can approve, edit-then-approve, or dismiss each draft from the dashboard, and approved drafts send via Gmail
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md -- Database migration (outreach_drafts with RLS), Zod validation schemas, Gmail service module, MIME builder, Open Brain context client
+- [ ] 03-02-PLAN.md -- AI draft generation with 5-layer context prompt, Trigger.dev outreach dispatcher and per-user draft generator
+- [ ] 03-03-PLAN.md -- Draft CRUD API routes (list, edit, send, dismiss), draft review dashboard page with card/list/editor components
 
 ### Phase 4: Dashboard Intelligence
 **Goal**: Users can efficiently navigate their network, spot at-risk relationships, and track outreach effectiveness through a polished dashboard
