@@ -1,0 +1,157 @@
+# Requirements: ELITE Relationship Intelligence Agent
+
+**Defined:** 2026-03-18
+**Core Value:** Reliably turn raw meeting data into actionable relationship intelligence AND draft contextually-aware outreach emails — the full loop from "meeting happened" to "relationship maintained"
+
+## v1 Requirements
+
+### Authentication & Infrastructure
+
+- [ ] **AUTH-01**: User can sign in with Google OAuth
+- [ ] **AUTH-02**: Google OAuth captures and persists Gmail refresh token for API access
+- [ ] **AUTH-03**: User session persists across browser refresh
+- [ ] **AUTH-04**: User can store and manage API keys (z.ai) via encrypted settings panel
+- [ ] **AUTH-05**: User can fill out profile form (tone, style, personality, projects, business objectives)
+- [ ] **AUTH-06**: User can configure meeting processing schedule (interval, start/end time, timezone)
+
+### Data Pipeline
+
+- [ ] **DATA-01**: Scheduled Trigger.dev job fetches new Granola meetings on user-defined interval
+- [ ] **DATA-02**: User can manually trigger meeting processing from dashboard
+- [ ] **DATA-03**: AI extracts contact information (name, email, location) from meeting transcripts
+- [ ] **DATA-04**: AI extracts relationship context (why, what, mutual value, status) from transcripts
+- [ ] **DATA-05**: AI extracts action items and tasks from meeting transcripts
+- [ ] **DATA-06**: AI extracts key notes and bullet points from meetings
+- [ ] **DATA-07**: System creates new contact cards or updates existing ones (deduplication by email)
+- [ ] **DATA-08**: Each contact links back to original Granola meeting URL
+
+### Contact Management
+
+- [ ] **CONT-01**: Contact card displays: name, email, location, category, background, relationship context
+- [ ] **CONT-02**: Contact card includes meeting history with linked Granola URLs
+- [ ] **CONT-03**: Contact card includes action items and tasks
+- [ ] **CONT-04**: Contact card includes notes/bullet points for memory jogging
+- [ ] **CONT-05**: User can assign contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
+- [ ] **CONT-06**: User can edit any field on a contact card
+- [ ] **CONT-07**: User can set outreach frequency per contact (days between touchpoints)
+
+### Dashboard
+
+- [ ] **DASH-01**: User can view all contacts in a browsable list/grid
+- [ ] **DASH-02**: User can search contacts by name, email, category, or notes
+- [ ] **DASH-03**: User can filter contacts by category
+- [ ] **DASH-04**: Dashboard shows contacts at risk (overdue for outreach)
+- [ ] **DASH-05**: Dashboard shows contacts needing triage (new/unreviewed)
+- [ ] **DASH-06**: Dashboard shows pending action items across all contacts
+- [ ] **DASH-07**: Dashboard displays outreach analytics (drafts sent, response tracking, health trends)
+
+### Outreach Engine
+
+- [ ] **OUTR-01**: Scheduled Trigger.dev job identifies contacts due for outreach based on frequency
+- [ ] **OUTR-02**: AI drafts personalized email using contact context + user profile + Open Brain knowledge
+- [ ] **OUTR-03**: Draft uses z.ai GLM5 model via REST API with user's API key
+- [ ] **OUTR-04**: Draft appears in app dashboard for review
+- [ ] **OUTR-05**: Draft is simultaneously created as Gmail draft via Gmail API
+- [ ] **OUTR-06**: User can approve draft and send from dashboard
+- [ ] **OUTR-07**: User can edit draft before approving and sending
+- [ ] **OUTR-08**: User can dismiss/delete a draft
+
+### Open Brain Integration
+
+- [ ] **OBRN-01**: System reads from user's Open Brain tables in Supabase for supplemental context
+- [ ] **OBRN-02**: Open Brain context enriches AI draft generation with user's knowledge/thoughts
+
+### Multi-Tenancy
+
+- [ ] **TNNT-01**: Each user's data is fully isolated via Supabase RLS
+- [ ] **TNNT-02**: Each user has independent Granola connection, Gmail auth, and API keys
+- [ ] **TNNT-03**: Processing schedules are per-user and isolated
+
+## v2 Requirements
+
+### Notifications
+
+- **NOTF-01**: User receives in-app notifications for new contacts detected
+- **NOTF-02**: User receives email digest of contacts at risk
+- **NOTF-03**: User receives alerts when action items are overdue
+
+### Advanced Intelligence
+
+- **INTL-01**: AI suggests optimal outreach timing based on relationship history
+- **INTL-02**: AI auto-categorizes contacts based on meeting context
+- **INTL-03**: Relationship strength scoring with trend tracking
+- **INTL-04**: Automated follow-up suggestions based on action items
+
+### Import/Export
+
+- **IMEX-01**: User can manually add contacts without a meeting
+- **IMEX-02**: User can export contacts to CSV
+- **IMEX-03**: User can import contacts from CSV
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Mobile app | Web-first, mobile later |
+| LinkedIn/CRM import | Granola-sourced only for v1 — keeps data pipeline simple |
+| SMS/Slack outreach | Gmail only for v1 — reduces integration surface |
+| Real-time meeting processing | Batch/scheduled approach — simpler architecture, user controls timing |
+| Calendar integration | Granola handles meeting capture — no direct calendar needed |
+| Auto-send emails | Human-in-the-loop required — drafts must be reviewed before sending |
+| Multiple AI models | z.ai GLM5 only for v1 — can expand later |
+| Team shared contacts | Each user's contacts are private for v1 |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| AUTH-01 | — | Pending |
+| AUTH-02 | — | Pending |
+| AUTH-03 | — | Pending |
+| AUTH-04 | — | Pending |
+| AUTH-05 | — | Pending |
+| AUTH-06 | — | Pending |
+| DATA-01 | — | Pending |
+| DATA-02 | — | Pending |
+| DATA-03 | — | Pending |
+| DATA-04 | — | Pending |
+| DATA-05 | — | Pending |
+| DATA-06 | — | Pending |
+| DATA-07 | — | Pending |
+| DATA-08 | — | Pending |
+| CONT-01 | — | Pending |
+| CONT-02 | — | Pending |
+| CONT-03 | — | Pending |
+| CONT-04 | — | Pending |
+| CONT-05 | — | Pending |
+| CONT-06 | — | Pending |
+| CONT-07 | — | Pending |
+| DASH-01 | — | Pending |
+| DASH-02 | — | Pending |
+| DASH-03 | — | Pending |
+| DASH-04 | — | Pending |
+| DASH-05 | — | Pending |
+| DASH-06 | — | Pending |
+| DASH-07 | — | Pending |
+| OUTR-01 | — | Pending |
+| OUTR-02 | — | Pending |
+| OUTR-03 | — | Pending |
+| OUTR-04 | — | Pending |
+| OUTR-05 | — | Pending |
+| OUTR-06 | — | Pending |
+| OUTR-07 | — | Pending |
+| OUTR-08 | — | Pending |
+| OBRN-01 | — | Pending |
+| OBRN-02 | — | Pending |
+| TNNT-01 | — | Pending |
+| TNNT-02 | — | Pending |
+| TNNT-03 | — | Pending |
+
+**Coverage:**
+- v1 requirements: 38 total
+- Mapped to phases: 0
+- Unmapped: 38 ⚠️
+
+---
+*Requirements defined: 2026-03-18*
+*Last updated: 2026-03-18 after initial definition*
