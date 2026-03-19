@@ -1,14 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-// Mock OpenAI
-const mockCreate = vi.fn();
-const mockOpenAIConstructor = vi.fn().mockImplementation(() => ({
-  chat: {
-    completions: {
-      create: mockCreate,
-    },
-  },
-}));
+// Use vi.hoisted to ensure mock variables are available when vi.mock is hoisted
+const { mockCreate, mockOpenAIConstructor } = vi.hoisted(() => {
+  const mockCreate = vi.fn();
+  // Must use a function (not arrow) so it can be called with `new`
+  const mockOpenAIConstructor = vi.fn().mockImplementation(function (this: unknown) {
+    (this as Record<string, unknown>).chat = {
+      completions: {
+        create: mockCreate,
+      },
+    };
+  });
+  return { mockCreate, mockOpenAIConstructor };
+});
 
 vi.mock("openai", () => ({
   default: mockOpenAIConstructor,
