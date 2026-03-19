@@ -182,14 +182,15 @@ describe("PUT /api/contacts/[id]", () => {
 
   it("validates and updates contact", async () => {
     setAuthenticated();
-    const query = mockQueryResult({ data: { id: "c1" }, error: null });
+    const contactId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11";
+    const query = mockQueryResult({ data: { id: contactId }, error: null });
     mockFrom.mockReturnValue(query);
 
-    const req = new NextRequest("http://localhost/api/contacts/c1", {
+    const req = new NextRequest(`http://localhost/api/contacts/${contactId}`, {
       method: "PUT",
       body: JSON.stringify({ name: "Alice Updated", company: "NewCo" }),
     });
-    const res = await updateContact(req, { params: Promise.resolve({ id: "c1" }) });
+    const res = await updateContact(req, { params: Promise.resolve({ id: contactId }) });
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.success).toBe(true);
