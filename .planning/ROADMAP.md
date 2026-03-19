@@ -29,12 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can fill out their personality/tone/style profile for AI drafting
   4. Each user's data is fully isolated -- one user cannot see another's contacts, settings, or credentials
   5. Gmail refresh token is captured during OAuth and stored encrypted for later API access
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md -- Project scaffold, Supabase clients, middleware, database migrations with RLS, encryption, validation schemas, Vitest setup
+- [ ] 01-02-PLAN.md -- Google OAuth sign-in flow with provider token capture and encrypted storage
+- [ ] 01-03-PLAN.md -- Settings UI: profile form, API key management, processing schedule configuration
 
 ### Phase 2: Data Pipeline + Contacts
 **Goal**: Users see rich contact cards automatically created and updated from their Granola meeting transcripts
@@ -90,7 +90,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 0/3 | Not started | - |
+| 1. Foundation + Auth | 0/3 | Planning complete | - |
 | 2. Data Pipeline + Contacts | 0/3 | Not started | - |
 | 3. Outreach Engine | 0/3 | Not started | - |
 | 4. Dashboard Intelligence | 0/2 | Not started | - |
