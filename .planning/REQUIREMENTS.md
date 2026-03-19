@@ -37,9 +37,9 @@
 
 ### Dashboard
 
-- [ ] **DASH-01**: User can view all contacts in a browsable list/grid
+- [x] **DASH-01**: User can view all contacts in a browsable list/grid
 - [x] **DASH-02**: User can search contacts by name, email, category, or notes
-- [ ] **DASH-03**: User can filter contacts by category
+- [x] **DASH-03**: User can filter contacts by category
 - [x] **DASH-04**: Dashboard shows contacts at risk (overdue for outreach)
 - [x] **DASH-05**: Dashboard shows contacts needing triage (new/unreviewed)
 - [x] **DASH-06**: Dashboard shows pending action items across all contacts
@@ -126,9 +126,9 @@
 | CONT-05 | Phase 2 | Complete |
 | CONT-06 | Phase 2 | Complete |
 | CONT-07 | Phase 2 | Complete |
-| DASH-01 | Phase 4 | Pending |
+| DASH-01 | Phase 4 | Complete |
 | DASH-02 | Phase 4 | Complete |
-| DASH-03 | Phase 4 | Pending |
+| DASH-03 | Phase 4 | Complete |
 | DASH-04 | Phase 4 | Complete |
 | DASH-05 | Phase 4 | Complete |
 | DASH-06 | Phase 4 | Complete |
