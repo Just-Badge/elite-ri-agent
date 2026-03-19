@@ -17,14 +17,12 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 - ✓ User profile form for tone, style, personality, projects, business objectives — Phase 1
 - ✓ Configurable meeting processing schedule (e.g., every 2 hours, 8am-6pm PDT) — Phase 1
 - ✓ Open Brain (Supabase knowledge base) integration for supplemental context — Phase 1 (infrastructure ready)
+- ✓ Scheduled + manual Granola meeting transcript processing — Phase 2
+- ✓ Contact card creation/update with full relationship context — Phase 2
+- ✓ Contact categories (8 types) — Phase 2
+- ✓ Link back to original Granola meeting URL on each contact — Phase 2
 
 ### Active
-
-- [ ] Scheduled + manual Granola meeting transcript processing via MCP (Phase 2 next)
-- [ ] Scheduled + manual Granola meeting transcript processing via MCP
-- [ ] Contact card creation/update with: name, email, location, contact history, dates, category, background, relationship context, meeting history, action items, notes
-- [ ] Contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
-- [ ] Link back to original Granola meeting URL on each contact
 - [ ] Dashboard to view/search/filter all contacts
 - [ ] Configurable outreach frequency per contact (days between touchpoints)
 - [ ] AI-drafted outreach emails using z.ai GLM5, informed by contact context + user personality profile
@@ -74,4 +72,4 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 | Drafts in dashboard + Gmail | User can review in either place, flexibility | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 1 completion*
+*Last updated: 2026-03-19 after Phase 2 completion*
