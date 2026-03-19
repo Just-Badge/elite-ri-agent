@@ -22,18 +22,18 @@
 - [x] **DATA-04**: AI extracts relationship context (why, what, mutual value, status) from transcripts
 - [x] **DATA-05**: AI extracts action items and tasks from meeting transcripts
 - [x] **DATA-06**: AI extracts key notes and bullet points from meetings
-- [ ] **DATA-07**: System creates new contact cards or updates existing ones (deduplication by email)
+- [x] **DATA-07**: System creates new contact cards or updates existing ones (deduplication by email)
 - [x] **DATA-08**: Each contact links back to original Granola meeting URL
 
 ### Contact Management
 
-- [ ] **CONT-01**: Contact card displays: name, email, location, category, background, relationship context
-- [ ] **CONT-02**: Contact card includes meeting history with linked Granola URLs
-- [ ] **CONT-03**: Contact card includes action items and tasks
-- [ ] **CONT-04**: Contact card includes notes/bullet points for memory jogging
-- [ ] **CONT-05**: User can assign contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
+- [x] **CONT-01**: Contact card displays: name, email, location, category, background, relationship context
+- [x] **CONT-02**: Contact card includes meeting history with linked Granola URLs
+- [x] **CONT-03**: Contact card includes action items and tasks
+- [x] **CONT-04**: Contact card includes notes/bullet points for memory jogging
+- [x] **CONT-05**: User can assign contact categories (advisors, investors, team members, networking, business partners, collaborators, etc.)
 - [ ] **CONT-06**: User can edit any field on a contact card
-- [ ] **CONT-07**: User can set outreach frequency per contact (days between touchpoints)
+- [x] **CONT-07**: User can set outreach frequency per contact (days between touchpoints)
 
 ### Dashboard
 
@@ -117,15 +117,15 @@
 | DATA-04 | Phase 2 | Complete |
 | DATA-05 | Phase 2 | Complete |
 | DATA-06 | Phase 2 | Complete |
-| DATA-07 | Phase 2 | Pending |
+| DATA-07 | Phase 2 | Complete |
 | DATA-08 | Phase 2 | Complete |
-| CONT-01 | Phase 2 | Pending |
-| CONT-02 | Phase 2 | Pending |
-| CONT-03 | Phase 2 | Pending |
-| CONT-04 | Phase 2 | Pending |
-| CONT-05 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Complete |
+| CONT-02 | Phase 2 | Complete |
+| CONT-03 | Phase 2 | Complete |
+| CONT-04 | Phase 2 | Complete |
+| CONT-05 | Phase 2 | Complete |
 | CONT-06 | Phase 2 | Pending |
-| CONT-07 | Phase 2 | Pending |
+| CONT-07 | Phase 2 | Complete |
 | DASH-01 | Phase 4 | Pending |
 | DASH-02 | Phase 4 | Pending |
 | DASH-03 | Phase 4 | Pending |
