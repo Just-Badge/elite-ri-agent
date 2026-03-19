@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ContactCard } from "@/components/contacts/contact-card";
+import { computeContactRisk } from "@/lib/contacts/risk";
 import { CONTACT_CATEGORIES } from "@/lib/validations/contacts";
 import { Button } from "@/components/ui/button";
 import { Search, Loader2, RefreshCw } from "lucide-react";
@@ -26,6 +27,12 @@ interface Contact {
   last_interaction_at?: string | null;
   status?: string | null;
   action_items?: { id: string; completed: boolean }[];
+  outreach_frequency_days?: number | null;
+  ai_confidence?: string | null;
+  created_at?: string | null;
+  days_overdue?: number;
+  risk_level?: "critical" | "warning" | "healthy" | "unknown";
+  needs_triage?: boolean;
 }
 
 export default function ContactsPage() {
@@ -65,7 +72,12 @@ export default function ContactsPage() {
       const res = await fetch(url);
       if (res.ok) {
         const json = await res.json();
-        setContacts(json.data ?? []);
+        const enriched = (json.data ?? []).map((c: Contact) => ({
+          ...c,
+          ...computeContactRisk(c),
+          needs_triage: c.ai_confidence != null && c.ai_confidence !== "manual",
+        }));
+        setContacts(enriched);
       }
     } catch {
       // Fetch error -- contacts remain empty

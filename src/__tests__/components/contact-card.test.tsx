@@ -1,6 +1,10 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
 import { ContactCard } from "@/components/contacts/contact-card";
+
+afterEach(() => {
+  cleanup();
+});
 
 const baseContact = {
   id: "c1",
@@ -54,5 +58,56 @@ describe("ContactCard", () => {
     render(<ContactCard contact={baseContact} />);
     const link = document.querySelector('a[href="/contacts/c1"]');
     expect(link).not.toBeNull();
+  });
+
+  it("shows red left border when risk_level is critical", () => {
+    render(
+      <ContactCard
+        contact={{ ...baseContact, risk_level: "critical", days_overdue: 45 }}
+      />
+    );
+    const card = document.querySelector('[data-slot="card"]');
+    expect(card?.className).toContain("border-l-red-500");
+    expect(card?.className).toContain("border-l-4");
+  });
+
+  it("shows amber left border when risk_level is warning", () => {
+    render(
+      <ContactCard
+        contact={{ ...baseContact, risk_level: "warning", days_overdue: 10 }}
+      />
+    );
+    const card = document.querySelector('[data-slot="card"]');
+    expect(card?.className).toContain("border-l-amber-500");
+    expect(card?.className).toContain("border-l-4");
+  });
+
+  it("shows overdue text when days_overdue > 0", () => {
+    render(
+      <ContactCard
+        contact={{ ...baseContact, risk_level: "warning", days_overdue: 12 }}
+      />
+    );
+    const content = document.body.textContent || "";
+    expect(content).toContain("12d overdue");
+  });
+
+  it("shows Needs review badge when needs_triage is true", () => {
+    render(
+      <ContactCard contact={{ ...baseContact, needs_triage: true }} />
+    );
+    const badges = screen.getAllByText("Needs review");
+    expect(badges.length).toBeGreaterThan(0);
+  });
+
+  it("no risk/triage indicators when fields are undefined", () => {
+    render(<ContactCard contact={baseContact} />);
+    const card = document.querySelector('[data-slot="card"]');
+    expect(card?.className).not.toContain("border-l-red-500");
+    expect(card?.className).not.toContain("border-l-amber-500");
+    expect(card?.className).not.toContain("border-l-4");
+    const content = document.body.textContent || "";
+    expect(content).not.toContain("overdue");
+    expect(content).not.toContain("Needs review");
   });
 });

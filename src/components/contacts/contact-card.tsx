@@ -10,6 +10,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { Mail, Building2 } from "lucide-react";
 
 interface ContactCardProps {
@@ -23,6 +24,9 @@ interface ContactCardProps {
     last_interaction_at?: string | null;
     status?: string | null;
     action_items?: { id: string; completed: boolean }[];
+    days_overdue?: number;
+    risk_level?: "critical" | "warning" | "healthy" | "unknown";
+    needs_triage?: boolean;
   };
 }
 
@@ -32,14 +36,20 @@ const STATUS_COLORS: Record<string, string> = {
   not_pursuing: "bg-red-500",
 };
 
+const RISK_BORDER: Record<string, string> = {
+  critical: "border-l-4 border-l-red-500",
+  warning: "border-l-4 border-l-amber-500",
+};
+
 export function ContactCard({ contact }: ContactCardProps) {
   const incompleteItems =
     contact.action_items?.filter((item) => !item.completed) ?? [];
   const statusColor = STATUS_COLORS[contact.status ?? "active"] ?? "bg-gray-400";
+  const riskBorder = contact.risk_level ? RISK_BORDER[contact.risk_level] : undefined;
 
   return (
     <Link href={`/contacts/${contact.id}`} className="block">
-      <Card className="transition-shadow hover:shadow-md cursor-pointer h-full">
+      <Card className={cn("transition-shadow hover:shadow-md cursor-pointer h-full", riskBorder)}>
         <CardHeader>
           <div className="flex items-center gap-2">
             <span
@@ -47,6 +57,11 @@ export function ContactCard({ contact }: ContactCardProps) {
               aria-label={`Status: ${contact.status ?? "active"}`}
             />
             <CardTitle>{contact.name}</CardTitle>
+            {contact.needs_triage && (
+              <Badge variant="outline" className="text-xs">
+                Needs review
+              </Badge>
+            )}
           </div>
           {(contact.company || contact.role) && (
             <CardDescription>
@@ -74,13 +89,27 @@ export function ContactCard({ contact }: ContactCardProps) {
                 {incompleteItems.length !== 1 ? "s" : ""}
               </span>
             )}
-            {contact.last_interaction_at && (
-              <span>
-                {formatDistanceToNow(new Date(contact.last_interaction_at), {
-                  addSuffix: true,
-                })}
-              </span>
-            )}
+            <span className="flex items-center gap-1">
+              {contact.last_interaction_at && (
+                <span>
+                  {formatDistanceToNow(new Date(contact.last_interaction_at), {
+                    addSuffix: true,
+                  })}
+                </span>
+              )}
+              {contact.days_overdue != null && contact.days_overdue > 0 && (
+                <span
+                  className={cn(
+                    "font-medium",
+                    contact.risk_level === "critical"
+                      ? "text-red-500"
+                      : "text-amber-500"
+                  )}
+                >
+                  {contact.days_overdue}d overdue
+                </span>
+              )}
+            </span>
           </div>
         </CardContent>
       </Card>
