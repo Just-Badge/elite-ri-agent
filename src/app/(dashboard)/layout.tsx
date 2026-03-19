@@ -11,6 +11,7 @@ import {
   SidebarProvider,
   SidebarInset,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 import { LayoutDashboard, Mail, Settings, Users } from "lucide-react";
 
 const navItems = [
@@ -40,7 +41,7 @@ export default function DashboardLayout({
               <SidebarMenu>
                 {navItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton render={<a href={item.href} />}>
+                    <SidebarMenuButton render={<Link href={item.href} />}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </SidebarMenuButton>
