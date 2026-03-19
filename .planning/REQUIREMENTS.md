@@ -9,8 +9,8 @@
 
 - [ ] **AUTH-01**: User can sign in with Google OAuth
 - [ ] **AUTH-02**: Google OAuth captures and persists Gmail refresh token for API access
-- [ ] **AUTH-03**: User session persists across browser refresh
-- [ ] **AUTH-04**: User can store and manage API keys (z.ai) via encrypted settings panel
+- [x] **AUTH-03**: User session persists across browser refresh
+- [x] **AUTH-04**: User can store and manage API keys (z.ai) via encrypted settings panel
 - [ ] **AUTH-05**: User can fill out profile form (tone, style, personality, projects, business objectives)
 - [ ] **AUTH-06**: User can configure meeting processing schedule (interval, start/end time, timezone)
 
@@ -63,9 +63,9 @@
 
 ### Multi-Tenancy
 
-- [ ] **TNNT-01**: Each user's data is fully isolated via Supabase RLS
-- [ ] **TNNT-02**: Each user has independent Granola connection, Gmail auth, and API keys
-- [ ] **TNNT-03**: Processing schedules are per-user and isolated
+- [x] **TNNT-01**: Each user's data is fully isolated via Supabase RLS
+- [x] **TNNT-02**: Each user has independent Granola connection, Gmail auth, and API keys
+- [x] **TNNT-03**: Processing schedules are per-user and isolated
 
 ## v2 Requirements
 
@@ -107,8 +107,8 @@
 |-------------|-------|--------|
 | AUTH-01 | Phase 1 | Pending |
 | AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
 | AUTH-05 | Phase 1 | Pending |
 | AUTH-06 | Phase 1 | Pending |
 | DATA-01 | Phase 2 | Pending |
@@ -143,9 +143,9 @@
 | OUTR-08 | Phase 3 | Pending |
 | OBRN-01 | Phase 3 | Pending |
 | OBRN-02 | Phase 3 | Pending |
-| TNNT-01 | Phase 1 | Pending |
-| TNNT-02 | Phase 1 | Pending |
-| TNNT-03 | Phase 1 | Pending |
+| TNNT-01 | Phase 1 | Complete |
+| TNNT-02 | Phase 1 | Complete |
+| TNNT-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 41 total
