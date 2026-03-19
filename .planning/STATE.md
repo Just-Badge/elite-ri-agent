@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-03-19T06:21:13.602Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-19T06:21:30.080Z"
 progress:
   total_phases: 4
   completed_phases: 1
@@ -63,6 +63,7 @@ Recent decisions affecting current work:
 - [Phase 01-03]: Built forms without shadcn Form component (not available in v4 base-ui variant), using direct Label/Input/Textarea
 - [Phase 01-02]: Used admin client for oauth_tokens upsert because RLS session may not be fully established during callback
 - [Phase 01-02]: Added Suspense boundary for useSearchParams in login page for Next.js static generation
+- [Phase 01-02]: Added NODE_ENV=test define in vitest config for React 19 act() compatibility
 
 ### Pending Todos
 
@@ -75,6 +76,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T06:20:46.425Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-03-19T06:21:30.033Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None

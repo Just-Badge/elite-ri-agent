@@ -7,8 +7,8 @@
 
 ### Authentication & Infrastructure
 
-- [ ] **AUTH-01**: User can sign in with Google OAuth
-- [ ] **AUTH-02**: Google OAuth captures and persists Gmail refresh token for API access
+- [x] **AUTH-01**: User can sign in with Google OAuth
+- [x] **AUTH-02**: Google OAuth captures and persists Gmail refresh token for API access
 - [x] **AUTH-03**: User session persists across browser refresh
 - [x] **AUTH-04**: User can store and manage API keys (z.ai) via encrypted settings panel
 - [x] **AUTH-05**: User can fill out profile form (tone, style, personality, projects, business objectives)
@@ -105,8 +105,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 1 | Complete |
 | AUTH-04 | Phase 1 | Complete |
 | AUTH-05 | Phase 1 | Complete |
