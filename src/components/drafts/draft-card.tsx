@@ -105,7 +105,7 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
         </div>
 
         {isPending ? (
-          <div className="flex items-center gap-2 pt-2">
+          <div className="flex flex-wrap items-center gap-2 pt-2">
             <Button
               size="sm"
               onClick={() => onSend(draft.id)}

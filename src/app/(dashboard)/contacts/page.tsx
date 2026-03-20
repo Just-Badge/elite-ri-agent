@@ -111,7 +111,7 @@ export default function ContactsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Contacts</h1>
           <p className="text-muted-foreground" aria-live="polite">
@@ -152,7 +152,7 @@ export default function ContactsPage() {
             setCategoryFilter(val === "all" ? null : val)
           }
         >
-          <SelectTrigger className="w-[180px]" aria-label="Filter by category">
+          <SelectTrigger className="w-full sm:w-[180px]" aria-label="Filter by category">
             <SelectValue placeholder="All categories" />
           </SelectTrigger>
           <SelectContent>

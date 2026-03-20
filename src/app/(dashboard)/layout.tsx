@@ -64,15 +64,17 @@ export default function DashboardLayout({
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4" aria-label="Top bar">
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 overflow-hidden" aria-label="Top bar">
           <SidebarTrigger />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          <Breadcrumbs />
-          <div className="ml-auto">
+          <div className="min-w-0 flex-1">
+            <Breadcrumbs />
+          </div>
+          <div className="ml-auto shrink-0">
             <ThemeToggle />
           </div>
         </header>
-        <main id="main-content" tabIndex={-1} className="flex-1 p-6 outline-none">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1 p-4 sm:p-6 outline-none">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
