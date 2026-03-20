@@ -7,6 +7,8 @@ import { RiskContacts } from "@/components/dashboard/risk-contacts";
 import { TriageContacts } from "@/components/dashboard/triage-contacts";
 import { PendingActions } from "@/components/dashboard/pending-actions";
 import { OutreachAnalytics } from "@/components/dashboard/outreach-analytics";
+import { OnboardingWizard } from "@/components/onboarding/onboarding-wizard";
+import type { OnboardingStatus } from "@/lib/onboarding";
 import { AlertTriangle, Users, UserCheck, ListTodo } from "lucide-react";
 import { toast } from "sonner";
 
@@ -51,6 +53,9 @@ interface DashboardStats {
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [onboardingStatus, setOnboardingStatus] =
+    useState<OnboardingStatus | null>(null);
+  const [showWizard, setShowWizard] = useState(false);
 
   const fetchStats = useCallback(async () => {
     setLoading(true);
@@ -73,6 +78,37 @@ export default function DashboardPage() {
   useEffect(() => {
     fetchStats();
   }, [fetchStats]);
+
+  // Fetch onboarding status separately
+  useEffect(() => {
+    async function fetchOnboarding() {
+      try {
+        const res = await fetch("/api/onboarding/status");
+        if (!res.ok) return;
+        const { data } = await res.json();
+        setOnboardingStatus(data);
+
+        // Show wizard if onboarding is not complete and user hasn't dismissed it
+        if (
+          !data.is_complete &&
+          typeof window !== "undefined" &&
+          !localStorage.getItem("elite_onboarding_dismissed")
+        ) {
+          setShowWizard(true);
+        }
+      } catch {
+        // Non-critical - silently fail
+      }
+    }
+    fetchOnboarding();
+  }, []);
+
+  function handleWizardComplete() {
+    setShowWizard(false);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("elite_onboarding_dismissed", "true");
+    }
+  }
 
   if (loading) {
     return (
@@ -108,6 +144,13 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      {showWizard && onboardingStatus && (
+        <OnboardingWizard
+          onboardingStatus={onboardingStatus}
+          onComplete={handleWizardComplete}
+        />
+      )}
+
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">

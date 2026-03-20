@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { LayoutDashboard, Mail, Settings, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SetupChecklist } from "@/components/onboarding/setup-checklist";
 
 const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -52,6 +53,7 @@ export default function DashboardLayout({
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
+          <SetupChecklist />
         </SidebarContent>
         <SidebarFooter>
           <div className="flex items-center justify-between px-4 py-2">
