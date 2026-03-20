@@ -18,10 +18,10 @@
 
 - [ ] **SAFE-01**: Error boundary component wraps major page sections (dashboard widgets, contact detail, draft list)
 - [ ] **SAFE-02**: Next.js error.tsx and not-found.tsx pages for dashboard route group
-- [ ] **SAFE-03**: AlertDialog confirmation on draft dismiss and draft send
-- [ ] **SAFE-04**: Contact delete migrated from Dialog to AlertDialog (proper focus trap)
+- [x] **SAFE-03**: AlertDialog confirmation on draft dismiss and draft send
+- [x] **SAFE-04**: Contact delete migrated from Dialog to AlertDialog (proper focus trap)
 - [ ] **SAFE-05**: All form fields show inline validation errors on submit with focus-on-first-error
-- [ ] **SAFE-06**: Status colors, risk borders, sync styles centralized into single constants file
+- [x] **SAFE-06**: Status colors, risk borders, sync styles centralized into single constants file
 
 ### Navigation & Information Architecture
 
@@ -73,10 +73,10 @@
 | ONBD-06 | Phase 5 | Complete |
 | SAFE-01 | Phase 6 | Pending |
 | SAFE-02 | Phase 6 | Pending |
-| SAFE-03 | Phase 6 | Pending |
-| SAFE-04 | Phase 6 | Pending |
+| SAFE-03 | Phase 6 | Complete |
+| SAFE-04 | Phase 6 | Complete |
 | SAFE-05 | Phase 6 | Pending |
-| SAFE-06 | Phase 6 | Pending |
+| SAFE-06 | Phase 6 | Complete |
 | NAV-01 | Phase 7 | Pending |
 | NAV-02 | Phase 7 | Pending |
 | NAV-03 | Phase 7 | Pending |
