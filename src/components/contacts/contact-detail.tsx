@@ -13,15 +13,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { ContactForm } from "@/components/contacts/contact-form";
 import { MeetingHistory } from "@/components/contacts/meeting-history";
 import { ActionItems } from "@/components/contacts/action-items";
@@ -245,37 +246,35 @@ export function ContactDetail({ contactId }: ContactDetailProps) {
               </>
             )}
           </Button>
-          <Dialog>
-            <DialogTrigger
+          <AlertDialog>
+            <AlertDialogTrigger
               render={
                 <Button variant="destructive" size="sm" />
               }
             >
               <Trash2 className="h-4 w-4 mr-1" />
               Delete
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Delete Contact</DialogTitle>
-                <DialogDescription>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Contact</AlertDialogTitle>
+                <AlertDialogDescription>
                   Are you sure you want to delete {contact.name}? This action
                   cannot be undone.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>
-                  Cancel
-                </DialogClose>
-                <Button
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
                   variant="destructive"
                   onClick={handleDelete}
                   disabled={deleting}
                 >
                   {deleting ? "Deleting..." : "Delete"}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
 

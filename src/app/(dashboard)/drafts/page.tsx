@@ -11,6 +11,16 @@ import {
 import { DraftList } from "@/components/drafts/draft-list";
 import { DraftEditor, type EditableDraft } from "@/components/drafts/draft-editor";
 import type { DraftData } from "@/components/drafts/draft-card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
@@ -26,6 +36,7 @@ export default function DraftsPage() {
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("pending_review");
   const [editingDraft, setEditingDraft] = useState<EditableDraft | null>(null);
+  const [confirmAction, setConfirmAction] = useState<{ type: "send" | "dismiss"; id: string } | null>(null);
 
   const fetchDrafts = useCallback(async () => {
     setLoading(true);
@@ -81,6 +92,17 @@ export default function DraftsPage() {
       toast.error(
         err instanceof Error ? err.message : "Failed to dismiss draft"
       );
+    }
+  }
+
+  async function handleConfirm() {
+    if (!confirmAction) return;
+    const { type, id } = confirmAction;
+    setConfirmAction(null);
+    if (type === "send") {
+      await handleSend(id);
+    } else {
+      await handleDismiss(id);
     }
   }
 
@@ -149,8 +171,8 @@ export default function DraftsPage() {
       <DraftList
         drafts={drafts}
         loading={loading}
-        onSend={handleSend}
-        onDismiss={handleDismiss}
+        onSend={(id) => setConfirmAction({ type: "send", id })}
+        onDismiss={(id) => setConfirmAction({ type: "dismiss", id })}
         onEdit={handleEdit}
       />
 
@@ -160,6 +182,33 @@ export default function DraftsPage() {
         onClose={() => setEditingDraft(null)}
         onSave={handleSaveEdit}
       />
+
+      <AlertDialog
+        open={confirmAction !== null}
+        onOpenChange={(open) => { if (!open) setConfirmAction(null); }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {confirmAction?.type === "send" ? "Send Email" : "Dismiss Draft"}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {confirmAction?.type === "send"
+                ? "This will send the email to the contact. This action cannot be undone."
+                : "This will permanently dismiss this draft. This action cannot be undone."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              variant={confirmAction?.type === "dismiss" ? "destructive" : "default"}
+              onClick={handleConfirm}
+            >
+              {confirmAction?.type === "send" ? "Send" : "Dismiss"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
