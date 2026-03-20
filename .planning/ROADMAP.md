@@ -71,11 +71,11 @@ Plans:
   3. The contact list paginates at 24 contacts per page with working previous/next controls and a page indicator
   4. While a search query is debouncing or fetching, a spinner appears inside the search input to indicate loading
   5. Draft sync status dots show an explanatory tooltip on hover describing what each status means
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md -- Header bar with breadcrumbs + theme toggle relocation + typography standardization (NAV-01, NAV-02, NAV-06)
+- [ ] 07-02-PLAN.md -- Contact pagination + search spinner + sync status tooltips (NAV-03, NAV-04, NAV-05)
 
 ### Phase 8: Mobile & Accessibility
 **Goal**: The app is fully usable on mobile screens and navigable by keyboard and screen reader users
@@ -106,7 +106,7 @@ Phases execute in numeric order: 5 -> 5.x -> 6 -> 6.x -> 7 -> 7.x -> 8
 | 4. Dashboard Intelligence | v1.0 | 2/2 | Complete | 2026-03-19 |
 | 5. Onboarding & First Impressions | v1.1 | 0/3 | In progress | - |
 | 6. Safety & Resilience | v1.1 | 0/2 | Not started | - |
-| 7. Navigation & Information Architecture | v1.1 | 0/? | Not started | - |
+| 7. Navigation & Information Architecture | v1.1 | 0/2 | Not started | - |
 | 8. Mobile & Accessibility | v1.1 | 0/? | Not started | - |
 
 ---
