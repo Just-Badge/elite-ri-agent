@@ -38,11 +38,12 @@
   3. Every page that can be empty (contacts, drafts, analytics) shows a unified empty state with icon, title, description, and a CTA button that leads somewhere useful
   4. All async-loading pages show shaped skeleton placeholders instead of raw animate-pulse divs or blank screens
   5. User can toggle between light and dark mode from the sidebar, and the choice persists across sessions
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- Dark mode: ThemeProvider + sidebar toggle (ONBD-05)
+- [ ] 05-02-PLAN.md -- Empty states + skeleton loading polish (ONBD-04, ONBD-06)
+- [ ] 05-03-PLAN.md -- Onboarding wizard, sidebar checklist, Granola instructions (ONBD-01, ONBD-02, ONBD-03)
 
 ### Phase 6: Safety & Resilience
 **Goal**: Users never see a white screen crash, destructive actions always require confirmation, and form errors are clear and immediate
@@ -103,7 +104,7 @@ Phases execute in numeric order: 5 -> 5.x -> 6 -> 6.x -> 7 -> 7.x -> 8
 | 2. Data Pipeline + Contacts | v1.0 | 5/5 | Complete | 2026-03-19 |
 | 3. Outreach Engine | v1.0 | 3/3 | Complete | 2026-03-19 |
 | 4. Dashboard Intelligence | v1.0 | 2/2 | Complete | 2026-03-19 |
-| 5. Onboarding & First Impressions | v1.1 | 0/? | Not started | - |
+| 5. Onboarding & First Impressions | v1.1 | 0/3 | In progress | - |
 | 6. Safety & Resilience | v1.1 | 0/? | Not started | - |
 | 7. Navigation & Information Architecture | v1.1 | 0/? | Not started | - |
 | 8. Mobile & Accessibility | v1.1 | 0/? | Not started | - |
