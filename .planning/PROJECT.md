@@ -36,7 +36,17 @@ Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gm
 
 ### Active
 
-(No active requirements — start next milestone with `/gsd:new-milestone`)
+## Current Milestone: v1.1 Production-Grade UX/UI
+
+**Goal:** Take the app from functional prototype to production-ready quality — onboarding, error handling, navigation, accessibility, and visual polish.
+
+**Target features:**
+- New user onboarding wizard with guided setup
+- Unified empty states with actionable CTAs
+- Dark mode toggle
+- Error boundaries and confirmation dialogs
+- Breadcrumbs and pagination
+- Mobile responsiveness and accessibility
 
 ### Out of Scope
 
@@ -73,4 +83,4 @@ Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gm
 | DB-first draft persistence | Draft saved to DB before Gmail sync (best-effort) | ✓ Good |
 
 ---
-*Last updated: 2026-03-19 after v1.0 milestone*
+*Last updated: 2026-03-20 after v1.1 milestone started*
