@@ -35,10 +35,10 @@
 ### Mobile & Accessibility
 
 - [ ] **A11Y-01**: Sidebar hamburger works correctly on mobile
-- [ ] **A11Y-02**: Visible focus rings on all interactive elements
-- [ ] **A11Y-03**: ARIA labels on status dots, risk indicators, form fields, navigation landmarks
-- [ ] **A11Y-04**: Skip-to-content link for keyboard users
-- [ ] **A11Y-05**: aria-live regions for search results count and dashboard stats
+- [x] **A11Y-02**: Visible focus rings on all interactive elements
+- [x] **A11Y-03**: ARIA labels on status dots, risk indicators, form fields, navigation landmarks
+- [x] **A11Y-04**: Skip-to-content link for keyboard users
+- [x] **A11Y-05**: aria-live regions for search results count and dashboard stats
 - [ ] **A11Y-06**: Mobile layout verification — cards stack, forms single-column, buttons don't truncate
 
 ## v1.2 Requirements
@@ -84,10 +84,10 @@
 | NAV-05 | Phase 7 | Complete |
 | NAV-06 | Phase 7 | Complete |
 | A11Y-01 | Phase 8 | Pending |
-| A11Y-02 | Phase 8 | Pending |
-| A11Y-03 | Phase 8 | Pending |
-| A11Y-04 | Phase 8 | Pending |
-| A11Y-05 | Phase 8 | Pending |
+| A11Y-02 | Phase 8 | Complete |
+| A11Y-03 | Phase 8 | Complete |
+| A11Y-04 | Phase 8 | Complete |
+| A11Y-05 | Phase 8 | Complete |
 | A11Y-06 | Phase 8 | Pending |
 
 **Coverage:**
