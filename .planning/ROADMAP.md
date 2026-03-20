@@ -87,11 +87,11 @@ Plans:
   3. Screen readers announce status dots, risk indicators, form fields, and navigation landmarks with descriptive ARIA labels
   4. A keyboard user can press a skip-to-content link to bypass navigation and jump directly to the main content area
   5. On mobile, contact cards stack vertically, forms render in a single column, and no buttons are truncated or overlapping
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md -- Skip-to-content link, ARIA labels, aria-live regions, focus ring styles (A11Y-02, A11Y-03, A11Y-04, A11Y-05)
+- [ ] 08-02-PLAN.md -- Mobile layout fixes and visual verification checkpoint (A11Y-01, A11Y-06)
 
 ## Progress
 
@@ -107,7 +107,7 @@ Phases execute in numeric order: 5 -> 5.x -> 6 -> 6.x -> 7 -> 7.x -> 8
 | 5. Onboarding & First Impressions | v1.1 | 0/3 | In progress | - |
 | 6. Safety & Resilience | v1.1 | 0/2 | Not started | - |
 | 7. Navigation & Information Architecture | v1.1 | 0/2 | Not started | - |
-| 8. Mobile & Accessibility | v1.1 | 0/? | Not started | - |
+| 8. Mobile & Accessibility | v1.1 | 0/2 | Not started | - |
 
 ---
 *Full v1.0 details: .planning/milestones/v1.0-ROADMAP.md*
