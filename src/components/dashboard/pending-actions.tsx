@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface PendingAction {
   id: string;
@@ -31,12 +32,12 @@ export function PendingActions({ actions }: PendingActionsProps) {
       </CardHeader>
       <CardContent>
         {actions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-6 text-center">
-            <CheckCircle className="h-8 w-8 text-muted-foreground/50 mb-2" />
-            <p className="text-sm text-muted-foreground">
-              No pending action items
-            </p>
-          </div>
+          <EmptyState
+            compact
+            icon={CheckCircle}
+            heading="No pending actions"
+            description="All action items are complete"
+          />
         ) : (
           <div className="space-y-3">
             {displayed.map((action) => (

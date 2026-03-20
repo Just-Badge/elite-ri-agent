@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BarChart3 } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 type Period = "7d" | "30d" | "90d" | "all";
 
@@ -98,12 +99,12 @@ export function OutreachAnalytics() {
         {loading ? (
           <Skeleton className="h-[300px] w-full rounded-lg" />
         ) : isEmpty ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <BarChart3 className="h-10 w-10 text-muted-foreground/50 mb-3" />
-            <p className="text-sm text-muted-foreground">
-              No outreach data yet. Drafts will appear here once generated.
-            </p>
-          </div>
+          <EmptyState
+            compact
+            icon={BarChart3}
+            heading="No outreach data yet"
+            description="Drafts will appear here once generated"
+          />
         ) : (
           <>
             <div data-testid="analytics-chart">

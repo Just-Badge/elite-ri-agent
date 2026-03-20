@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface RiskContact {
   id: string;
@@ -31,12 +32,12 @@ export function RiskContacts({ contacts }: RiskContactsProps) {
       </CardHeader>
       <CardContent>
         {contacts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-6 text-center">
-            <CheckCircle className="h-8 w-8 text-muted-foreground/50 mb-2" />
-            <p className="text-sm text-muted-foreground">
-              No contacts at risk
-            </p>
-          </div>
+          <EmptyState
+            compact
+            icon={CheckCircle}
+            heading="No contacts at risk"
+            description="All contacts are on track"
+          />
         ) : (
           <div className="space-y-3">
             {displayed.map((contact) => (
