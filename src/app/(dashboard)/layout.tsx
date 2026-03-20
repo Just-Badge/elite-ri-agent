@@ -33,6 +33,9 @@ export default function DashboardLayout({
 }) {
   return (
     <SidebarProvider>
+      <a href="#main-content" className="skip-to-content">
+        Skip to content
+      </a>
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2 px-4 py-2">
@@ -43,6 +46,7 @@ export default function DashboardLayout({
           <SidebarGroup>
             <SidebarGroupLabel>Navigation</SidebarGroupLabel>
             <SidebarGroupContent>
+              <nav aria-label="Main navigation">
               <SidebarMenu>
                 {navItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
@@ -53,13 +57,14 @@ export default function DashboardLayout({
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
+              </nav>
             </SidebarGroupContent>
           </SidebarGroup>
           <SetupChecklist />
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4" aria-label="Top bar">
           <SidebarTrigger />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumbs />
@@ -67,7 +72,7 @@ export default function DashboardLayout({
             <ThemeToggle />
           </div>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1 p-6 outline-none">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
