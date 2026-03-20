@@ -1,7 +1,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -11,11 +10,14 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarInset,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { LayoutDashboard, Mail, Settings, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SetupChecklist } from "@/components/onboarding/setup-checklist";
+import { Separator } from "@/components/ui/separator";
+import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 
 const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -55,13 +57,16 @@ export default function DashboardLayout({
           </SidebarGroup>
           <SetupChecklist />
         </SidebarContent>
-        <SidebarFooter>
-          <div className="flex items-center justify-between px-4 py-2">
-            <ThemeToggle />
-          </div>
-        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumbs />
+          <div className="ml-auto">
+            <ThemeToggle />
+          </div>
+        </header>
         <main className="flex-1 p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>

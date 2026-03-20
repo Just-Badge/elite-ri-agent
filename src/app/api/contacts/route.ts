@@ -14,10 +14,13 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const category = searchParams.get("category");
   const search = searchParams.get("search");
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "24");
+  const offset = (page - 1) * limit;
 
   let query = supabase
     .from("contacts")
-    .select("*, action_items(id, text, completed)")
+    .select("*, action_items(id, text, completed)", { count: "exact" })
     .eq("user_id", user.id)
     .order("updated_at", { ascending: false });
 
@@ -31,13 +34,23 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { data, error } = await query;
+  query = query.range(offset, offset + limit - 1);
+
+  const { data, count, error } = await query;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ data });
+  return NextResponse.json({
+    data,
+    pagination: {
+      page,
+      limit,
+      total: count ?? 0,
+      totalPages: Math.ceil((count ?? 0) / limit),
+    },
+  });
 }
 
 export async function POST(request: NextRequest) {

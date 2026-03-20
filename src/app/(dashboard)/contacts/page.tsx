@@ -13,7 +13,7 @@ import { ContactCard } from "@/components/contacts/contact-card";
 import { computeContactRisk } from "@/lib/contacts/risk";
 import { CONTACT_CATEGORIES } from "@/lib/validations/contacts";
 import { Button } from "@/components/ui/button";
-import { Search, Users, RefreshCw } from "lucide-react";
+import { Search, Users, RefreshCw, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
@@ -42,6 +42,10 @@ export default function ContactsPage() {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalContacts, setTotalContacts] = useState(0);
 
   async function handleProcessMeetings() {
     setProcessing(true);
@@ -67,6 +71,8 @@ export default function ContactsPage() {
       const params = new URLSearchParams();
       if (search) params.set("search", search);
       if (categoryFilter) params.set("category", categoryFilter);
+      params.set("page", String(page));
+      params.set("limit", "24");
 
       const queryString = params.toString();
       const url = `/api/contacts${queryString ? `?${queryString}` : ""}`;
@@ -79,15 +85,23 @@ export default function ContactsPage() {
           needs_triage: c.ai_confidence != null && c.ai_confidence !== "manual",
         }));
         setContacts(enriched);
+        setTotalPages(json.pagination?.totalPages ?? 1);
+        setTotalContacts(json.pagination?.total ?? 0);
       }
     } catch {
       // Fetch error -- contacts remain empty
     } finally {
       setLoading(false);
+      setSearching(false);
     }
+  }, [search, categoryFilter, page]);
+
+  useEffect(() => {
+    setPage(1);
   }, [search, categoryFilter]);
 
   useEffect(() => {
+    if (search) setSearching(true);
     const timer = setTimeout(() => {
       fetchContacts();
     }, search ? 300 : 0); // Debounce search by 300ms
@@ -103,7 +117,7 @@ export default function ContactsPage() {
           <p className="text-muted-foreground">
             {loading
               ? "Loading contacts..."
-              : `${contacts.length} contact${contacts.length !== 1 ? "s" : ""}`}
+              : `${totalContacts} contact${totalContacts !== 1 ? "s" : ""}`}
           </p>
         </div>
         <Button
@@ -119,7 +133,11 @@ export default function ContactsPage() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          {searching ? (
+            <Loader2 className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground animate-spin" />
+          ) : (
+            <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          )}
           <Input
             placeholder="Search contacts..."
             value={search}
@@ -169,11 +187,37 @@ export default function ContactsPage() {
           />
         )
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {contacts.map((contact) => (
-            <ContactCard key={contact.id} contact={contact} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {contacts.map((contact) => (
+              <ContactCard key={contact.id} contact={contact} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-4 pt-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page <= 1}
+              >
+                Previous
+              </Button>
+              <span className="text-sm text-muted-foreground">
+                Page {page} of {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page >= totalPages}
+              >
+                Next
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
