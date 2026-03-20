@@ -146,7 +146,7 @@ export default function DraftsPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold tracking-tight">Draft Review</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Draft Review</h1>
           {!loading && (
             <Badge variant="secondary">{drafts.length}</Badge>
           )}

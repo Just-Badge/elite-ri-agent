@@ -4,7 +4,7 @@ export default function ScheduleSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">
+        <h1 className="text-2xl font-semibold tracking-tight">
           Processing Schedule
         </h1>
         <p className="text-muted-foreground">
