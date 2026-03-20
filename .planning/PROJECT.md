@@ -10,9 +10,11 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 
 ## Current State
 
-**v1.0 MVP shipped 2026-03-19** — 4 phases, 13 plans, 188 tests, 14,322 LOC TypeScript
+**v1.1 Production-Grade UX/UI shipped 2026-03-20** — 8 phases total (v1.0 + v1.1), 22 plans, 188 tests, 16,256 LOC TypeScript, 144 source files
 
-Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gmail API, z.ai GLM5, shadcn/ui, recharts
+Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gmail API, z.ai GLM5, shadcn/ui, recharts, next-themes
+
+Live at: https://ri.elite.community
 
 ## Requirements
 
@@ -34,19 +36,19 @@ Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gm
 - ✓ Risk indicators: contacts at risk, triage needed, pending actions — v1.0
 - ✓ Outreach analytics: drafts sent, approval rates, health trends — v1.0
 
+- ✓ Onboarding wizard with guided setup (Welcome → Granola → Profile → Process) — v1.1
+- ✓ Unified empty states with contextual CTAs across all pages — v1.1
+- ✓ Dark mode toggle with system preference default — v1.1
+- ✓ Error boundaries on all crash-prone sections — v1.1
+- ✓ AlertDialog confirmations on destructive actions — v1.1
+- ✓ Header bar with dynamic breadcrumbs — v1.1
+- ✓ Contact list pagination (24/page) — v1.1
+- ✓ Skip-to-content, ARIA labels, aria-live, focus rings — v1.1
+- ✓ Mobile responsive layout — v1.1
+
 ### Active
 
-## Current Milestone: v1.1 Production-Grade UX/UI
-
-**Goal:** Take the app from functional prototype to production-ready quality — onboarding, error handling, navigation, accessibility, and visual polish.
-
-**Target features:**
-- New user onboarding wizard with guided setup
-- Unified empty states with actionable CTAs
-- Dark mode toggle
-- Error boundaries and confirmation dialogs
-- Breadcrumbs and pagination
-- Mobile responsiveness and accessibility
+(No active requirements — start next milestone with `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -83,4 +85,4 @@ Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gm
 | DB-first draft persistence | Draft saved to DB before Gmail sync (best-effort) | ✓ Good |
 
 ---
-*Last updated: 2026-03-20 after v1.1 milestone started*
+*Last updated: 2026-03-20 after v1.1 milestone shipped*
