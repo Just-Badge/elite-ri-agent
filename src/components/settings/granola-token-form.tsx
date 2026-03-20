@@ -12,6 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 export function GranolaTokenForm() {
@@ -21,6 +28,8 @@ export function GranolaTokenForm() {
   const [saving, setSaving] = useState(false);
   const [refreshToken, setRefreshToken] = useState("");
   const [clientId, setClientId] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   useEffect(() => {
     async function checkStatus() {
@@ -45,6 +54,7 @@ export function GranolaTokenForm() {
     }
 
     setSaving(true);
+    setError(null);
     try {
       const res = await fetch("/api/granola/token", {
         method: "POST",
@@ -63,10 +73,12 @@ export function GranolaTokenForm() {
       setEditing(false);
       setRefreshToken("");
       setClientId("");
+      setError(null);
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to save Granola token"
-      );
+      const message =
+        err instanceof Error ? err.message : "Failed to save Granola token";
+      setError(message);
+      toast.error(message);
     } finally {
       setSaving(false);
     }
@@ -117,22 +129,40 @@ export function GranolaTokenForm() {
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="rounded-md bg-muted/50 p-3 text-sm text-muted-foreground">
-              <p className="font-medium text-foreground mb-1">
-                How to get your Granola token:
-              </p>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>Open the Granola desktop app</li>
-                <li>Open your browser DevTools (F12) on app.granola.so</li>
-                <li>Go to Network tab, find any API request</li>
-                <li>
-                  Copy the <code className="text-xs bg-muted px-1 rounded">Authorization: Bearer ...</code> token value
-                </li>
-                <li>
-                  For Client ID, check the OAuth/login request or local storage
-                </li>
-              </ol>
-            </div>
+            <Collapsible
+              open={instructionsOpen}
+              onOpenChange={setInstructionsOpen}
+            >
+              <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md bg-muted/50 p-3 text-sm font-medium hover:bg-muted">
+                <span>How to get your Granola credentials</span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 transition-transform duration-200",
+                    instructionsOpen && "rotate-180"
+                  )}
+                />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="rounded-b-md bg-muted/50 px-3 pb-3 text-sm text-muted-foreground">
+                  <ol className="list-decimal list-inside space-y-1">
+                    <li>Open the Granola desktop app</li>
+                    <li>Open your browser DevTools (F12) on app.granola.so</li>
+                    <li>Go to Network tab, find any API request</li>
+                    <li>
+                      Copy the{" "}
+                      <code className="text-xs bg-muted px-1 rounded">
+                        Authorization: Bearer ...
+                      </code>{" "}
+                      token value
+                    </li>
+                    <li>
+                      For Client ID, check the OAuth/login request or local
+                      storage
+                    </li>
+                  </ol>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
             <div className="space-y-2">
               <Label htmlFor="granola_refresh_token">Refresh Token</Label>
               <Input
@@ -153,6 +183,14 @@ export function GranolaTokenForm() {
                 onChange={(e) => setClientId(e.target.value)}
               />
             </div>
+            {error && (
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-destructive flex-1">{error}</p>
+                <Button variant="outline" size="sm" onClick={handleSave}>
+                  Retry
+                </Button>
+              </div>
+            )}
             <div className="flex gap-2">
               <Button onClick={handleSave} disabled={saving}>
                 {saving ? "Connecting..." : "Connect Granola"}
