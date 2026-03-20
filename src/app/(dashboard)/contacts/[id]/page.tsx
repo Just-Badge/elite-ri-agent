@@ -1,4 +1,5 @@
 import { ContactDetail } from "@/components/contacts/contact-detail";
+import { ErrorBoundary } from "@/components/error-boundary";
 
 export default async function ContactDetailPage({
   params,
@@ -8,7 +9,9 @@ export default async function ContactDetailPage({
   const { id } = await params;
   return (
     <div>
-      <ContactDetail contactId={id} />
+      <ErrorBoundary>
+        <ContactDetail contactId={id} />
+      </ErrorBoundary>
     </div>
   );
 }

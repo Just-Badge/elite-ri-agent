@@ -7,6 +7,7 @@ import { RiskContacts } from "@/components/dashboard/risk-contacts";
 import { TriageContacts } from "@/components/dashboard/triage-contacts";
 import { PendingActions } from "@/components/dashboard/pending-actions";
 import { OutreachAnalytics } from "@/components/dashboard/outreach-analytics";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { OnboardingWizard } from "@/components/onboarding/onboarding-wizard";
 import type { OnboardingStatus } from "@/lib/onboarding";
 import { AlertTriangle, Users, UserCheck, ListTodo } from "lucide-react";
@@ -183,12 +184,20 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <RiskContacts contacts={stats.at_risk_contacts} />
-        <TriageContacts contacts={stats.triage_contacts} />
-        <PendingActions actions={stats.pending_actions} />
+        <ErrorBoundary>
+          <RiskContacts contacts={stats.at_risk_contacts} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <TriageContacts contacts={stats.triage_contacts} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <PendingActions actions={stats.pending_actions} />
+        </ErrorBoundary>
       </div>
 
-      <OutreachAnalytics />
+      <ErrorBoundary>
+        <OutreachAnalytics />
+      </ErrorBoundary>
     </div>
   );
 }

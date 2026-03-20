@@ -1,6 +1,7 @@
 "use client";
 
 import { DraftCard, type DraftData } from "./draft-card";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Mail } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -38,13 +39,14 @@ export function DraftList({ drafts, loading, onSend, onDismiss, onEdit }: DraftL
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {drafts.map((draft) => (
-        <DraftCard
-          key={draft.id}
-          draft={draft}
-          onSend={onSend}
-          onDismiss={onDismiss}
-          onEdit={onEdit}
-        />
+        <ErrorBoundary key={draft.id}>
+          <DraftCard
+            draft={draft}
+            onSend={onSend}
+            onDismiss={onDismiss}
+            onEdit={onEdit}
+          />
+        </ErrorBoundary>
       ))}
     </div>
   );
