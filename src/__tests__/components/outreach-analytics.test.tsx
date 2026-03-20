@@ -81,11 +81,7 @@ describe("OutreachAnalytics", () => {
     render(<OutreachAnalytics />);
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          "No outreach data yet. Drafts will appear here once generated."
-        )
-      ).toBeDefined();
+      expect(screen.getByText("No outreach data yet")).toBeDefined();
     });
   });
 

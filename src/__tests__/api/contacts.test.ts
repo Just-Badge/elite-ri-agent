@@ -6,7 +6,7 @@ const { mockFrom, mockAuth, mockSupabase } = vi.hoisted(() => {
   // Chainable query builder mock
   const createChainableQuery = (resolvedValue: { data: unknown; error: unknown; count?: number }) => {
     const chain: Record<string, unknown> = {};
-    const methods = ["select", "insert", "update", "delete", "eq", "or", "ilike", "order", "single", "maybeSingle"];
+    const methods = ["select", "insert", "update", "delete", "eq", "or", "ilike", "order", "single", "maybeSingle", "range", "not", "is", "in", "limit"];
     for (const method of methods) {
       chain[method] = vi.fn().mockReturnValue(chain);
     }
@@ -36,13 +36,14 @@ vi.mock("@/lib/supabase/server", () => ({
 // Helper to build a chainable query that resolves to a specific value
 function mockQueryResult(result: { data: unknown; error: unknown }) {
   const chain: Record<string, unknown> = {};
-  const methods = ["select", "insert", "update", "delete", "eq", "or", "ilike", "order", "single", "maybeSingle"];
+  const methods = ["select", "insert", "update", "delete", "eq", "or", "ilike", "order", "single", "maybeSingle", "range", "not", "is", "in", "limit"];
   for (const method of methods) {
     chain[method] = vi.fn().mockReturnValue(chain);
   }
-  // Make it thenable so `await` resolves to result
+  // Make it thenable so `await` resolves to result (include count for paginated queries)
   chain.then = (resolve: (val: unknown) => void, _reject?: (val: unknown) => void) => {
-    return Promise.resolve(resolve(result));
+    const fullResult = { ...result, count: Array.isArray(result.data) ? (result.data as unknown[]).length : 0 };
+    return Promise.resolve(resolve(fullResult));
   };
   return chain;
 }

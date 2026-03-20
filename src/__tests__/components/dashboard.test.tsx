@@ -154,7 +154,7 @@ describe("DashboardPage", () => {
       expect(screen.getByText("No contacts at risk")).toBeDefined();
     });
 
-    expect(screen.getByText("All contacts reviewed")).toBeDefined();
-    expect(screen.getByText("No pending action items")).toBeDefined();
+    expect(screen.getByText("All contacts have been reviewed")).toBeDefined();
+    expect(screen.getByText("No pending actions")).toBeDefined();
   });
 });
