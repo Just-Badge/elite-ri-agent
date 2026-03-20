@@ -3,6 +3,7 @@
 import { DraftCard, type DraftData } from "./draft-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Mail } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface DraftListProps {
   drafts: DraftData[];
@@ -25,13 +26,12 @@ export function DraftList({ drafts, loading, onSend, onDismiss, onEdit }: DraftL
 
   if (drafts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <Mail className="h-12 w-12 text-muted-foreground/50 mb-4" />
-        <h3 className="text-lg font-medium">No drafts to review</h3>
-        <p className="text-sm text-muted-foreground mt-1">
-          AI-generated outreach drafts will appear here for your review.
-        </p>
-      </div>
+      <EmptyState
+        icon={Mail}
+        heading="No drafts to review"
+        description="AI-generated outreach drafts will appear here for your review."
+        action={{ label: "Set Up Outreach Schedule", href: "/settings/schedule" }}
+      />
     );
   }
 

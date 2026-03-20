@@ -13,7 +13,8 @@ import { ContactCard } from "@/components/contacts/contact-card";
 import { computeContactRisk } from "@/lib/contacts/risk";
 import { CONTACT_CATEGORIES } from "@/lib/validations/contacts";
 import { Button } from "@/components/ui/button";
-import { Search, Loader2, RefreshCw } from "lucide-react";
+import { Search, Users, RefreshCw } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 
@@ -153,15 +154,20 @@ export default function ContactsPage() {
           ))}
         </div>
       ) : contacts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 text-center">
-          <Loader2 className="h-12 w-12 text-muted-foreground/50 mb-4" />
-          <h3 className="text-lg font-medium">No contacts found</h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            {search || categoryFilter
-              ? "Try adjusting your search or filter criteria."
-              : "Import contacts from meetings or add them manually."}
-          </p>
-        </div>
+        search || categoryFilter ? (
+          <EmptyState
+            icon={Search}
+            heading="No contacts found"
+            description="Try adjusting your search or filter criteria."
+          />
+        ) : (
+          <EmptyState
+            icon={Users}
+            heading="No contacts yet"
+            description="Process your first meetings to start building your network."
+            action={{ label: "Process Meetings", href: "/settings/integrations" }}
+          />
+        )
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {contacts.map((contact) => (
