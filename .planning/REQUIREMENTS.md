@@ -27,9 +27,9 @@
 
 - [ ] **NAV-01**: Top header bar in dashboard layout with SidebarTrigger, breadcrumbs, theme toggle
 - [ ] **NAV-02**: Dynamic breadcrumb component (Contacts > Contact Name, Settings > Integrations)
-- [ ] **NAV-03**: Contact list pagination at 24 per page with shadcn Pagination component
-- [ ] **NAV-04**: Search spinner inside input during debounce/fetch
-- [ ] **NAV-05**: Tooltip explanations on draft sync status dots
+- [x] **NAV-03**: Contact list pagination at 24 per page with shadcn Pagination component
+- [x] **NAV-04**: Search spinner inside input during debounce/fetch
+- [x] **NAV-05**: Tooltip explanations on draft sync status dots
 - [ ] **NAV-06**: Typography hierarchy standardized across all pages
 
 ### Mobile & Accessibility
@@ -79,9 +79,9 @@
 | SAFE-06 | Phase 6 | Complete |
 | NAV-01 | Phase 7 | Pending |
 | NAV-02 | Phase 7 | Pending |
-| NAV-03 | Phase 7 | Pending |
-| NAV-04 | Phase 7 | Pending |
-| NAV-05 | Phase 7 | Pending |
+| NAV-03 | Phase 7 | Complete |
+| NAV-04 | Phase 7 | Complete |
+| NAV-05 | Phase 7 | Complete |
 | NAV-06 | Phase 7 | Pending |
 | A11Y-01 | Phase 8 | Pending |
 | A11Y-02 | Phase 8 | Pending |
