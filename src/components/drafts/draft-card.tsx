@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SYNC_STATUS_STYLES } from "@/lib/constants/status-styles";
 import { Send, Pencil, Trash2 } from "lucide-react";
 
 export interface DraftData {
@@ -29,12 +30,6 @@ interface DraftCardProps {
   onDismiss: (id: string) => void;
   onEdit: (draft: DraftData) => void;
 }
-
-const SYNC_STATUS_STYLES: Record<string, { dot: string; label: string }> = {
-  synced: { dot: "bg-green-500", label: "Synced" },
-  pending: { dot: "bg-yellow-500", label: "Pending" },
-  failed: { dot: "bg-red-500", label: "Failed" },
-};
 
 const STATUS_BADGE_VARIANT: Record<string, "default" | "secondary" | "outline"> = {
   sent: "default",

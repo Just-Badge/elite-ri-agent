@@ -37,6 +37,7 @@ import {
   UserPlus,
   Briefcase,
 } from "lucide-react";
+import { STATUS_COLORS } from "@/lib/constants/status-styles";
 import type { ContactFormValues } from "@/lib/validations/contacts";
 
 interface ContactData {
@@ -78,12 +79,6 @@ interface ContactData {
 interface ContactDetailProps {
   contactId: string;
 }
-
-const STATUS_COLORS: Record<string, string> = {
-  active: "bg-green-500",
-  dormant: "bg-gray-400",
-  not_pursuing: "bg-red-500",
-};
 
 export function ContactDetail({ contactId }: ContactDetailProps) {
   const router = useRouter();

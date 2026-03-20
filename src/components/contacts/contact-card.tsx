@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { STATUS_COLORS, RISK_BORDER } from "@/lib/constants/status-styles";
 import { Mail, Building2 } from "lucide-react";
 
 interface ContactCardProps {
@@ -29,17 +30,6 @@ interface ContactCardProps {
     needs_triage?: boolean;
   };
 }
-
-const STATUS_COLORS: Record<string, string> = {
-  active: "bg-green-500",
-  dormant: "bg-gray-400",
-  not_pursuing: "bg-red-500",
-};
-
-const RISK_BORDER: Record<string, string> = {
-  critical: "border-l-4 border-l-red-500",
-  warning: "border-l-4 border-l-amber-500",
-};
 
 export function ContactCard({ contact }: ContactCardProps) {
   const incompleteItems =
