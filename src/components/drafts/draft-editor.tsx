@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { draftUpdateSchema } from "@/lib/validations/drafts";
+import { focusFirstError } from "@/lib/utils/focus-first-error";
 import type { z } from "zod";
 
 type DraftUpdateData = z.infer<typeof draftUpdateSchema>;
@@ -72,7 +73,7 @@ export function DraftEditor({ draft, open, onClose, onSave }: DraftEditorProps) 
         </SheetHeader>
 
         {draft && (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-4 py-4">
+          <form onSubmit={handleSubmit(onSubmit, () => focusFirstError(errors))} className="space-y-4 px-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="draft-subject">Subject</Label>
               <Input

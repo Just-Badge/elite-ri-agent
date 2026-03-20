@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { focusFirstError } from "@/lib/utils/focus-first-error";
 
 interface ContactFormProps {
   contact: ContactFormValues & { id: string; status?: string };
@@ -56,7 +57,7 @@ export function ContactForm({ contact, onSave, saving }: ContactFormProps) {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSave)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSave, () => focusFirstError(errors))} className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>

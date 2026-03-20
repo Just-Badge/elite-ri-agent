@@ -23,6 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { focusFirstError } from "@/lib/utils/focus-first-error";
 import { toast } from "sonner";
 
 const INTERVAL_OPTIONS = [1, 2, 4, 6, 8, 12, 24];
@@ -131,7 +132,7 @@ export function ScheduleForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit, () => focusFirstError(errors))} className="space-y-6">
           <div className="space-y-2">
             <Label>Check for new meetings every</Label>
             <Controller
