@@ -11,7 +11,7 @@
 - [ ] **ONBD-02**: Setup checklist persists in sidebar until all steps complete
 - [ ] **ONBD-03**: Granola connection instructions improved with clearer step-by-step guidance
 - [ ] **ONBD-04**: Unified empty state component used across all pages (icon + title + description + CTA button)
-- [ ] **ONBD-05**: Dark mode toggle in sidebar using next-themes ThemeProvider
+- [x] **ONBD-05**: Dark mode toggle in sidebar using next-themes ThemeProvider
 - [ ] **ONBD-06**: All async pages use shaped Skeleton loading states (fix contact detail raw animate-pulse)
 
 ### Safety & Resilience
@@ -69,7 +69,7 @@
 | ONBD-02 | Phase 5 | Pending |
 | ONBD-03 | Phase 5 | Pending |
 | ONBD-04 | Phase 5 | Pending |
-| ONBD-05 | Phase 5 | Pending |
+| ONBD-05 | Phase 5 | Complete |
 | ONBD-06 | Phase 5 | Pending |
 | SAFE-01 | Phase 6 | Pending |
 | SAFE-02 | Phase 6 | Pending |
