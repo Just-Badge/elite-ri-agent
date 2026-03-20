@@ -39,7 +39,7 @@ export function ContactCard({ contact }: ContactCardProps) {
 
   return (
     <Link href={`/contacts/${contact.id}`} className="block">
-      <Card className={cn("transition-shadow hover:shadow-md cursor-pointer h-full", riskBorder)}>
+      <Card className={cn("transition-shadow hover:shadow-md cursor-pointer h-full", riskBorder)} aria-label={contact.risk_level && contact.risk_level !== "healthy" ? `${contact.name} - ${contact.risk_level} risk` : contact.name}>
         <CardHeader>
           <div className="flex items-center gap-2">
             <span
@@ -56,7 +56,7 @@ export function ContactCard({ contact }: ContactCardProps) {
           {(contact.company || contact.role) && (
             <CardDescription>
               <span className="flex items-center gap-1">
-                <Building2 className="h-3 w-3" />
+                <Building2 className="h-3 w-3" aria-hidden="true" />
                 {[contact.company, contact.role].filter(Boolean).join(" - ")}
               </span>
             </CardDescription>
@@ -65,7 +65,7 @@ export function ContactCard({ contact }: ContactCardProps) {
         <CardContent className="space-y-2">
           {contact.email && (
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <Mail className="h-3 w-3" />
+              <Mail className="h-3 w-3" aria-hidden="true" />
               {contact.email}
             </div>
           )}

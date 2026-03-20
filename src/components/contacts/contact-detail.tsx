@@ -322,31 +322,31 @@ export function ContactDetail({ contactId }: ContactDetailProps) {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {contact.email && (
                 <div className="flex items-center gap-2 text-sm">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <Mail className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   <span>{contact.email}</span>
                 </div>
               )}
               {contact.company && (
                 <div className="flex items-center gap-2 text-sm">
-                  <Building2 className="h-4 w-4 text-muted-foreground" />
+                  <Building2 className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   <span>{contact.company}</span>
                 </div>
               )}
               {contact.role && (
                 <div className="flex items-center gap-2 text-sm">
-                  <Briefcase className="h-4 w-4 text-muted-foreground" />
+                  <Briefcase className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   <span>{contact.role}</span>
                 </div>
               )}
               {contact.location && (
                 <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <MapPin className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   <span>{contact.location}</span>
                 </div>
               )}
               {contact.connected_via && (
                 <div className="flex items-center gap-2 text-sm">
-                  <UserPlus className="h-4 w-4 text-muted-foreground" />
+                  <UserPlus className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   <span>{contact.connected_via}</span>
                 </div>
               )}

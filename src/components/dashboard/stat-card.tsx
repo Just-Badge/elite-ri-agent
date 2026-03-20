@@ -33,6 +33,7 @@ export function StatCard({
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted",
             variantStyles[variant]
           )}
+          aria-hidden="true"
         >
           <Icon className="h-5 w-5" />
         </div>

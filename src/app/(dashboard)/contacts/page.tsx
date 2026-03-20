@@ -114,7 +114,7 @@ export default function ContactsPage() {
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Contacts</h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground" aria-live="polite">
             {loading
               ? "Loading contacts..."
               : `${totalContacts} contact${totalContacts !== 1 ? "s" : ""}`}
@@ -143,6 +143,7 @@ export default function ContactsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-8"
+            aria-label="Search contacts"
           />
         </div>
         <Select
@@ -151,7 +152,7 @@ export default function ContactsPage() {
             setCategoryFilter(val === "all" ? null : val)
           }
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px]" aria-label="Filter by category">
             <SelectValue placeholder="All categories" />
           </SelectTrigger>
           <SelectContent>

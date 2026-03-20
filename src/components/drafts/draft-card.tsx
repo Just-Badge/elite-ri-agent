@@ -109,6 +109,7 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
             <Button
               size="sm"
               onClick={() => onSend(draft.id)}
+              aria-label={`Send email to ${draft.contacts?.name ?? "contact"}`}
             >
               <Send className="h-3.5 w-3.5 mr-1" />
               Send
@@ -117,6 +118,7 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
               size="sm"
               variant="outline"
               onClick={() => onEdit(draft)}
+              aria-label={`Edit draft for ${draft.contacts?.name ?? "contact"}`}
             >
               <Pencil className="h-3.5 w-3.5 mr-1" />
               Edit
@@ -126,6 +128,7 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
               variant="ghost"
               className="text-destructive"
               onClick={() => onDismiss(draft.id)}
+              aria-label={`Dismiss draft for ${draft.contacts?.name ?? "contact"}`}
             >
               <Trash2 className="h-3.5 w-3.5 mr-1" />
               Dismiss
