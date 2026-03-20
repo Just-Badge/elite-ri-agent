@@ -55,11 +55,11 @@ Plans:
   3. Dismissing a draft or sending a draft always shows an AlertDialog confirmation that the user must explicitly accept before the action proceeds
   4. All forms (settings, profile, contact edit) show inline validation errors next to the offending field on submit, and focus moves to the first error
   5. Status colors, risk indicator borders, and sync status styles are driven by a single shared constants file so visual changes propagate everywhere
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md -- Centralize status constants + AlertDialog confirmations for contact delete, draft dismiss, draft send (SAFE-06, SAFE-03, SAFE-04)
+- [ ] 06-02-PLAN.md -- Error boundaries for widgets/detail/drafts + error/not-found pages + focus-on-first-error forms (SAFE-01, SAFE-02, SAFE-05)
 
 ### Phase 7: Navigation & Information Architecture
 **Goal**: Users can orient themselves at any depth in the app, find contacts efficiently at scale, and experience consistent visual hierarchy
@@ -105,7 +105,7 @@ Phases execute in numeric order: 5 -> 5.x -> 6 -> 6.x -> 7 -> 7.x -> 8
 | 3. Outreach Engine | v1.0 | 3/3 | Complete | 2026-03-19 |
 | 4. Dashboard Intelligence | v1.0 | 2/2 | Complete | 2026-03-19 |
 | 5. Onboarding & First Impressions | v1.1 | 0/3 | In progress | - |
-| 6. Safety & Resilience | v1.1 | 0/? | Not started | - |
+| 6. Safety & Resilience | v1.1 | 0/2 | Not started | - |
 | 7. Navigation & Information Architecture | v1.1 | 0/? | Not started | - |
 | 8. Mobile & Accessibility | v1.1 | 0/? | Not started | - |
 
