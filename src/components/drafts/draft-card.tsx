@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SYNC_STATUS_STYLES } from "@/lib/constants/status-styles";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Send, Pencil, Trash2 } from "lucide-react";
 
 export interface DraftData {
@@ -44,6 +45,7 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
   const syncInfo = SYNC_STATUS_STYLES[draft.gmail_sync_status ?? ""] ?? {
     dot: "bg-gray-400",
     label: draft.gmail_sync_status ?? "Unknown",
+    description: "Sync status unknown",
   };
 
   const bodyPreview = stripHtml(draft.body).slice(0, 200);
@@ -61,13 +63,20 @@ export function DraftCard({ draft, onSend, onDismiss, onEdit }: DraftCardProps) 
               <CardDescription>{draft.contacts.email}</CardDescription>
             )}
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <span
-              className={`inline-block h-2 w-2 rounded-full ${syncInfo.dot}`}
-              aria-label={`Gmail sync: ${syncInfo.label}`}
-            />
-            <span>{syncInfo.label}</span>
-          </div>
+          <Tooltip>
+            <TooltipTrigger>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-help">
+                <span
+                  className={`inline-block h-2 w-2 rounded-full ${syncInfo.dot}`}
+                  aria-label={`Gmail sync: ${syncInfo.label}`}
+                />
+                <span>{syncInfo.label}</span>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {syncInfo.description}
+            </TooltipContent>
+          </Tooltip>
         </div>
         <p className="text-sm font-medium mt-1">{draft.subject}</p>
       </CardHeader>

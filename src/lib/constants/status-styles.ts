@@ -16,8 +16,8 @@ export const RISK_BORDER: Record<string, string> = {
   warning: "border-l-4 border-l-amber-500",
 };
 
-export const SYNC_STATUS_STYLES: Record<string, { dot: string; label: string }> = {
-  synced: { dot: "bg-green-500", label: "Synced" },
-  pending: { dot: "bg-yellow-500", label: "Pending" },
-  failed: { dot: "bg-red-500", label: "Failed" },
+export const SYNC_STATUS_STYLES: Record<string, { dot: string; label: string; description: string }> = {
+  synced: { dot: "bg-green-500", label: "Synced", description: "This draft is synced with your Gmail drafts folder" },
+  pending: { dot: "bg-yellow-500", label: "Pending", description: "Waiting to sync with Gmail" },
+  failed: { dot: "bg-red-500", label: "Failed", description: "Failed to sync with Gmail -- will retry automatically" },
 };
