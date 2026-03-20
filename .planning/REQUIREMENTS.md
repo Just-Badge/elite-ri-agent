@@ -16,11 +16,11 @@
 
 ### Safety & Resilience
 
-- [ ] **SAFE-01**: Error boundary component wraps major page sections (dashboard widgets, contact detail, draft list)
-- [ ] **SAFE-02**: Next.js error.tsx and not-found.tsx pages for dashboard route group
+- [x] **SAFE-01**: Error boundary component wraps major page sections (dashboard widgets, contact detail, draft list)
+- [x] **SAFE-02**: Next.js error.tsx and not-found.tsx pages for dashboard route group
 - [x] **SAFE-03**: AlertDialog confirmation on draft dismiss and draft send
 - [x] **SAFE-04**: Contact delete migrated from Dialog to AlertDialog (proper focus trap)
-- [ ] **SAFE-05**: All form fields show inline validation errors on submit with focus-on-first-error
+- [x] **SAFE-05**: All form fields show inline validation errors on submit with focus-on-first-error
 - [x] **SAFE-06**: Status colors, risk borders, sync styles centralized into single constants file
 
 ### Navigation & Information Architecture
@@ -71,11 +71,11 @@
 | ONBD-04 | Phase 5 | Complete |
 | ONBD-05 | Phase 5 | Complete |
 | ONBD-06 | Phase 5 | Complete |
-| SAFE-01 | Phase 6 | Pending |
-| SAFE-02 | Phase 6 | Pending |
+| SAFE-01 | Phase 6 | Complete |
+| SAFE-02 | Phase 6 | Complete |
 | SAFE-03 | Phase 6 | Complete |
 | SAFE-04 | Phase 6 | Complete |
-| SAFE-05 | Phase 6 | Pending |
+| SAFE-05 | Phase 6 | Complete |
 | SAFE-06 | Phase 6 | Complete |
 | NAV-01 | Phase 7 | Pending |
 | NAV-02 | Phase 7 | Pending |
