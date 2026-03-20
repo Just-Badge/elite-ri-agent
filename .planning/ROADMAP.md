@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 MVP** - Phases 1-4 (shipped 2026-03-19)
-- 🚧 **v1.1 Production-Grade UX/UI** - Phases 5-8 (in progress)
+- ✅ **v1.1 Production-Grade UX/UI** - Phases 5-8 (shipped 2026-03-20)
 
 ## Phases
 
@@ -17,14 +17,14 @@
 
 </details>
 
-### v1.1 Production-Grade UX/UI (In Progress)
+### v1.1 Production-Grade UX/UI (SHIPPED 2026-03-20)
 
 **Milestone Goal:** Take the app from functional prototype to production-ready quality -- every user interaction should feel polished, guided, and resilient.
 
-- [ ] **Phase 5: Onboarding & First Impressions** - New users get a guided setup experience with polished loading and theming
-- [ ] **Phase 6: Safety & Resilience** - Errors are caught gracefully, destructive actions require confirmation, forms validate inline
-- [ ] **Phase 7: Navigation & Information Architecture** - Dashboard has proper header, breadcrumbs, pagination, and visual hierarchy
-- [ ] **Phase 8: Mobile & Accessibility** - App is usable on mobile and navigable by keyboard/screen reader
+- [x] **Phase 5: Onboarding & First Impressions** - New users get a guided setup experience with polished loading and theming
+- [x] **Phase 6: Safety & Resilience** - Errors are caught gracefully, destructive actions require confirmation, forms validate inline
+- [x] **Phase 7: Navigation & Information Architecture** - Dashboard has proper header, breadcrumbs, pagination, and visual hierarchy
+- [x] **Phase 8: Mobile & Accessibility** - App is usable on mobile and navigable by keyboard/screen reader
 
 ## Phase Details
 
@@ -41,9 +41,9 @@
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md -- Dark mode: ThemeProvider + sidebar toggle (ONBD-05)
-- [ ] 05-02-PLAN.md -- Empty states + skeleton loading polish (ONBD-04, ONBD-06)
-- [ ] 05-03-PLAN.md -- Onboarding wizard, sidebar checklist, Granola instructions (ONBD-01, ONBD-02, ONBD-03)
+- [x] 05-01-PLAN.md -- Dark mode: ThemeProvider + sidebar toggle (ONBD-05)
+- [x] 05-02-PLAN.md -- Empty states + skeleton loading polish (ONBD-04, ONBD-06)
+- [x] 05-03-PLAN.md -- Onboarding wizard, sidebar checklist, Granola instructions (ONBD-01, ONBD-02, ONBD-03)
 
 ### Phase 6: Safety & Resilience
 **Goal**: Users never see a white screen crash, destructive actions always require confirmation, and form errors are clear and immediate
@@ -58,8 +58,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md -- Centralize status constants + AlertDialog confirmations for contact delete, draft dismiss, draft send (SAFE-06, SAFE-03, SAFE-04)
-- [ ] 06-02-PLAN.md -- Error boundaries for widgets/detail/drafts + error/not-found pages + focus-on-first-error forms (SAFE-01, SAFE-02, SAFE-05)
+- [x] 06-01-PLAN.md -- Centralize status constants + AlertDialog confirmations for contact delete, draft dismiss, draft send (SAFE-06, SAFE-03, SAFE-04)
+- [x] 06-02-PLAN.md -- Error boundaries for widgets/detail/drafts + error/not-found pages + focus-on-first-error forms (SAFE-01, SAFE-02, SAFE-05)
 
 ### Phase 7: Navigation & Information Architecture
 **Goal**: Users can orient themselves at any depth in the app, find contacts efficiently at scale, and experience consistent visual hierarchy
@@ -74,8 +74,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md -- Header bar with breadcrumbs + theme toggle relocation + typography standardization (NAV-01, NAV-02, NAV-06)
-- [ ] 07-02-PLAN.md -- Contact pagination + search spinner + sync status tooltips (NAV-03, NAV-04, NAV-05)
+- [x] 07-01-PLAN.md -- Header bar with breadcrumbs + theme toggle relocation + typography standardization (NAV-01, NAV-02, NAV-06)
+- [x] 07-02-PLAN.md -- Contact pagination + search spinner + sync status tooltips (NAV-03, NAV-04, NAV-05)
 
 ### Phase 8: Mobile & Accessibility
 **Goal**: The app is fully usable on mobile screens and navigable by keyboard and screen reader users
@@ -90,8 +90,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md -- Skip-to-content link, ARIA labels, aria-live regions, focus ring styles (A11Y-02, A11Y-03, A11Y-04, A11Y-05)
-- [ ] 08-02-PLAN.md -- Mobile layout fixes and visual verification checkpoint (A11Y-01, A11Y-06)
+- [x] 08-01-PLAN.md -- Skip-to-content link, ARIA labels, aria-live regions, focus ring styles (A11Y-02, A11Y-03, A11Y-04, A11Y-05)
+- [x] 08-02-PLAN.md -- Mobile layout fixes and visual verification checkpoint (A11Y-01, A11Y-06)
 
 ## Progress
 
@@ -104,10 +104,10 @@ Phases execute in numeric order: 5 -> 5.x -> 6 -> 6.x -> 7 -> 7.x -> 8
 | 2. Data Pipeline + Contacts | v1.0 | 5/5 | Complete | 2026-03-19 |
 | 3. Outreach Engine | v1.0 | 3/3 | Complete | 2026-03-19 |
 | 4. Dashboard Intelligence | v1.0 | 2/2 | Complete | 2026-03-19 |
-| 5. Onboarding & First Impressions | v1.1 | 0/3 | In progress | - |
-| 6. Safety & Resilience | v1.1 | 0/2 | Not started | - |
-| 7. Navigation & Information Architecture | v1.1 | 0/2 | Not started | - |
-| 8. Mobile & Accessibility | v1.1 | 0/2 | Not started | - |
+| 5. Onboarding & First Impressions | v1.1 | 3/3 | Complete | 2026-03-20 |
+| 6. Safety & Resilience | v1.1 | 2/2 | Complete | 2026-03-20 |
+| 7. Navigation & Information Architecture | v1.1 | 2/2 | Complete | 2026-03-20 |
+| 8. Mobile & Accessibility | v1.1 | 2/2 | Complete | 2026-03-20 |
 
 ---
 *Full v1.0 details: .planning/milestones/v1.0-ROADMAP.md*
