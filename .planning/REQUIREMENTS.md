@@ -10,9 +10,9 @@
 - [ ] **QUAL-01**: TypeScript strict mode enabled with zero build errors
 - [ ] **QUAL-02**: `ignoreBuildErrors` and `ignoreDuringBuilds` removed from next.config.ts
 - [ ] **QUAL-03**: All `any` types replaced with proper type annotations
-- [ ] **QUAL-04**: Standardized API error helpers (`apiError`, `apiUnauthorized`, `apiValidationError`)
+- [x] **QUAL-04**: Standardized API error helpers (`apiError`, `apiUnauthorized`, `apiValidationError`)
 - [ ] **QUAL-05**: All API routes use error helpers instead of inline `NextResponse.json({ error })`
-- [ ] **QUAL-06**: Environment variable validation module that checks all required vars on import
+- [x] **QUAL-06**: Environment variable validation module that checks all required vars on import
 - [ ] **QUAL-07**: GitHub Actions CI/CD pipeline (lint + build + test on push/PR)
 
 ## Out of Scope
@@ -31,9 +31,9 @@
 | QUAL-01 | Phase 9 | Pending |
 | QUAL-02 | Phase 9 | Pending |
 | QUAL-03 | Phase 9 | Pending |
-| QUAL-04 | Phase 9 | Pending |
+| QUAL-04 | Phase 9 | Complete |
 | QUAL-05 | Phase 9 | Pending |
-| QUAL-06 | Phase 9 | Pending |
+| QUAL-06 | Phase 9 | Complete |
 | QUAL-07 | Phase 9 | Pending |
 
 **Coverage:**
