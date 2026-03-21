@@ -12,7 +12,7 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { GranolaAdapter, GranolaMeeting, GranolaParticipant } from "./adapter";
 
-const GRANOLA_MCP_URL = "https://mcp.granola.ai";
+const GRANOLA_MCP_URL = "https://mcp.granola.ai/mcp";
 
 /**
  * Parse participant string from MCP response.
