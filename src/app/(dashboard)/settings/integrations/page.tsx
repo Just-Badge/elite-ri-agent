@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import { IntegrationStatus } from "@/components/settings/integration-status";
 import { ApiKeyForm } from "@/components/settings/api-key-form";
-import { GranolaTokenForm } from "@/components/settings/granola-token-form";
+import { GranolaConnect } from "@/components/settings/granola-connect";
 
 export default function IntegrationsPage() {
   return (
@@ -12,7 +13,9 @@ export default function IntegrationsPage() {
         </p>
       </div>
       <IntegrationStatus />
-      <GranolaTokenForm />
+      <Suspense>
+        <GranolaConnect />
+      </Suspense>
       <ApiKeyForm />
     </div>
   );
