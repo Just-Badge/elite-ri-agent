@@ -45,12 +45,12 @@
   2. All API routes use standardized error helpers — zero inline `NextResponse.json({ error })` patterns remain
   3. Missing a required environment variable causes a clear, descriptive error on server startup
   4. Every push to master triggers a GitHub Actions CI pipeline that runs build + tests
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
-- [ ] 09-03: TBD
+- [ ] 09-01-PLAN.md — Fix TypeScript errors, remove build escape hatches, eliminate `any` types
+- [ ] 09-02-PLAN.md — Create API error helpers and env validation module
+- [ ] 09-03-PLAN.md — Migrate API routes to error helpers, create CI/CD pipeline
 
 ## Progress
 
@@ -58,7 +58,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 1-4 | v1.0 | 13/13 | Complete | 2026-03-19 |
 | 5-8 | v1.1 | 9/9 | Complete | 2026-03-20 |
-| 9 | v1.2 | 0/? | Not started | — |
+| 9 | v1.2 | 0/3 | Not started | — |
 
 ---
 *Full v1.0 details: .planning/milestones/v1.0-ROADMAP.md*
