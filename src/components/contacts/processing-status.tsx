@@ -7,16 +7,19 @@ import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 interface ProcessingStatusProps {
   runId: string;
   publicToken: string;
+  baseURL?: string;
   onComplete: () => void;
 }
 
 export function ProcessingStatus({
   runId,
   publicToken,
+  baseURL,
   onComplete,
 }: ProcessingStatusProps) {
   const { run, error } = useRealtimeRun<typeof syncGranolaMeetings>(runId, {
     accessToken: publicToken,
+    baseURL,
     onComplete: () => {
       // Auto-refresh contacts after processing completes
       setTimeout(onComplete, 500);

@@ -45,6 +45,7 @@ export default function ContactsPage() {
   const [processing, setProcessing] = useState(false);
   const [runId, setRunId] = useState<string | null>(null);
   const [publicToken, setPublicToken] = useState<string | null>(null);
+  const [triggerApiUrl, setTriggerApiUrl] = useState<string | undefined>();
   const [searching, setSearching] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -63,6 +64,7 @@ export default function ContactsPage() {
       const data = await res.json();
       setRunId(data.runId);
       setPublicToken(data.publicToken);
+      setTriggerApiUrl(data.apiUrl);
     } catch (err) {
       toast.error(
         err instanceof Error ? err.message : "Failed to trigger processing"
@@ -146,6 +148,7 @@ export default function ContactsPage() {
         <ProcessingStatus
           runId={runId}
           publicToken={publicToken}
+          baseURL={triggerApiUrl}
           onComplete={handleProcessingComplete}
         />
       )}

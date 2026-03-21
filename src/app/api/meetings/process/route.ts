@@ -38,6 +38,7 @@ export async function POST() {
     return NextResponse.json({
       runId: handle.id,
       publicToken,
+      apiUrl: process.env.TRIGGER_API_URL,
       status: "triggered",
     });
   } catch (err) {
