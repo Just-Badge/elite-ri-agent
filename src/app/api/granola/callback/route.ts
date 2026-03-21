@@ -82,8 +82,13 @@ export async function GET(request: NextRequest) {
     );
 
     // Store encrypted tokens
+    // IMPORTANT: Set granola_client_id so the processing pipeline's
+    // getOrRefreshAccessToken() can find the client ID for token refresh.
+    // The OAuth flow stores DCR credentials in granola_oauth_client_id,
+    // but the refresh flow reads granola_client_id.
     const updateData: Record<string, string | null> = {
       granola_access_token_encrypted: encrypt(tokenResponse.access_token),
+      granola_client_id: settings.granola_oauth_client_id,
       granola_token_status: "active",
       updated_at: new Date().toISOString(),
     };

@@ -44,7 +44,7 @@ export async function refreshGranolaToken(
   // The old one is now INVALID -- if we lose this new token, the
   // user must re-authenticate from the Granola desktop app.
   const supabase = createAdminClient();
-  await supabase
+  const { error: updateError } = await supabase
     .from("user_settings")
     .update({
       granola_refresh_token_encrypted: encrypt(data.refresh_token),
@@ -53,6 +53,17 @@ export async function refreshGranolaToken(
       updated_at: new Date().toISOString(),
     })
     .eq("user_id", userId);
+
+  if (updateError) {
+    // This is catastrophic -- the old refresh token is already invalidated
+    // by WorkOS, but we failed to save the new one. Log prominently.
+    console.error(
+      `CRITICAL: Failed to persist new Granola refresh token for user ${userId}. ` +
+      `Token rotation succeeded at WorkOS but DB update failed: ${updateError.message}. ` +
+      `User will need to re-authenticate via Granola.`
+    );
+    throw new Error(`Failed to persist rotated refresh token: ${updateError.message}`);
+  }
 
   return {
     access_token: data.access_token,

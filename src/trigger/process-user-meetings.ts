@@ -79,6 +79,15 @@ export async function upsertExtractedContacts(
         )
       : null;
 
+    // Serialize relationship_context object to text for DB storage
+    const relationshipText = extracted.relationship_context
+      ? [
+          extracted.relationship_context.why && `Why: ${extracted.relationship_context.why}`,
+          extracted.relationship_context.what && `What: ${extracted.relationship_context.what}`,
+          extracted.relationship_context.mutual_value && `Mutual Value: ${extracted.relationship_context.mutual_value}`,
+        ].filter(Boolean).join("\n") || null
+      : null;
+
     if (emailMatch) {
       // UPDATE existing contact -- merge non-null extracted fields
       const updateFields: Record<string, unknown> = {};
@@ -87,7 +96,7 @@ export async function upsertExtractedContacts(
       if (extracted.location) updateFields.location = extracted.location;
       if (extracted.category) updateFields.category = extracted.category;
       if (extracted.background) updateFields.background = extracted.background;
-      if (extracted.relationship_context) updateFields.relationship_context = extracted.relationship_context;
+      if (relationshipText) updateFields.relationship_context = relationshipText;
       if (extracted.notes) updateFields.notes = extracted.notes;
       updateFields.updated_at = new Date().toISOString();
       updateFields.last_interaction_at = new Date().toISOString();
@@ -121,8 +130,8 @@ export async function upsertExtractedContacts(
           if (!fullContact.location && extracted.location) cautionUpdate.location = extracted.location;
           if (!fullContact.category && extracted.category) cautionUpdate.category = extracted.category;
           if (!fullContact.background && extracted.background) cautionUpdate.background = extracted.background;
-          if (!fullContact.relationship_context && extracted.relationship_context) {
-            cautionUpdate.relationship_context = extracted.relationship_context;
+          if (!fullContact.relationship_context && relationshipText) {
+            cautionUpdate.relationship_context = relationshipText;
           }
           if (!fullContact.notes && extracted.notes) cautionUpdate.notes = extracted.notes;
           cautionUpdate.updated_at = new Date().toISOString();
@@ -152,7 +161,7 @@ export async function upsertExtractedContacts(
             location: extracted.location || null,
             category: extracted.category || null,
             background: extracted.background || null,
-            relationship_context: extracted.relationship_context || null,
+            relationship_context: relationshipText,
             notes: extracted.notes || null,
             status: "active",
             ai_confidence: extracted.confidence,
@@ -186,7 +195,7 @@ export async function upsertExtractedContacts(
           location: extracted.location || null,
           category: extracted.category || null,
           background: extracted.background || null,
-          relationship_context: extracted.relationship_context || null,
+          relationship_context: relationshipText,
           notes: extracted.notes || null,
           status: "active",
           ai_confidence: extracted.confidence,
