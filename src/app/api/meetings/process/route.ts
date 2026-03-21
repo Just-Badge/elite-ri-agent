@@ -14,6 +14,13 @@ export async function POST() {
     return apiUnauthorized();
   }
 
+  if (!process.env.TRIGGER_SECRET_KEY) {
+    return apiError(
+      "Trigger.dev is not configured. Add TRIGGER_SECRET_KEY to environment variables.",
+      503
+    );
+  }
+
   try {
     const handle = await tasks.trigger<typeof processUserMeetings>(
       "process-user-meetings",
@@ -25,8 +32,9 @@ export async function POST() {
       status: "triggered",
     });
   } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
     return apiError(
-      "Failed to trigger meeting processing",
+      `Failed to trigger meeting processing: ${message}`,
       500
     );
   }

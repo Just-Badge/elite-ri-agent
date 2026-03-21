@@ -18,6 +18,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { SetupChecklist } from "@/components/onboarding/setup-checklist";
 import { Separator } from "@/components/ui/separator";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
+import { UserMenu } from "@/components/user-menu";
 
 const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -70,8 +71,9 @@ export default function DashboardLayout({
           <div className="min-w-0 flex-1">
             <Breadcrumbs />
           </div>
-          <div className="ml-auto shrink-0">
+          <div className="ml-auto shrink-0 flex items-center gap-1">
             <ThemeToggle />
+            <UserMenu />
           </div>
         </header>
         <main id="main-content" tabIndex={-1} className="flex-1 p-4 sm:p-6 outline-none">{children}</main>

@@ -1,7 +1,7 @@
 import { defineConfig } from "@trigger.dev/sdk";
 
 export default defineConfig({
-  project: "elite-ri-agent",
+  project: "proj_ypkkiuxtgbzniebqqawo",
   dirs: ["./src/trigger"],
   runtime: "node",
   logLevel: "info",
