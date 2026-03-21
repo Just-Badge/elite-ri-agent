@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { encrypt } from "@/lib/crypto/encryption";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { appUrl } from "@/lib/url";
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
@@ -61,10 +62,10 @@ export async function GET(request: Request) {
           { onConflict: "user_id" }
         );
 
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(appUrl(next));
     }
   }
 
   // Auth error -- redirect to login with error parameter
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  return NextResponse.redirect(appUrl("/login?error=auth_callback_failed"));
 }
