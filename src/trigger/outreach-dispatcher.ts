@@ -76,10 +76,8 @@ export const outreachDispatcher = schedules.task({
       await generateUserDrafts.trigger(
         { userId: user.user_id },
         {
-          queue: {
-            name: `user-${user.user_id}-outreach`,
-            concurrencyLimit: 1,
-          },
+          queue: `user-outreach`,
+          concurrencyKey: user.user_id,
         }
       );
 

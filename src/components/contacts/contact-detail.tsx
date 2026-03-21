@@ -301,7 +301,7 @@ export function ContactDetail({ contactId }: ContactDetailProps) {
                   what: contact.relationship_context?.what ?? "",
                   mutual_value: contact.relationship_context?.mutual_value ?? "",
                 },
-                status: contact.status ?? "active",
+                status: (contact.status as "active" | "not_pursuing" | "dormant") ?? "active",
                 outreach_frequency_days: contact.outreach_frequency_days ?? 30,
                 notes: contact.notes ?? "",
               }}

@@ -381,7 +381,7 @@ describe("Generate User Drafts", () => {
         };
       }
       // Fall through to original for other tables
-      return originalImpl!(table);
+      return (originalImpl as (...args: unknown[]) => unknown)!(table);
     });
 
     const result = await runTask({ userId: "user-123" });

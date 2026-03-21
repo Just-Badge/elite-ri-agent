@@ -30,6 +30,7 @@ vi.mock("@/lib/crypto/encryption", () => ({
 
 import { upsertExtractedContacts } from "@/trigger/process-user-meetings";
 import type { ExtractedContact } from "@/lib/ai/types";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 describe("Contact Deduplication (upsertExtractedContacts)", () => {
   const userId = "user-test-123";
@@ -116,7 +117,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
     ];
 
     const result = await upsertExtractedContacts(
-      mockSupabase as any,
+      mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
       extracted,
@@ -149,7 +150,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
     ];
 
     const result = await upsertExtractedContacts(
-      mockSupabase as any,
+      mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
       extracted,
@@ -203,7 +204,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
     ];
 
     const result = await upsertExtractedContacts(
-      mockSupabase as any,
+      mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
       extracted,
@@ -239,7 +240,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
     ];
 
     const result = await upsertExtractedContacts(
-      mockSupabase as any,
+      mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
       extracted,
@@ -268,7 +269,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
     ];
 
     const result = await upsertExtractedContacts(
-      mockSupabase as any,
+      mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
       extracted,

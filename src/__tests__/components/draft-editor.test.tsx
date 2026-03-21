@@ -9,13 +9,13 @@ const mockDraft: EditableDraft = {
 };
 
 describe("DraftEditor", () => {
-  let mockOnClose: ReturnType<typeof vi.fn>;
-  let mockOnSave: ReturnType<typeof vi.fn>;
+  let mockOnClose: () => void;
+  let mockOnSave: (data: { subject?: string; body?: string }) => void;
 
   beforeEach(() => {
     cleanup();
-    mockOnClose = vi.fn();
-    mockOnSave = vi.fn();
+    mockOnClose = vi.fn<() => void>();
+    mockOnSave = vi.fn<(data: { subject?: string; body?: string }) => void>();
   });
 
   it("renders subject input and body textarea when open with draft", () => {

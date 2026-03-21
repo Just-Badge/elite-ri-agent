@@ -33,6 +33,7 @@ import {
   upsertExtractedContacts,
 } from "@/trigger/process-user-meetings";
 import type { ExtractedContact } from "@/lib/ai/types";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 describe("Granola Meeting Linking (insertMeetingRecord)", () => {
   const userId = "user-meeting-test";
@@ -72,7 +73,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
   it("stores granola_url in format https://app.granola.so/notes/{docId}", async () => {
     const doc = { id: "abc-123", title: "Weekly Sync", created_at: "2026-03-19T10:00:00Z" };
 
-    await insertMeetingRecord(mockSupabase as any, userId, doc);
+    await insertMeetingRecord(mockSupabase as unknown as SupabaseClient, userId, doc);
 
     expect(mockInsert).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -128,7 +129,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
     ];
 
     await upsertExtractedContacts(
-      upsertSupabase as any,
+      upsertSupabase as unknown as SupabaseClient,
       "user-1",
       "meeting-xyz",
       extracted,
@@ -186,7 +187,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
     ];
 
     await upsertExtractedContacts(
-      upsertSupabase as any,
+      upsertSupabase as unknown as SupabaseClient,
       "user-1",
       "meeting-actions",
       extracted,

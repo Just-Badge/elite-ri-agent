@@ -142,10 +142,8 @@ describe("Meeting Dispatcher", () => {
       expect(processUserMeetings.trigger).toHaveBeenCalledWith(
         { userId: "user-inside" },
         {
-          queue: {
-            name: "user-user-inside-meetings",
-            concurrencyLimit: 1,
-          },
+          queue: "user-meetings",
+          concurrencyKey: "user-inside",
         }
       );
       expect(result).toEqual(
@@ -176,7 +174,8 @@ describe("Meeting Dispatcher", () => {
         expect(processUserMeetings.trigger).toHaveBeenCalledWith(
           { userId: "user-no-schedule" },
           expect.objectContaining({
-            queue: expect.objectContaining({ concurrencyLimit: 1 }),
+            queue: "user-meetings",
+            concurrencyKey: "user-no-schedule",
           })
         );
         expect(result).toEqual(

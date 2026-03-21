@@ -153,7 +153,7 @@ export default function DraftsPage() {
         </div>
         <Select
           value={statusFilter}
-          onValueChange={setStatusFilter}
+          onValueChange={(val) => setStatusFilter(val ?? "")}
         >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by status" />

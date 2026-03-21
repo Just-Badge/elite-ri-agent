@@ -6,6 +6,7 @@ import {
   contactSchema,
   CONTACT_CATEGORIES,
   type ContactFormValues,
+  type ContactFormInput,
 } from "@/lib/validations/contacts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +35,7 @@ export function ContactForm({ contact, onSave, saving }: ContactFormProps) {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ContactFormValues>({
+  } = useForm<ContactFormInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: contact.name ?? "",
@@ -57,7 +58,7 @@ export function ContactForm({ contact, onSave, saving }: ContactFormProps) {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSave, () => focusFirstError(errors))} className="space-y-6">
+    <form onSubmit={handleSubmit((values) => onSave(values as ContactFormValues), () => focusFirstError(errors))} className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>

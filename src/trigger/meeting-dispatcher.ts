@@ -90,10 +90,8 @@ export const meetingDispatcher = schedules.task({
       await processUserMeetings.trigger(
         { userId: user.user_id },
         {
-          queue: {
-            name: `user-${user.user_id}-meetings`,
-            concurrencyLimit: 1,
-          },
+          queue: `user-meetings`,
+          concurrencyKey: user.user_id,
         }
       );
 

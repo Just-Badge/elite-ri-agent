@@ -150,10 +150,8 @@ describe("Outreach Dispatcher", () => {
     expect(generateUserDrafts.trigger).toHaveBeenCalledWith(
       { userId: "user-start-hour" },
       expect.objectContaining({
-        queue: expect.objectContaining({
-          name: "user-user-start-hour-outreach",
-          concurrencyLimit: 1,
-        }),
+        queue: "user-outreach",
+        concurrencyKey: "user-start-hour",
       })
     );
     expect(result).toEqual(
@@ -186,10 +184,8 @@ describe("Outreach Dispatcher", () => {
     expect(generateUserDrafts.trigger).toHaveBeenCalledWith(
       { userId: "user-queue-test" },
       {
-        queue: {
-          name: "user-user-queue-test-outreach",
-          concurrencyLimit: 1,
-        },
+        queue: "user-outreach",
+        concurrencyKey: "user-queue-test",
       }
     );
   });

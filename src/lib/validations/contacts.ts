@@ -37,4 +37,5 @@ export const contactUpdateSchema = contactSchema.partial().extend({
 });
 
 export type ContactFormValues = z.infer<typeof contactSchema>;
+export type ContactFormInput = z.input<typeof contactSchema>;
 export type ContactUpdateValues = z.infer<typeof contactUpdateSchema>;

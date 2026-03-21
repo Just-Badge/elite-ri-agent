@@ -38,9 +38,7 @@ describe("POST /api/meetings/process", () => {
 
     const { POST } = await import("@/app/api/meetings/process/route");
 
-    const response = await POST(new Request("http://localhost/api/meetings/process", {
-      method: "POST",
-    }));
+    const response = await POST();
 
     expect(response.status).toBe(401);
     const body = await response.json();
@@ -56,9 +54,7 @@ describe("POST /api/meetings/process", () => {
 
     const { POST } = await import("@/app/api/meetings/process/route");
 
-    const response = await POST(new Request("http://localhost/api/meetings/process", {
-      method: "POST",
-    }));
+    const response = await POST();
 
     expect(response.status).toBe(200);
     const body = await response.json();

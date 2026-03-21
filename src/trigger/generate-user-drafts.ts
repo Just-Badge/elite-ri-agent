@@ -149,7 +149,7 @@ export const generateUserDrafts = task({
             };
           })
           .filter(
-            (m): m is { title: string; summary?: string; date: string } =>
+            (m): m is { title: string; summary: string | undefined; date: string } =>
               m !== null
           );
 
