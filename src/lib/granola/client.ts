@@ -1,14 +1,18 @@
+/**
+ * Granola Token Management
+ *
+ * Handles OAuth token refresh via WorkOS. Access tokens are used to
+ * authenticate MCP connections to mcp.granola.ai.
+ *
+ * NOTE: The Granola REST API (api.granola.ai) is enterprise-only.
+ * All data access goes through the MCP adapter in mcp-adapter.ts.
+ */
+
 import { createAdminClient } from "@/lib/supabase/admin";
 import { encrypt, decrypt } from "@/lib/crypto/encryption";
-import type {
-  GranolaTokens,
-  GranolaDocumentsResponse,
-  GranolaTranscriptSegment,
-} from "@/lib/granola/types";
+import type { GranolaTokens } from "@/lib/granola/types";
 
-const GRANOLA_BASE = "https://api.granola.ai";
 const WORKOS_AUTH = "https://api.workos.com/user_management/authenticate";
-const TOKEN_BUFFER_MS = 5 * 60 * 1000; // 5 minutes before expiry, refresh proactively
 
 /**
  * Refresh the Granola access token via WorkOS OAuth token rotation.
@@ -55,8 +59,6 @@ export async function refreshGranolaToken(
     .eq("user_id", userId);
 
   if (updateError) {
-    // This is catastrophic -- the old refresh token is already invalidated
-    // by WorkOS, but we failed to save the new one. Log prominently.
     console.error(
       `CRITICAL: Failed to persist new Granola refresh token for user ${userId}. ` +
       `Token rotation succeeded at WorkOS but DB update failed: ${updateError.message}. ` +
@@ -73,11 +75,11 @@ export async function refreshGranolaToken(
 }
 
 /**
- * Get a fresh access token for Granola API calls.
+ * Get a fresh access token for Granola MCP connections.
  *
- * v1 implementation: Always refreshes because we only store refresh tokens,
- * not access tokens. Each task run gets a fresh access token. Since access
- * tokens are valid for 1 hour and tasks run infrequently, this is acceptable.
+ * Always refreshes because we only store refresh tokens, not access tokens.
+ * Each task run gets a fresh access token. Since access tokens are valid
+ * for 1 hour and tasks run infrequently, this is acceptable.
  */
 export async function getOrRefreshAccessToken(
   userId: string
@@ -113,55 +115,4 @@ export async function getOrRefreshAccessToken(
   );
 
   return tokens.access_token;
-}
-
-/**
- * Fetch documents (meetings) from Granola API.
- */
-export async function getGranolaDocuments(
-  accessToken: string,
-  limit = 100,
-  offset = 0
-): Promise<GranolaDocumentsResponse> {
-  const res = await fetch(`${GRANOLA_BASE}/v2/get-documents`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      limit,
-      offset,
-      include_last_viewed_panel: true,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Granola get-documents failed: ${res.status}`);
-  }
-
-  return res.json();
-}
-
-/**
- * Fetch transcript segments for a specific Granola document.
- */
-export async function getGranolaTranscript(
-  accessToken: string,
-  documentId: string
-): Promise<GranolaTranscriptSegment[]> {
-  const res = await fetch(`${GRANOLA_BASE}/v1/get-document-transcript`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ document_id: documentId }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Granola get-transcript failed: ${res.status}`);
-  }
-
-  return res.json();
 }

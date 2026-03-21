@@ -30,8 +30,8 @@ vi.mock("@/lib/crypto/encryption", () => ({
 
 import {
   insertMeetingRecord,
-  upsertExtractedContacts,
-} from "@/trigger/process-user-meetings";
+  upsertEnrichedContacts,
+} from "@/lib/meetings/db";
 import type { ExtractedContact } from "@/lib/ai/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -71,7 +71,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
   });
 
   it("stores granola_url in format https://app.granola.so/notes/{docId}", async () => {
-    const doc = { id: "abc-123", title: "Weekly Sync", created_at: "2026-03-19T10:00:00Z" };
+    const doc = { id: "abc-123", title: "Weekly Sync", date: "2026-03-19T10:00:00Z" };
 
     await insertMeetingRecord(mockSupabase as unknown as SupabaseClient, userId, doc);
 
@@ -86,7 +86,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
   });
 
   it("creates contact_meetings junction record linking contact_id to meeting_id", async () => {
-    // Setup: we need a full mock for upsertExtractedContacts
+    // Setup: we need a full mock for upsertEnrichedContacts
     const contactMeetingsInsert = vi.fn().mockResolvedValue({ error: null });
     const actionItemsInsert = vi.fn().mockResolvedValue({ error: null });
 
@@ -128,7 +128,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
       },
     ];
 
-    await upsertExtractedContacts(
+    await upsertEnrichedContacts(
       upsertSupabase as unknown as SupabaseClient,
       "user-1",
       "meeting-xyz",
@@ -186,7 +186,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
       },
     ];
 
-    await upsertExtractedContacts(
+    await upsertEnrichedContacts(
       upsertSupabase as unknown as SupabaseClient,
       "user-1",
       "meeting-actions",
@@ -213,7 +213,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
   });
 
   it("skips already-processed granola_document_ids (no duplicate meetings)", async () => {
-    // This tests the filtering logic in processUserMeetings.
+    // This tests the filtering logic in syncGranolaMeetings.
     // We test that insertMeetingRecord is NOT called for already-processed docs.
     // The filtering happens in the main task, so we test the Set-based check directly.
 

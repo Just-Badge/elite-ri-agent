@@ -28,11 +28,11 @@ vi.mock("@/lib/crypto/encryption", () => ({
   decrypt: vi.fn((val: string) => val.replace("encrypted_", "")),
 }));
 
-import { upsertExtractedContacts } from "@/trigger/process-user-meetings";
+import { upsertEnrichedContacts } from "@/lib/meetings/db";
 import type { ExtractedContact } from "@/lib/ai/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-describe("Contact Deduplication (upsertExtractedContacts)", () => {
+describe("Contact Deduplication (upsertEnrichedContacts)", () => {
   const userId = "user-test-123";
   const meetingId = "meeting-test-456";
 
@@ -116,7 +116,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
       },
     ];
 
-    const result = await upsertExtractedContacts(
+    const result = await upsertEnrichedContacts(
       mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
@@ -149,7 +149,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
       },
     ];
 
-    const result = await upsertExtractedContacts(
+    const result = await upsertEnrichedContacts(
       mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
@@ -203,7 +203,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
       },
     ];
 
-    const result = await upsertExtractedContacts(
+    const result = await upsertEnrichedContacts(
       mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
@@ -239,7 +239,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
       },
     ];
 
-    const result = await upsertExtractedContacts(
+    const result = await upsertEnrichedContacts(
       mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,
@@ -268,7 +268,7 @@ describe("Contact Deduplication (upsertExtractedContacts)", () => {
       },
     ];
 
-    const result = await upsertExtractedContacts(
+    const result = await upsertEnrichedContacts(
       mockSupabase as unknown as SupabaseClient,
       userId,
       meetingId,

@@ -8,7 +8,7 @@
 
 import { schedules, logger } from "@trigger.dev/sdk";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { processUserMeetings } from "./process-user-meetings";
+import { syncGranolaMeetings } from "./sync-granola-meetings";
 
 /**
  * Get the current hour (0-23) in a given IANA timezone.
@@ -87,10 +87,10 @@ export const meetingDispatcher = schedules.task({
         timezone: effectiveSchedule.timezone,
       });
 
-      await processUserMeetings.trigger(
+      await syncGranolaMeetings.trigger(
         { userId: user.user_id },
         {
-          queue: `user-meetings`,
+          queue: "user-meetings",
           concurrencyKey: user.user_id,
         }
       );

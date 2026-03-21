@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import type { GranolaTokens } from "@/lib/granola/types";
 
 // Mock dependencies
 vi.mock("@/lib/supabase/admin", () => ({
@@ -18,8 +17,6 @@ vi.stubGlobal("fetch", mockFetch);
 import {
   refreshGranolaToken,
   getOrRefreshAccessToken,
-  getGranolaDocuments,
-  getGranolaTranscript,
 } from "@/lib/granola/client";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { encrypt, decrypt } from "@/lib/crypto/encryption";
@@ -134,7 +131,6 @@ describe("Granola Client", () => {
 
   describe("getOrRefreshAccessToken", () => {
     it("always refreshes since access tokens are not cached (v1)", async () => {
-      // Setup: getOrRefreshAccessToken reads user_settings, then calls refreshGranolaToken
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
@@ -149,91 +145,6 @@ describe("Granola Client", () => {
       expect(accessToken).toBe("fresh-access-token");
       expect(decrypt).toHaveBeenCalledWith("encrypted_old-refresh-token");
       expect(mockFetch).toHaveBeenCalled();
-    });
-
-    it("calls refreshGranolaToken when token is expired or within 5-minute buffer", async () => {
-      // The mock already returns an expired token_expiry
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          access_token: "refreshed-token",
-          refresh_token: "new-refresh-token",
-          expires_in: 3600,
-        }),
-      });
-
-      const accessToken = await getOrRefreshAccessToken("user-1");
-
-      expect(accessToken).toBe("refreshed-token");
-      // Verify fetch was called (to WorkOS for refresh)
-      expect(mockFetch).toHaveBeenCalledWith(
-        "https://api.workos.com/user_management/authenticate",
-        expect.any(Object)
-      );
-    });
-  });
-
-  describe("getGranolaDocuments", () => {
-    it("calls POST /v2/get-documents with correct auth header and body", async () => {
-      const mockDocs = { docs: [{ id: "doc-1", title: "Meeting" }] };
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockDocs,
-      });
-
-      const result = await getGranolaDocuments("test-access-token", 50, 10);
-
-      expect(mockFetch).toHaveBeenCalledWith(
-        "https://api.granola.ai/v2/get-documents",
-        {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer test-access-token",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            limit: 50,
-            offset: 10,
-            include_last_viewed_panel: true,
-          }),
-        }
-      );
-
-      expect(result).toEqual(mockDocs);
-    });
-  });
-
-  describe("getGranolaTranscript", () => {
-    it("calls POST /v1/get-document-transcript with correct document_id", async () => {
-      const mockTranscript = [
-        {
-          source: "microphone",
-          text: "Hello",
-          start_timestamp: "2026-03-19T10:00:00Z",
-          end_timestamp: "2026-03-19T10:00:05Z",
-          confidence: 0.95,
-        },
-      ];
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockTranscript,
-      });
-
-      const result = await getGranolaTranscript("test-access-token", "doc-123");
-
-      expect(mockFetch).toHaveBeenCalledWith(
-        "https://api.granola.ai/v1/get-document-transcript",
-        {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer test-access-token",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ document_id: "doc-123" }),
-        }
-      );
-
-      expect(result).toEqual(mockTranscript);
     });
   });
 });

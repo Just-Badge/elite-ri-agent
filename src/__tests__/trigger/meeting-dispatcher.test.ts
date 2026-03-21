@@ -5,9 +5,9 @@ vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: vi.fn(),
 }));
 
-// Mock the process-user-meetings module
-vi.mock("@/trigger/process-user-meetings", () => ({
-  processUserMeetings: {
+// Mock the sync-granola-meetings module
+vi.mock("@/trigger/sync-granola-meetings", () => ({
+  syncGranolaMeetings: {
     trigger: vi.fn().mockResolvedValue({ id: "run-123" }),
   },
 }));
@@ -28,7 +28,7 @@ vi.mock("@trigger.dev/sdk", () => ({
 }));
 
 import { createAdminClient } from "@/lib/supabase/admin";
-import { processUserMeetings } from "@/trigger/process-user-meetings";
+import { syncGranolaMeetings } from "@/trigger/sync-granola-meetings";
 import { meetingDispatcher, getHourInTimezone } from "@/trigger/meeting-dispatcher";
 
 describe("Meeting Dispatcher", () => {
@@ -107,13 +107,13 @@ describe("Meeting Dispatcher", () => {
 
       const result = await runDispatcher();
 
-      expect(processUserMeetings.trigger).not.toHaveBeenCalled();
+      expect(syncGranolaMeetings.trigger).not.toHaveBeenCalled();
       expect(result).toEqual(
         expect.objectContaining({ dispatched: 0, skipped: 1 })
       );
     });
 
-    it("triggers processUserMeetings for users within their window", async () => {
+    it("triggers syncGranolaMeetings for users within their window", async () => {
       const now = new Date();
       const currentHour = getHourInTimezone(now, "UTC");
 
@@ -139,7 +139,7 @@ describe("Meeting Dispatcher", () => {
 
       const result = await runDispatcher();
 
-      expect(processUserMeetings.trigger).toHaveBeenCalledWith(
+      expect(syncGranolaMeetings.trigger).toHaveBeenCalledWith(
         { userId: "user-inside" },
         {
           queue: "user-meetings",
@@ -171,7 +171,7 @@ describe("Meeting Dispatcher", () => {
 
       // If current UTC hour is within 8-20, should dispatch; otherwise skip
       if (currentHour >= 8 && currentHour < 20) {
-        expect(processUserMeetings.trigger).toHaveBeenCalledWith(
+        expect(syncGranolaMeetings.trigger).toHaveBeenCalledWith(
           { userId: "user-no-schedule" },
           expect.objectContaining({
             queue: "user-meetings",
@@ -182,7 +182,7 @@ describe("Meeting Dispatcher", () => {
           expect.objectContaining({ dispatched: 1, skipped: 0 })
         );
       } else {
-        expect(processUserMeetings.trigger).not.toHaveBeenCalled();
+        expect(syncGranolaMeetings.trigger).not.toHaveBeenCalled();
         expect(result).toEqual(
           expect.objectContaining({ dispatched: 0, skipped: 1 })
         );
@@ -200,7 +200,7 @@ describe("Meeting Dispatcher", () => {
       expect(result).toEqual(
         expect.objectContaining({ dispatched: 0, skipped: 0, error: "Database connection failed" })
       );
-      expect(processUserMeetings.trigger).not.toHaveBeenCalled();
+      expect(syncGranolaMeetings.trigger).not.toHaveBeenCalled();
     });
   });
 });

@@ -17,6 +17,7 @@ import { Search, Users, RefreshCw, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { ProcessingStatus } from "@/components/contacts/processing-status";
 
 interface Contact {
   id: string;
@@ -42,6 +43,8 @@ export default function ContactsPage() {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [runId, setRunId] = useState<string | null>(null);
+  const [publicToken, setPublicToken] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -49,20 +52,28 @@ export default function ContactsPage() {
 
   async function handleProcessMeetings() {
     setProcessing(true);
+    setRunId(null);
+    setPublicToken(null);
     try {
       const res = await fetch("/api/meetings/process", { method: "POST" });
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || "Failed to trigger processing");
       }
-      toast.success("Meeting processing triggered");
+      const data = await res.json();
+      setRunId(data.runId);
+      setPublicToken(data.publicToken);
     } catch (err) {
       toast.error(
         err instanceof Error ? err.message : "Failed to trigger processing"
       );
-    } finally {
       setProcessing(false);
     }
+  }
+
+  function handleProcessingComplete() {
+    setProcessing(false);
+    fetchContacts();
   }
 
   const fetchContacts = useCallback(async () => {
@@ -130,6 +141,14 @@ export default function ContactsPage() {
           {processing ? "Processing..." : "Process Meetings"}
         </Button>
       </div>
+
+      {runId && publicToken && (
+        <ProcessingStatus
+          runId={runId}
+          publicToken={publicToken}
+          onComplete={handleProcessingComplete}
+        />
+      )}
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative flex-1">

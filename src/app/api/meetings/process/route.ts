@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { tasks } from "@trigger.dev/sdk";
-import type { processUserMeetings } from "@/trigger/process-user-meetings";
+import { tasks, auth } from "@trigger.dev/sdk";
+import type { syncGranolaMeetings } from "@/trigger/sync-granola-meetings";
 import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 export async function POST() {
@@ -22,13 +22,22 @@ export async function POST() {
   }
 
   try {
-    const handle = await tasks.trigger<typeof processUserMeetings>(
-      "process-user-meetings",
+    const handle = await tasks.trigger<typeof syncGranolaMeetings>(
+      "sync-granola-meetings",
       { userId: user.id }
     );
 
+    // Generate a public token so the frontend can subscribe to realtime updates
+    const publicToken = await auth.createPublicToken({
+      scopes: {
+        read: { runs: [handle.id] },
+      },
+      expirationTime: "1h",
+    });
+
     return NextResponse.json({
       runId: handle.id,
+      publicToken,
       status: "triggered",
     });
   } catch (err) {
