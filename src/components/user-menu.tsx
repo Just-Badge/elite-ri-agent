@@ -4,13 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Settings, User } from "lucide-react";
 
@@ -21,6 +18,7 @@ export function UserMenu() {
     name?: string;
     avatar?: string;
   } | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -43,9 +41,15 @@ export function UserMenu() {
   }, []);
 
   async function handleSignOut() {
+    setOpen(false);
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/login");
+  }
+
+  function handleNavigate(path: string) {
+    setOpen(false);
+    router.push(path);
   }
 
   if (!user) return null;
@@ -58,35 +62,48 @@ export function UserMenu() {
     .slice(0, 2);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full focus-visible:ring-2 focus-visible:ring-ring outline-none">
-        <Avatar className="h-8 w-8 cursor-pointer">
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        className="rounded-full focus-visible:ring-2 focus-visible:ring-ring outline-none cursor-pointer"
+        aria-label="User menu"
+      >
+        <Avatar className="h-8 w-8">
           {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
           <AvatarFallback className="text-xs">{initials}</AvatarFallback>
         </Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">{user.name}</span>
-            <span className="text-xs text-muted-foreground">{user.email}</span>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push("/settings/profile")}>
-          <User className="mr-2 h-4 w-4" />
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-56 p-1">
+        <div className="px-2 py-1.5">
+          <p className="text-sm font-medium">{user.name}</p>
+          <p className="text-xs text-muted-foreground">{user.email}</p>
+        </div>
+        <div className="h-px bg-border my-1" />
+        <button
+          type="button"
+          onClick={() => handleNavigate("/settings/profile")}
+          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground outline-none focus-visible:bg-accent"
+        >
+          <User className="h-4 w-4" />
           Profile
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push("/settings/integrations")}>
-          <Settings className="mr-2 h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={() => handleNavigate("/settings/integrations")}
+          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground outline-none focus-visible:bg-accent"
+        >
+          <Settings className="h-4 w-4" />
           Settings
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
-          <LogOut className="mr-2 h-4 w-4" />
+        </button>
+        <div className="h-px bg-border my-1" />
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-destructive hover:bg-destructive/10 outline-none focus-visible:bg-destructive/10"
+        >
+          <LogOut className="h-4 w-4" />
           Sign out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </button>
+      </PopoverContent>
+    </Popover>
   );
 }
