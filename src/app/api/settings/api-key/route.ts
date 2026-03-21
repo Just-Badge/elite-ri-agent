@@ -3,14 +3,14 @@ import { createClient } from "@/lib/supabase/server";
 import { encrypt } from "@/lib/crypto/encryption";
 import { apiKeySchema } from "@/lib/validations/settings";
 import { ZodError } from "zod";
+import { apiUnauthorized, apiError, apiBadRequest, apiValidationError } from "@/lib/api/errors";
 
 export async function GET() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { data } = await supabase
     .from("user_settings")
@@ -28,8 +28,7 @@ export async function PUT(request: Request) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   try {
     const body = await request.json();
@@ -47,20 +46,13 @@ export async function PUT(request: Request) {
       { onConflict: "user_id" }
     );
 
-    if (error)
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) return apiError(error.message, 500);
     return NextResponse.json({ success: true });
   } catch (err) {
     if (err instanceof ZodError) {
-      return NextResponse.json(
-        { error: "Validation failed", issues: err.issues },
-        { status: 400 }
-      );
+      return apiValidationError(err);
     }
-    return NextResponse.json(
-      { error: "Invalid request body" },
-      { status: 400 }
-    );
+    return apiBadRequest("Invalid request body");
   }
 }
 
@@ -69,8 +61,7 @@ export async function DELETE() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { error } = await supabase
     .from("user_settings")
@@ -80,7 +71,6 @@ export async function DELETE() {
     })
     .eq("user_id", user.id);
 
-  if (error)
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return apiError(error.message, 500);
   return NextResponse.json({ success: true });
 }

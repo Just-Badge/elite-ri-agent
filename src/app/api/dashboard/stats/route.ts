@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { computeContactRisk } from "@/lib/contacts/risk";
+import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 export async function GET(_request: NextRequest) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   // Run 3 parallel queries
   const [contactsResult, actionsResult, draftsResult] = await Promise.all([
@@ -30,10 +30,7 @@ export async function GET(_request: NextRequest) {
   ]);
 
   if (contactsResult.error) {
-    return NextResponse.json(
-      { error: contactsResult.error.message },
-      { status: 500 }
-    );
+    return apiError(contactsResult.error.message, 500);
   }
 
   const contacts = contactsResult.data ?? [];

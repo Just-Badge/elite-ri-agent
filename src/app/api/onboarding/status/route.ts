@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import type { OnboardingStatus } from "@/lib/onboarding";
+import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 export async function GET() {
   const supabase = await createClient();
@@ -9,7 +10,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return apiUnauthorized();
   }
 
   // Check user settings for Granola token and profile
@@ -22,10 +23,7 @@ export async function GET() {
     .single();
 
   if (settingsError && settingsError.code !== "PGRST116") {
-    return NextResponse.json(
-      { error: settingsError.message },
-      { status: 500 }
-    );
+    return apiError(settingsError.message, 500);
   }
 
   // Check contacts count
@@ -35,10 +33,7 @@ export async function GET() {
     .eq("user_id", user.id);
 
   if (contactError) {
-    return NextResponse.json(
-      { error: contactError.message },
-      { status: 500 }
-    );
+    return apiError(contactError.message, 500);
   }
 
   const has_granola =

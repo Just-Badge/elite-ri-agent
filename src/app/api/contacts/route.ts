@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { contactSchema } from "@/lib/validations/contacts";
 import { ZodError } from "zod";
+import { apiUnauthorized, apiError, apiBadRequest, apiValidationError } from "@/lib/api/errors";
 
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { searchParams } = request.nextUrl;
   const category = searchParams.get("category");
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
   const { data, count, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
   return NextResponse.json({
@@ -58,8 +58,7 @@ export async function POST(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   try {
     const body = await request.json();
@@ -76,20 +75,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error.message, 500);
     }
 
     return NextResponse.json({ data }, { status: 201 });
   } catch (err) {
     if (err instanceof ZodError) {
-      return NextResponse.json(
-        { error: "Validation failed", issues: err.issues },
-        { status: 400 }
-      );
+      return apiValidationError(err);
     }
-    return NextResponse.json(
-      { error: "Invalid request body" },
-      { status: 400 }
-    );
+    return apiBadRequest("Invalid request body");
   }
 }

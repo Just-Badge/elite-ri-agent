@@ -5,6 +5,7 @@ import {
   createGmailDraft,
   deleteGmailDraft,
 } from "@/lib/gmail/client";
+import { apiUnauthorized, apiNotFound, apiBadRequest } from "@/lib/api/errors";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -13,8 +14,7 @@ export async function POST(_request: NextRequest, context: RouteContext) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { id } = await context.params;
 
@@ -27,18 +27,12 @@ export async function POST(_request: NextRequest, context: RouteContext) {
     .single();
 
   if (fetchError || !draft) {
-    return NextResponse.json(
-      { error: fetchError?.message || "Draft not found" },
-      { status: 404 }
-    );
+    return apiNotFound(fetchError?.message || "Draft not found");
   }
 
   // Verify status is pending_review
   if (draft.status !== "pending_review") {
-    return NextResponse.json(
-      { error: "Draft must be in pending_review status to send" },
-      { status: 400 }
-    );
+    return apiBadRequest("Draft must be in pending_review status to send");
   }
 
   // Step 1: Delete old Gmail draft if exists (best-effort)
@@ -53,10 +47,7 @@ export async function POST(_request: NextRequest, context: RouteContext) {
   // Step 2: Create fresh Gmail draft from current DB content
   const contactEmail = draft.contacts?.email;
   if (!contactEmail) {
-    return NextResponse.json(
-      { error: "Contact email not found" },
-      { status: 400 }
-    );
+    return apiBadRequest("Contact email not found");
   }
 
   const newGmailDraftId = await createGmailDraft(

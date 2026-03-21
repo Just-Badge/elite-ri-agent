@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { tasks } from "@trigger.dev/sdk";
 import type { processUserMeetings } from "@/trigger/process-user-meetings";
+import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 export async function POST() {
   const supabase = await createClient();
@@ -10,7 +11,7 @@ export async function POST() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return apiUnauthorized();
   }
 
   try {
@@ -24,12 +25,9 @@ export async function POST() {
       status: "triggered",
     });
   } catch (err) {
-    return NextResponse.json(
-      {
-        error: "Failed to trigger meeting processing",
-        details: err instanceof Error ? err.message : String(err),
-      },
-      { status: 500 }
+    return apiError(
+      "Failed to trigger meeting processing",
+      500
     );
   }
 }

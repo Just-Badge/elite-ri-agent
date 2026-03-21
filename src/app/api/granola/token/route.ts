@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { encrypt } from "@/lib/crypto/encryption";
+import { apiUnauthorized, apiError, apiBadRequest } from "@/lib/api/errors";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return apiUnauthorized();
   }
 
   try {
@@ -17,10 +18,7 @@ export async function POST(request: Request) {
     const { refresh_token, client_id } = body;
 
     if (!refresh_token || !client_id) {
-      return NextResponse.json(
-        { error: "refresh_token and client_id are required" },
-        { status: 400 }
-      );
+      return apiBadRequest("refresh_token and client_id are required");
     }
 
     const encryptedToken = encrypt(refresh_token);
@@ -36,18 +34,12 @@ export async function POST(request: Request) {
       .eq("user_id", user.id);
 
     if (error) {
-      return NextResponse.json(
-        { error: "Failed to store token", details: error.message },
-        { status: 500 }
-      );
+      return apiError("Failed to store token", 500);
     }
 
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json(
-      { error: "Invalid request body" },
-      { status: 400 }
-    );
+    return apiBadRequest("Invalid request body");
   }
 }
 
@@ -58,7 +50,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return apiUnauthorized();
   }
 
   const { data, error } = await supabase
@@ -68,7 +60,7 @@ export async function GET() {
     .single();
 
   if (error && error.code !== "PGRST116") {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
   return NextResponse.json({

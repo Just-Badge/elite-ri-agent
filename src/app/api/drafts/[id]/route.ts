@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { draftUpdateSchema } from "@/lib/validations/drafts";
 import { deleteGmailDraft } from "@/lib/gmail/client";
 import { ZodError } from "zod";
+import { apiUnauthorized, apiError, apiBadRequest, apiValidationError } from "@/lib/api/errors";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -11,8 +12,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { id } = await context.params;
 
@@ -27,21 +27,15 @@ export async function PUT(request: NextRequest, context: RouteContext) {
       .eq("user_id", user.id);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return apiError(error.message, 500);
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
     if (err instanceof ZodError) {
-      return NextResponse.json(
-        { error: "Validation failed", issues: err.issues },
-        { status: 400 }
-      );
+      return apiValidationError(err);
     }
-    return NextResponse.json(
-      { error: "Invalid request body" },
-      { status: 400 }
-    );
+    return apiBadRequest("Invalid request body");
   }
 }
 
@@ -50,8 +44,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { id } = await context.params;
 
@@ -64,7 +57,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     .single();
 
   if (fetchError) {
-    return NextResponse.json({ error: fetchError.message }, { status: 500 });
+    return apiError(fetchError.message, 500);
   }
 
   // Best-effort delete Gmail draft
@@ -88,7 +81,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     .eq("user_id", user.id);
 
   if (updateError) {
-    return NextResponse.json({ error: updateError.message }, { status: 500 });
+    return apiError(updateError.message, 500);
   }
 
   return NextResponse.json({ success: true });

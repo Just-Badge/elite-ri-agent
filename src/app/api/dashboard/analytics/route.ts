@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { subDays } from "date-fns";
+import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user) return apiUnauthorized();
 
   const { searchParams } = request.nextUrl;
   const period = searchParams.get("period") ?? "30d";
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
   const { data: drafts, error } = await query;
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
   const allDrafts = drafts ?? [];
