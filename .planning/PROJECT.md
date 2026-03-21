@@ -48,7 +48,15 @@ Live at: https://ri.elite.community
 
 ### Active
 
-(No active requirements — start next milestone with `/gsd:new-milestone`)
+## Current Milestone: v1.2 Code Quality & DevOps
+
+**Goal:** Harden the codebase — TypeScript strict mode, standardized API errors, env validation, CI/CD pipeline.
+
+**Target:**
+- TypeScript strict mode with zero build errors
+- Standardized API error helpers across all routes
+- Environment variable validation on startup
+- GitHub Actions CI/CD pipeline
 
 ### Out of Scope
 
@@ -85,4 +93,4 @@ Live at: https://ri.elite.community
 | DB-first draft persistence | Draft saved to DB before Gmail sync (best-effort) | ✓ Good |
 
 ---
-*Last updated: 2026-03-20 after v1.1 milestone shipped*
+*Last updated: 2026-03-20 after v1.2 milestone started*
