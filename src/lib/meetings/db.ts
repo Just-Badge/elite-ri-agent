@@ -270,12 +270,26 @@ export async function upsertEnrichedContacts(
 
     if (!contactId) continue;
 
-    // Create contact_meetings junction
-    await supabase.from("contact_meetings").insert({
-      user_id: userId,
-      contact_id: contactId,
-      meeting_id: meetingId,
-    });
+    // Create contact_meetings junction with duplicate-safe handling
+    const { error: junctionError } = await supabase
+      .from("contact_meetings")
+      .upsert(
+        {
+          user_id: userId,
+          contact_id: contactId,
+          meeting_id: meetingId,
+        },
+        { onConflict: "contact_id,meeting_id", ignoreDuplicates: true }
+      );
+
+    if (junctionError && junctionError.code !== "23505") {
+      // Log but don't fail - one duplicate should not break the whole enrichment
+      logger.error("Failed to create contact_meetings junction", {
+        contactId,
+        meetingId,
+        error: junctionError.message,
+      });
+    }
 
     // Insert action items
     if (extracted.action_items && extracted.action_items.length > 0) {
@@ -283,7 +297,7 @@ export async function upsertEnrichedContacts(
         await supabase.from("action_items").insert({
           user_id: userId,
           contact_id: contactId,
-          source_meeting_id: meetingId,
+          meeting_id: meetingId,
           text: actionText,
           completed: false,
         });

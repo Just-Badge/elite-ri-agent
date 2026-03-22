@@ -4,6 +4,12 @@ import { tasks, runs } from "@trigger.dev/sdk";
 import type { syncGranolaMeetings } from "@/trigger/sync-granola-meetings";
 import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
+/**
+ * Key used to store the user ID in Trigger.dev run metadata.
+ * This allows us to verify run ownership when querying status.
+ */
+const USER_ID_METADATA_KEY = "userId";
+
 export async function POST() {
   const supabase = await createClient();
   const {
@@ -24,7 +30,12 @@ export async function POST() {
   try {
     const handle = await tasks.trigger<typeof syncGranolaMeetings>(
       "sync-granola-meetings",
-      { userId: user.id }
+      { userId: user.id },
+      {
+        metadata: {
+          [USER_ID_METADATA_KEY]: user.id,
+        },
+      }
     );
 
     return NextResponse.json({
@@ -59,6 +70,12 @@ export async function GET(request: Request) {
 
   try {
     const run = await runs.retrieve(runId);
+
+    // Verify run ownership - user can only access their own runs
+    const runUserId = run.metadata?.[USER_ID_METADATA_KEY];
+    if (runUserId !== user.id) {
+      return apiError("Run not found or access denied", 404);
+    }
 
     return NextResponse.json({
       status: run.status,

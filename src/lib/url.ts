@@ -4,14 +4,25 @@
  * Behind a reverse proxy (Coolify/Nginx), request.url resolves to
  * the internal container URL (localhost:3000) instead of the public domain.
  * This helper ensures all redirects go to the correct public URL.
+ *
+ * Priority order:
+ * 1. NEXT_PUBLIC_APP_URL - explicit configuration (e.g., Coolify deployments)
+ * 2. VERCEL_URL - Vercel's automatic deployment URL
+ * 3. localhost:3000 - local development fallback
  */
 export function getAppUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_APP_URL ||
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000"
-  );
+  // Priority 1: Explicit configuration takes precedence
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
+  }
+
+  // Priority 2: Vercel deployment URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  // Priority 3: Local development fallback
+  return "http://localhost:3000";
 }
 
 /**

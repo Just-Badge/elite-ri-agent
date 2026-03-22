@@ -29,7 +29,7 @@ vi.mock("@trigger.dev/sdk", () => ({
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { syncGranolaMeetings } from "@/trigger/sync-granola-meetings";
-import { meetingDispatcher, getHourInTimezone } from "@/trigger/meeting-dispatcher";
+import { meetingDispatcher, getHourInTimezone, shouldProcessAtHour } from "@/trigger/meeting-dispatcher";
 
 describe("Meeting Dispatcher", () => {
   const mockNot = vi.fn();
@@ -54,6 +54,82 @@ describe("Meeting Dispatcher", () => {
       // EST is UTC-4 in March (EDT)
       const hour = getHourInTimezone(date, "America/New_York");
       expect(hour).toBe(10); // 14 UTC = 10 EDT
+    });
+  });
+
+  describe("shouldProcessAtHour", () => {
+    describe("normal window (does not cross midnight)", () => {
+      it("returns true at interval boundaries (hourly)", () => {
+        // Window 8-20, interval 1
+        expect(shouldProcessAtHour(8, 8, 20, 1)).toBe(true);
+        expect(shouldProcessAtHour(12, 8, 20, 1)).toBe(true);
+        expect(shouldProcessAtHour(19, 8, 20, 1)).toBe(true);
+      });
+
+      it("returns false outside window", () => {
+        expect(shouldProcessAtHour(7, 8, 20, 1)).toBe(false);
+        expect(shouldProcessAtHour(20, 8, 20, 1)).toBe(false);
+        expect(shouldProcessAtHour(23, 8, 20, 1)).toBe(false);
+      });
+
+      it("returns true at 2-hour intervals", () => {
+        // Window 8-20, interval 2
+        expect(shouldProcessAtHour(8, 8, 20, 2)).toBe(true);  // 0 hours since start
+        expect(shouldProcessAtHour(10, 8, 20, 2)).toBe(true); // 2 hours since start
+        expect(shouldProcessAtHour(12, 8, 20, 2)).toBe(true); // 4 hours since start
+        expect(shouldProcessAtHour(14, 8, 20, 2)).toBe(true); // 6 hours since start
+        expect(shouldProcessAtHour(18, 8, 20, 2)).toBe(true); // 10 hours since start
+      });
+
+      it("returns false between interval boundaries", () => {
+        // Window 8-20, interval 2
+        expect(shouldProcessAtHour(9, 8, 20, 2)).toBe(false);  // 1 hour since start
+        expect(shouldProcessAtHour(11, 8, 20, 2)).toBe(false); // 3 hours since start
+        expect(shouldProcessAtHour(13, 8, 20, 2)).toBe(false); // 5 hours since start
+        expect(shouldProcessAtHour(15, 8, 20, 2)).toBe(false); // 7 hours since start
+      });
+
+      it("returns true at 4-hour intervals", () => {
+        // Window 8-20, interval 4
+        expect(shouldProcessAtHour(8, 8, 20, 4)).toBe(true);  // 0 hours since start
+        expect(shouldProcessAtHour(12, 8, 20, 4)).toBe(true); // 4 hours since start
+        expect(shouldProcessAtHour(16, 8, 20, 4)).toBe(true); // 8 hours since start
+      });
+
+      it("returns false at non-boundaries for 4-hour intervals", () => {
+        // Window 8-20, interval 4
+        expect(shouldProcessAtHour(9, 8, 20, 4)).toBe(false);
+        expect(shouldProcessAtHour(10, 8, 20, 4)).toBe(false);
+        expect(shouldProcessAtHour(11, 8, 20, 4)).toBe(false);
+        expect(shouldProcessAtHour(14, 8, 20, 4)).toBe(false);
+        expect(shouldProcessAtHour(15, 8, 20, 4)).toBe(false);
+      });
+    });
+
+    describe("wraparound window (crosses midnight)", () => {
+      it("returns true at interval boundaries in wraparound window", () => {
+        // Window 22-6 (crosses midnight), interval 2
+        expect(shouldProcessAtHour(22, 22, 6, 2)).toBe(true); // 0 hours since start
+        expect(shouldProcessAtHour(0, 22, 6, 2)).toBe(true);  // 2 hours since start (24-22+0)
+        expect(shouldProcessAtHour(2, 22, 6, 2)).toBe(true);  // 4 hours since start
+        expect(shouldProcessAtHour(4, 22, 6, 2)).toBe(true);  // 6 hours since start
+      });
+
+      it("returns false between interval boundaries in wraparound window", () => {
+        // Window 22-6, interval 2
+        expect(shouldProcessAtHour(23, 22, 6, 2)).toBe(false); // 1 hour since start
+        expect(shouldProcessAtHour(1, 22, 6, 2)).toBe(false);  // 3 hours since start
+        expect(shouldProcessAtHour(3, 22, 6, 2)).toBe(false);  // 5 hours since start
+        expect(shouldProcessAtHour(5, 22, 6, 2)).toBe(false);  // 7 hours since start
+      });
+
+      it("returns false outside wraparound window", () => {
+        // Window 22-6
+        expect(shouldProcessAtHour(6, 22, 6, 1)).toBe(false);  // end hour is exclusive
+        expect(shouldProcessAtHour(7, 22, 6, 1)).toBe(false);
+        expect(shouldProcessAtHour(12, 22, 6, 1)).toBe(false);
+        expect(shouldProcessAtHour(21, 22, 6, 1)).toBe(false);
+      });
     });
   });
 

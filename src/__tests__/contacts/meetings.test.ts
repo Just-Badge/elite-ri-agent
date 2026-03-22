@@ -144,7 +144,7 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
     });
   });
 
-  it("inserts action_items with correct contact_id and source_meeting_id foreign keys", async () => {
+  it("inserts action_items with correct contact_id and meeting_id foreign keys", async () => {
     const actionItemsInsert = vi.fn().mockResolvedValue({ error: null });
 
     const contactInsertSingle = vi.fn().mockReturnValue({
@@ -199,14 +199,14 @@ describe("Granola Meeting Linking (insertMeetingRecord)", () => {
     expect(actionItemsInsert).toHaveBeenCalledWith({
       user_id: "user-1",
       contact_id: "contact-with-actions",
-      source_meeting_id: "meeting-actions",
+      meeting_id: "meeting-actions",
       text: "Follow up on proposal",
       completed: false,
     });
     expect(actionItemsInsert).toHaveBeenCalledWith({
       user_id: "user-1",
       contact_id: "contact-with-actions",
-      source_meeting_id: "meeting-actions",
+      meeting_id: "meeting-actions",
       text: "Send contract draft",
       completed: false,
     });

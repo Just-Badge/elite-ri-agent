@@ -3,7 +3,8 @@
  *
  * Scheduled cron task that runs hourly and fans out to per-user
  * meeting processing tasks. Checks each user's processing_schedule
- * to determine if the current hour falls within their configured window.
+ * to determine if the current hour falls within their configured window
+ * and respects the interval_hours setting to avoid unnecessary processing.
  */
 
 import { schedules, logger } from "@trigger.dev/sdk";
@@ -23,6 +24,43 @@ export function getHourInTimezone(date: Date, timezone: string): number {
   const parts = formatter.formatToParts(date);
   const hourPart = parts.find((p) => p.type === "hour");
   return parseInt(hourPart?.value ?? "0", 10);
+}
+
+/**
+ * Check if processing should occur at the given hour based on interval.
+ * Calculates if the current hour is at an interval boundary from the start hour.
+ * Handles wraparound for windows that cross midnight.
+ */
+export function shouldProcessAtHour(
+  currentHour: number,
+  startHour: number,
+  endHour: number,
+  intervalHours: number
+): boolean {
+  // Calculate hours since the window start
+  let hoursSinceStart: number;
+
+  if (startHour <= endHour) {
+    // Normal window (e.g., 8-20)
+    if (currentHour < startHour || currentHour >= endHour) {
+      return false; // Outside window
+    }
+    hoursSinceStart = currentHour - startHour;
+  } else {
+    // Wraparound window (e.g., 22-6, crosses midnight)
+    if (currentHour < startHour && currentHour >= endHour) {
+      return false; // Outside window
+    }
+    if (currentHour >= startHour) {
+      hoursSinceStart = currentHour - startHour;
+    } else {
+      // After midnight, before endHour
+      hoursSinceStart = (24 - startHour) + currentHour;
+    }
+  }
+
+  // Check if current hour is at an interval boundary
+  return hoursSinceStart % intervalHours === 0;
 }
 
 export interface ProcessingSchedule {
@@ -70,11 +108,20 @@ export const meetingDispatcher = schedules.task({
 
       const userHour = getHourInTimezone(now, effectiveSchedule.timezone);
 
-      if (userHour < effectiveSchedule.start_hour || userHour >= effectiveSchedule.end_hour) {
-        logger.info("User outside processing window", {
+      // Check if we're in the processing window AND at an interval boundary
+      const shouldProcess = shouldProcessAtHour(
+        userHour,
+        effectiveSchedule.start_hour,
+        effectiveSchedule.end_hour,
+        effectiveSchedule.interval_hours
+      );
+
+      if (!shouldProcess) {
+        logger.info("User skipped (outside window or not at interval)", {
           userId: user.user_id,
           userHour,
           window: `${effectiveSchedule.start_hour}-${effectiveSchedule.end_hour}`,
+          interval: effectiveSchedule.interval_hours,
           timezone: effectiveSchedule.timezone,
         });
         skipped++;
@@ -84,6 +131,7 @@ export const meetingDispatcher = schedules.task({
       logger.info("Dispatching meeting processing for user", {
         userId: user.user_id,
         userHour,
+        interval: effectiveSchedule.interval_hours,
         timezone: effectiveSchedule.timezone,
       });
 
