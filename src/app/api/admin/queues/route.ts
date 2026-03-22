@@ -9,9 +9,10 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { meetingQueue, outreachQueue, maintenanceQueue } from "@/lib/queue/queues";
+import { Queue } from "bullmq";
+import { getMeetingQueue, getOutreachQueue, getMaintenanceQueue } from "@/lib/queue/queues";
 
-async function getQueueStatus(queue: typeof meetingQueue) {
+async function getQueueStatus(queue: Queue) {
   const [waiting, active, completed, failed, delayed] = await Promise.all([
     queue.getWaitingCount(),
     queue.getActiveCount(),
@@ -34,9 +35,9 @@ async function getQueueStatus(queue: typeof meetingQueue) {
 export async function GET() {
   try {
     const [meetings, outreach, maintenance] = await Promise.all([
-      getQueueStatus(meetingQueue),
-      getQueueStatus(outreachQueue),
-      getQueueStatus(maintenanceQueue),
+      getQueueStatus(getMeetingQueue()),
+      getQueueStatus(getOutreachQueue()),
+      getQueueStatus(getMaintenanceQueue()),
     ]);
 
     return NextResponse.json({
@@ -54,24 +55,24 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { action, queue: queueName } = body as { action: string; queue?: string };
+    const { action } = body as { action: string };
 
     if (action === "trigger-meeting-dispatcher") {
-      await meetingQueue.add("meeting-dispatcher", {}, {
+      await getMeetingQueue().add("meeting-dispatcher", {}, {
         jobId: `manual-meeting-${Date.now()}`,
       });
       return NextResponse.json({ ok: true, message: "Meeting dispatcher triggered" });
     }
 
     if (action === "trigger-outreach-dispatcher") {
-      await outreachQueue.add("outreach-dispatcher", {}, {
+      await getOutreachQueue().add("outreach-dispatcher", {}, {
         jobId: `manual-outreach-${Date.now()}`,
       });
       return NextResponse.json({ ok: true, message: "Outreach dispatcher triggered" });
     }
 
     if (action === "trigger-token-keepalive") {
-      await maintenanceQueue.add("token-keepalive", {}, {
+      await getMaintenanceQueue().add("token-keepalive", {}, {
         jobId: `manual-keepalive-${Date.now()}`,
       });
       return NextResponse.json({ ok: true, message: "Token keepalive triggered" });

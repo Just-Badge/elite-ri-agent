@@ -12,9 +12,9 @@
  * (Supabase, encryption key, Google OAuth, etc.)
  */
 
-import { Worker, Queue } from "bullmq";
+import { Worker } from "bullmq";
 import { workerConnection } from "@/lib/queue/connection";
-import { meetingQueue, outreachQueue, maintenanceQueue } from "@/lib/queue/queues";
+import { getMeetingQueue, getOutreachQueue, getMaintenanceQueue } from "@/lib/queue/queues";
 
 // Job processors
 import { processMeetingDispatcher } from "@/jobs/meeting-dispatcher";
@@ -32,7 +32,7 @@ console.log(`Time: ${new Date().toISOString()}`);
 
 // ─── Meeting Queue Worker ────────────────────────────────────────────
 const meetingWorker = new Worker(
-  meetingQueue.name,
+  getMeetingQueue().name,
   async (job) => {
     console.log(`[meetings] Processing job: ${job.name} (${job.id})`);
 
@@ -60,7 +60,7 @@ const meetingWorker = new Worker(
 
 // ─── Outreach Queue Worker ───────────────────────────────────────────
 const outreachWorker = new Worker(
-  outreachQueue.name,
+  getOutreachQueue().name,
   async (job) => {
     console.log(`[outreach] Processing job: ${job.name} (${job.id})`);
 
@@ -82,7 +82,7 @@ const outreachWorker = new Worker(
 
 // ─── Maintenance Queue Worker ────────────────────────────────────────
 const maintenanceWorker = new Worker(
-  maintenanceQueue.name,
+  getMaintenanceQueue().name,
   async (job) => {
     console.log(`[maintenance] Processing job: ${job.name} (${job.id})`);
 
@@ -103,7 +103,7 @@ const maintenanceWorker = new Worker(
 // ─── Register Cron Schedules ─────────────────────────────────────────
 async function registerSchedules() {
   // Meeting dispatcher: every hour at :00
-  await meetingQueue.upsertJobScheduler(
+  await getMeetingQueue().upsertJobScheduler(
     "meeting-dispatcher-cron",
     { pattern: "0 * * * *" },
     { name: "meeting-dispatcher", data: {}, opts: {} }
@@ -111,7 +111,7 @@ async function registerSchedules() {
   console.log("✓ Registered: meeting-dispatcher (hourly)");
 
   // Outreach dispatcher: every hour at :00
-  await outreachQueue.upsertJobScheduler(
+  await getOutreachQueue().upsertJobScheduler(
     "outreach-dispatcher-cron",
     { pattern: "0 * * * *" },
     { name: "outreach-dispatcher", data: {}, opts: {} }
@@ -119,7 +119,7 @@ async function registerSchedules() {
   console.log("✓ Registered: outreach-dispatcher (hourly)");
 
   // Token keepalive: every 6 hours
-  await maintenanceQueue.upsertJobScheduler(
+  await getMaintenanceQueue().upsertJobScheduler(
     "token-keepalive-cron",
     { pattern: "0 */6 * * *" },
     { name: "token-keepalive", data: {}, opts: {} }

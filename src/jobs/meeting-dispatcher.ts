@@ -9,7 +9,7 @@
 
 import { Job } from "bullmq";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { meetingQueue } from "@/lib/queue/queues";
+import { getMeetingQueue } from "@/lib/queue/queues";
 import {
   getHourInTimezone,
   shouldProcessAtHour,
@@ -72,7 +72,7 @@ export async function processMeetingDispatcher(_job: Job): Promise<{
       `Dispatching meeting sync for user ${user.user_id} (hour=${userHour}, tz=${effectiveSchedule.timezone})`
     );
 
-    await meetingQueue.add(
+    await getMeetingQueue().add(
       "sync-granola-meetings",
       { userId: user.user_id },
       {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { meetingQueue } from "@/lib/queue/queues";
+import { getMeetingQueue } from "@/lib/queue/queues";
 import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 /**
@@ -18,7 +18,8 @@ export async function POST() {
   }
 
   try {
-    const job = await meetingQueue.add(
+    const queue = getMeetingQueue();
+    const job = await queue.add(
       "sync-granola-meetings",
       { userId: user.id },
       {
@@ -61,7 +62,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const job = await meetingQueue.getJob(jobId);
+    const queue = getMeetingQueue();
+    const job = await queue.getJob(jobId);
 
     if (!job) {
       return apiError("Job not found", 404);

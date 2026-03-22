@@ -5,5 +5,5 @@
  * The worker process imports individual job processors directly.
  */
 
-export { meetingQueue, outreachQueue, maintenanceQueue, allQueues } from "./queues";
+export { getMeetingQueue, getOutreachQueue, getMaintenanceQueue, getAllQueues } from "./queues";
 export { queueConnection, workerConnection } from "./connection";

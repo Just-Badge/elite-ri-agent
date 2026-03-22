@@ -9,7 +9,7 @@
 
 import { Job } from "bullmq";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { outreachQueue } from "@/lib/queue/queues";
+import { getOutreachQueue } from "@/lib/queue/queues";
 import {
   getHourInTimezone,
   type ProcessingSchedule,
@@ -65,7 +65,7 @@ export async function processOutreachDispatcher(_job: Job): Promise<{
       `Dispatching outreach drafts for user ${user.user_id} (hour=${userHour}, tz=${effectiveSchedule.timezone})`
     );
 
-    await outreachQueue.add(
+    await getOutreachQueue().add(
       "generate-user-drafts",
       { userId: user.user_id },
       {

@@ -11,7 +11,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getOrRefreshAccessToken } from "@/lib/granola/client";
 import { GranolaMcpAdapter } from "@/lib/granola/mcp-adapter";
 import { insertMeetingRecord, upsertBasicContact } from "@/lib/meetings/db";
-import { meetingQueue } from "@/lib/queue/queues";
+import { getMeetingQueue } from "@/lib/queue/queues";
 
 /** Emails belonging to the app owner — skip as contacts */
 const OWNER_EMAILS = new Set([
@@ -131,7 +131,7 @@ export async function processSyncGranolaMeetings(
         });
 
         // Enqueue enrichment job for this meeting
-        await meetingQueue.add(
+        await getMeetingQueue().add(
           "enrich-meeting-contacts",
           {
             userId,
