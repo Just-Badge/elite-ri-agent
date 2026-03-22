@@ -9,9 +9,9 @@
  * (blocking connections) and a small number for API routes (fail fast).
  */
 
-import { ConnectionOptions } from "bullmq";
+import type { RedisOptions } from "ioredis";
 
-function parseRedisUrl(url: string): ConnectionOptions {
+function parseRedisUrl(url: string): RedisOptions {
   const parsed = new URL(url);
   return {
     host: parsed.hostname,
@@ -25,14 +25,14 @@ function parseRedisUrl(url: string): ConnectionOptions {
 const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
 
 /** Connection for workers (blocking — must set maxRetriesPerRequest: null) */
-export const workerConnection: ConnectionOptions = {
+export const workerConnection: RedisOptions = {
   ...parseRedisUrl(redisUrl),
   maxRetriesPerRequest: null,
   enableOfflineQueue: true,
 };
 
 /** Connection for queues/API routes (non-blocking — fail fast) */
-export const queueConnection: ConnectionOptions = {
+export const queueConnection: RedisOptions = {
   ...parseRedisUrl(redisUrl),
   maxRetriesPerRequest: 2,
   enableOfflineQueue: false,
