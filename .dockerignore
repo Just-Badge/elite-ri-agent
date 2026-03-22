@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.claude
+.trigger
+.playwright-mcp
+MEMORY
+*.md
+!README.md

@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Install ALL dependencies (tsx is a devDep needed for TS execution)
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Copy source (worker needs access to all lib/ and jobs/ code)
 COPY src/ ./src/
