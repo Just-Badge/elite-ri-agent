@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Code Quality & DevOps
-status: unknown
-stopped_at: Completed 09-03-PLAN.md
-last_updated: "2026-03-21T00:37:39.669Z"
+status: in_progress
+stopped_at: BullMQ migration (replacing Trigger.dev)
+last_updated: "2026-03-22T17:00:00.000Z"
 progress:
   total_phases: 1
   completed_phases: 1
@@ -100,8 +100,12 @@ None yet.
 
 - Gmail `gmail.compose` restricted scope requires Google security assessment (4-8 weeks). Verification must begin soon or it blocks production launch.
 
+### Architecture Changes
+
+- [2026-03-22] **Replaced Trigger.dev with BullMQ + Redis** — Trigger.dev self-hosted was broken for VPS/Coolify deployment (Docker Desktop dependency, broken supervisor, separate deploy step). BullMQ is a library (not a service), runs in a Docker worker container alongside the app, shares a Redis instance that can serve all future apps on the VPS. Added Granola token-keepalive job and Bull Board monitoring.
+
 ## Session Continuity
 
-Last session: 2026-03-21T00:35:29.046Z
-Stopped at: Completed 09-03-PLAN.md
+Last session: 2026-03-22T17:00:00.000Z
+Stopped at: BullMQ migration — code written, needs deployment verification
 Resume file: None

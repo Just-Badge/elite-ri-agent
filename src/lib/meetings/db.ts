@@ -5,7 +5,12 @@
  * enrich-meeting-contacts (AI-enriched upsert).
  */
 
-import { logger } from "@trigger.dev/sdk";
+/** Simple logger that replaces Trigger.dev's logger */
+const logger = {
+  info: (msg: string, meta?: Record<string, unknown>) => console.log(`[db] ${msg}`, meta || ""),
+  warn: (msg: string, meta?: Record<string, unknown>) => console.warn(`[db] ${msg}`, meta || ""),
+  error: (msg: string, meta?: Record<string, unknown>) => console.error(`[db] ${msg}`, meta || ""),
+};
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ExtractedContact } from "@/lib/ai/types";
 

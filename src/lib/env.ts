@@ -18,6 +18,7 @@ const required = [
   "ENCRYPTION_KEY",
   "GOOGLE_CLIENT_ID",
   "GOOGLE_CLIENT_SECRET",
+  "REDIS_URL",
 ] as const;
 
 type RequiredVar = (typeof required)[number];

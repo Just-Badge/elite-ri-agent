@@ -12,7 +12,7 @@ The agent must reliably turn raw meeting data into actionable relationship intel
 
 **v1.1 Production-Grade UX/UI shipped 2026-03-20** — 8 phases total (v1.0 + v1.1), 22 plans, 188 tests, 16,256 LOC TypeScript, 144 source files
 
-Tech stack: Next.js 15.5, Supabase Cloud (RLS), Trigger.dev v4, Google OAuth, Gmail API, z.ai GLM5, shadcn/ui, recharts, next-themes
+Tech stack: Next.js 15.5, Supabase Cloud (RLS), BullMQ + Redis (background jobs), Google OAuth, Gmail API, z.ai GLM5, shadcn/ui, recharts, next-themes
 
 Live at: https://ri.elite.community
 
@@ -70,11 +70,11 @@ Live at: https://ri.elite.community
 
 ## Context
 
-- **Infrastructure**: Coolify on VPS for Next.js app and Trigger.dev worker. Supabase Cloud for database and storage.
+- **Infrastructure**: Coolify on VPS for Next.js app + BullMQ worker + Redis. Supabase Cloud for database and storage.
 - **AI Model**: z.ai GLM5 at api.z.ai/api/paas/v4/ via OpenAI SDK. Users provide their own key.
-- **Data Sources**: Granola HTTP API (bearer token bridge for server-side), Open Brain tables in Supabase.
+- **Data Sources**: Granola MCP adapter (bearer token via WorkOS OAuth refresh), Open Brain tables in Supabase.
 - **Outreach**: Gmail API via Google OAuth with fresh-draft-on-send pattern. Drafts in both app and Gmail.
-- **Scheduling**: Trigger.dev handles meeting processing (hourly cron) and outreach draft generation (daily at start_hour).
+- **Scheduling**: BullMQ + Redis handles meeting processing (hourly cron), outreach draft generation (daily at start_hour), and Granola token keepalive (every 6 hours).
 - **Multi-tenant**: RLS on all tables with `(select auth.uid())` subselect caching pattern.
 
 ## Key Decisions
@@ -84,9 +84,9 @@ Live at: https://ri.elite.community
 | Next.js 15.5 (not 16) | Stable ecosystem, avoid breaking changes | ✓ Good |
 | Supabase Cloud over self-hosted | Reduces ops burden, managed scaling | ✓ Good |
 | Google OAuth for auth + Gmail | Single auth flow covers login + email access | ✓ Good |
-| Trigger.dev for scheduling | Already in Coolify, handles cron + background jobs | ✓ Good |
+| BullMQ + Redis for scheduling | Replaced Trigger.dev — Docker-native, no separate deploy step, shared Redis infra | ✓ Good |
 | z.ai GLM5 via OpenAI SDK | OpenAI-compatible, baseURL override pattern | ✓ Good |
-| Granola HTTP API (not MCP) | MCP can't run server-side in Trigger.dev | ✓ Good |
+| Granola MCP adapter | MCP over Streamable HTTP with WorkOS OAuth token rotation | ✓ Good |
 | Fresh-draft-on-send | Always create new Gmail draft from DB content before sending | ✓ Good |
 | Email-based contact dedup | Simple, reliable, handles most cases | ✓ Good |
 | Application-side frequency filtering | Supabase lacks interval arithmetic in RPC | ✓ Good |

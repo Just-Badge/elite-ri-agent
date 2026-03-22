@@ -1,0 +1,16 @@
+# BullMQ Worker Process
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install ALL dependencies (tsx is a devDep needed for TS execution)
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy source (worker needs access to all lib/ and jobs/ code)
+COPY src/ ./src/
+COPY tsconfig.json ./
+
+# The worker runs as a standalone Node.js process
+# tsx resolves tsconfig paths (@/ aliases) automatically
+CMD ["npx", "tsx", "src/worker.ts"]

@@ -1,15 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { tasks, runs } from "@trigger.dev/sdk";
-import type { syncGranolaMeetings } from "@/trigger/sync-granola-meetings";
+import { meetingQueue } from "@/lib/queue/queues";
 import { apiUnauthorized, apiError } from "@/lib/api/errors";
 
 /**
- * Key used to store the user ID in Trigger.dev run metadata.
- * This allows us to verify run ownership when querying status.
+ * POST /api/meetings/process
+ * Manually trigger meeting sync for the authenticated user.
  */
-const USER_ID_METADATA_KEY = "userId";
-
 export async function POST() {
   const supabase = await createClient();
   const {
@@ -20,27 +17,18 @@ export async function POST() {
     return apiUnauthorized();
   }
 
-  if (!process.env.TRIGGER_SECRET_KEY) {
-    return apiError(
-      "Trigger.dev is not configured. Add TRIGGER_SECRET_KEY to environment variables.",
-      503
-    );
-  }
-
   try {
-    const handle = await tasks.trigger<typeof syncGranolaMeetings>(
+    const job = await meetingQueue.add(
       "sync-granola-meetings",
       { userId: user.id },
       {
-        metadata: {
-          [USER_ID_METADATA_KEY]: user.id,
-        },
+        jobId: `manual-sync-${user.id}-${Date.now()}`,
       }
     );
 
     return NextResponse.json({
-      runId: handle.id,
-      status: "triggered",
+      jobId: job.id,
+      status: "queued",
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
@@ -51,6 +39,10 @@ export async function POST() {
   }
 }
 
+/**
+ * GET /api/meetings/process?jobId=xxx
+ * Check the status of a meeting sync job.
+ */
 export async function GET(request: Request) {
   const supabase = await createClient();
   const {
@@ -62,28 +54,35 @@ export async function GET(request: Request) {
   }
 
   const { searchParams } = new URL(request.url);
-  const runId = searchParams.get("runId");
+  const jobId = searchParams.get("jobId");
 
-  if (!runId) {
-    return apiError("runId is required", 400);
+  if (!jobId) {
+    return apiError("jobId is required", 400);
   }
 
   try {
-    const run = await runs.retrieve(runId);
+    const job = await meetingQueue.getJob(jobId);
 
-    // Verify run ownership - user can only access their own runs
-    const runUserId = run.metadata?.[USER_ID_METADATA_KEY];
-    if (runUserId !== user.id) {
-      return apiError("Run not found or access denied", 404);
+    if (!job) {
+      return apiError("Job not found", 404);
     }
 
+    // Verify ownership: job data must contain the user's ID
+    if (job.data?.userId !== user.id) {
+      return apiError("Job not found or access denied", 404);
+    }
+
+    const state = await job.getState();
+    const progress = job.progress;
+
     return NextResponse.json({
-      status: run.status,
-      output: run.output,
-      metadata: run.metadata,
+      status: state,
+      progress,
+      result: job.returnvalue,
+      failedReason: job.failedReason,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    return apiError(`Failed to get run status: ${message}`, 500);
+    return apiError(`Failed to get job status: ${message}`, 500);
   }
 }
